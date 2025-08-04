@@ -1,12 +1,12 @@
 {
-  "name": "ngx-omni-auth",
+  "name": "ngx-tools",
   "version": "0.0.0",
+  "packageManager": "pnpm@9.15.9",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "build:omni-auth-core": "ng build omni-auth-core",
+    "build:omni-auth-connector-aws": "ng build omni-auth-connector-aws",
+    "build:omni-auth-ui-material": "ng build omni-auth-ui-material",
+    "build": "pnpm run build:omni-auth-core && pnpm run build:omni-auth-connector-aws && pnpm run build:omni-auth-ui-material"
   },
   "prettier": {
     "overrides": [
@@ -20,25 +20,39 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/cdk": "20.1.0",
     "@angular/common": "^20.1.0",
     "@angular/compiler": "^20.1.0",
     "@angular/core": "^20.1.0",
     "@angular/forms": "^20.1.0",
+    "@angular/material": "20.1.0",
     "@angular/platform-browser": "^20.1.0",
     "@angular/router": "^20.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
+    "@angular-eslint/builder": "20.1.1",
+    "@angular/animations": "^20.1.0",
+    "@angular/build": "^20.1.0",
     "@angular/cli": "^20.1.0",
     "@angular/compiler-cli": "^20.1.0",
+    "@eslint/js": "^9.29.0",
     "@types/jasmine": "~5.1.0",
+    "angular-eslint": "20.1.1",
+    "aws-amplify": "^6.15.3",
+    "eslint": "^9.29.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-prettier": "^5.5.1",
     "jasmine-core": "~5.8.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.8.2"
+    "ng-packagr": "^20.1.0",
+    "prettier": "^3.6.2",
+    "typescript": "~5.8.2",
+    "typescript-eslint": "8.34.1"
   }
 }

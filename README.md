@@ -1,59 +1,130 @@
-# NgxOmniAuth
+# Authentication for Angular applications
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.0.
+### General architecture overview for OmniAuth
 
-## Development server
+```mermaid
 
-To start a local development server, run:
+mindmap
+(Core)
+  ))UI Layer((
+    {{Material Adapter}}
+    {{Tailwind Adapter}}
+    {{PrimeNG Adapter}}
+    {{Custom Adapter}}
 
-```bash
-ng serve
+  ))Persistence Layer((
+    {{Cognito Connector}}
+    {{Firebase Connector}}
+    {{Custom Connector}}
+
+  ))Public Layer((
+    {{OmniAuthGuard}}
+    {{OmniAuthService}}
+        {{SignOut Method}}
+        {{Get State Method}}
+        {{Get Token Method}}
+
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## Code scaffolding
+This project provides a set of Angular packages to implement authentication in your Angular applications. It is designed to be modular and extensible, allowing you to choose the UI and backend connector that best fits your needs.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- @ngx-tools/auth-core
+- @ngx-tools/auth-ui-material
+- @ngx-tools/auth-connector-aws-cognito
+- ...
+
+### Supported features
+
+# UI Material Adapter:
+
+| Feature                        | Cognito | Firebase |
+|--------------------------------|:-------:|:--------:|
+| Login / With Email/Password    |    ✅    |    🔜    |
+| Login / With Username/Password |   🔜    |    🔜    |
+| Login / Passwordless           |   🔜    |    🔜    |
+| Login / Using google           |    ✅    |    🔜    |
+| Login / Using facebook         |   🔜    |    🔜    |
+| Login / Using microsoft        |   🔜    |    🔜    |
+| Login / Using apple            |   🔜    |    🔜    |
+| Login / Using github           |   🔜    |    🔜    |
+| Login / Using custom provider  |   🔜    |    🔜    |
+| Register                       |    ✅    |    🔜    |
+| Register / custom attributes   |    ✅    |    🔜    |
+| Register / marketing consent   |    ✅    |    🔜    |
+| Register / marketing consent   |    ✅    |    🔜    |
+| Forget password                |    ✅    |    🔜    |
+| Reset password                 |    ✅    |    🔜    |
+| Authorized welcome page        |    ✅    |    🔜    |
+| Sign Out feature               |    ✅    |    🔜    |
+| Validation                     |    ✅    |    🔜    |
+| Error Handling                 |    ✅    |    🔜    |
+
+✅ Done
+❌ Not possible
+🔜 Planned
+
+
+### Installation
+
+
+1. Install the core package:
 
 ```bash
-ng generate component component-name
+  pnpm install @ngx-tools/auth-core
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+2. Install the UI adapter package:
 
 ```bash
-ng generate --help
+  pnpm install @ngx-tools/auth-ui-material
 ```
 
-## Building
-
-To build the project run:
+3. Install the connector package:
 
 ```bash
-ng build
+  pnpm install @ngx-tools/auth-connector-aws-cognito
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+4. Configuration
 
-## Running unit tests
+4.1 Configure core and selected connector
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
+```typescript
+export const appConfig: ApplicationConfig = {
+  providers: [
+    //...
+    configureAuth({
+      authService: AuthAwsCognitoService,
+    }),
+    configureAuthCognitoConnector({
+      // see interface for details
+      cognito: environment.cognito
+    })
+    //...
+  ],
+};
 ```
 
-## Running end-to-end tests
+  4.2 Use selected UI adapter
+```angular2html
 
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
+<omni-auth-ui-mat
+  [config]="{
+    signUp: {
+      additionalAttributes: [
+          {
+           key: 'newsletterConsent',
+           type: 'checkbox',
+           isRequired: true,
+           label: 'Subscribe to our newsletter',
+         }
+       ]
+      }
+    }"
+>
+  <p sign-up-footer>
+    By signing up, you agree to our <a class="link" tabindex="0">terms and conditions</a>
+  </p>
+</omni-auth-ui-mat>
 ```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

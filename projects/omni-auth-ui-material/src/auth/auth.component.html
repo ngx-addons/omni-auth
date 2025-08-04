@@ -1,0 +1,51 @@
+<div class="auth-form-container">
+  @if (authService.authState.isLoading()) {
+    <omni-auth-ui-mat-loader [verticalCenter]="true"></omni-auth-ui-mat-loader>
+  }
+
+  @if (authService.authState.value(); as user) {
+    @switch (user.state) {
+      @case ('authorized') {
+        <omni-auth-ui-mat-authorized [content]="content()"></omni-auth-ui-mat-authorized>
+      }
+      @case ('error') {
+        <omni-auth-ui-mat-message type="warn">
+          {{ user.error?.getErrorMessage() ?? content().errors.unknown }}
+        </omni-auth-ui-mat-message>
+
+        <div class="message-footer">
+          <omni-auth-ui-mat-button type="primary" (click)="authService.signOut()">Logout</omni-auth-ui-mat-button>
+        </div>
+      }
+      @case ('unauthorized') {
+        @if (authRouteService.currentStep(); as currentStep) {
+          @if (["login", "register"].includes(currentStep)) {
+            <mat-tab-group
+              selectedIndex="{{ currentStep === 'login' ? 0 : 1 }}"
+            >
+              <mat-tab [label]="content().signIn.title">
+                <ng-template matTabContent>
+                  <omni-auth-ui-mat-signin [content]="content()"/>
+                </ng-template>
+              </mat-tab>
+
+              <mat-tab [label]="content().signUp.title">
+                <omni-auth-ui-mat-signup [content]="content()" [config]="config()?.signUp">
+                  <ng-content sign-up-footer select="[sign-up-footer]"></ng-content>
+                </omni-auth-ui-mat-signup>
+              </mat-tab>
+            </mat-tab-group>
+          }
+
+          @if (currentStep === "confirm_sign_up") {
+            <omni-auth-ui-mat-confirm-signup [content]="content()"/>
+          }
+
+          @if (["reset_password", "confirm_reset_password"].includes(currentStep)) {
+            <omni-auth-ui-mat-reset-password [content]="content()"/>
+          }
+        }
+      }
+    }
+  }
+</div>

@@ -1,0 +1,61 @@
+<form #confirmForm="ngForm" (ngSubmit)="onSubmit()" class="auth-form">
+  <div class="auth-form-body">
+    <omni-auth-ui-mat-message class="auth-form-hint" icon="email">
+      <span class="title">{{ content().confirmationSignUp.subTitle }}</span>
+      <div class="description">
+        {{ content().confirmationSignUp.paragraph }}
+      </div>
+    </omni-auth-ui-mat-message>
+    <omni-auth-ui-mat-input
+      #email="ngModel"
+      name="email"
+      required
+      type="text"
+      [label]="content().common.emailLabel"
+      [ngModel]="authRoute.currentEmail()"
+      [pattern]="emailPattern"
+      [placeholder]="content().common.emailPlaceholder"
+      (ngModelChange)="user.email = $event"
+    >
+      @switch (true) {
+        @case (email.control.hasError("required")) {
+          <ng-container>{{ content().common.emailErrorRequiredText }}</ng-container>
+        }
+        @case (email.control.hasError("pattern")) {
+          <ng-container>{{ content().common.emailErrorPatternText }}</ng-container>
+        }
+      }
+    </omni-auth-ui-mat-input>
+    <omni-auth-ui-mat-input
+      #code="ngModel"
+      name="code"
+      required
+      type="text"
+      [label]="content().common.codeLabel"
+      [placeholder]="content().common.codePlaceholder"
+      [(ngModel)]="user.code"
+    >
+      @switch (true) {
+        @case (code.control.hasError("pattern")) {
+          <ng-container>{{ content().common.codeErrorRequiredText }}</ng-container>
+        }
+      }
+    </omni-auth-ui-mat-input>
+    <omni-auth-print-error [content]="content()" source="confirmSignUp"></omni-auth-print-error>
+  </div>
+  <div class="auth-form-footer">
+    <omni-auth-ui-mat-button
+      type="secondary"
+      [disabled]="disabledResend"
+      [loading]="resending()"
+      (click)="resendCode()"
+    >{{ content().confirmationSignUp.resendLabel }}
+    </omni-auth-ui-mat-button>
+    <omni-auth-ui-mat-button
+      type="primary"
+      [disabled]="!!confirmForm.invalid"
+      [loading]="processing()"
+    >{{ content().confirmationSignUp.submitLabel }}
+    </omni-auth-ui-mat-button>
+  </div>
+</form>

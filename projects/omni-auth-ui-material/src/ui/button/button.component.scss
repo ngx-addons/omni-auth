@@ -1,0 +1,27 @@
+@use "@angular/material" as mat;
+
+:host.disabled {
+  pointer-events: none;
+}
+.button {
+  &.icon-only mat-icon {
+    margin: 0;
+  }
+  &:not(.icon-only) {
+    mat-icon {
+      margin: 0 8px 0 0;
+    }
+  }
+
+  &.secondary {
+    @include mat.button-overrides(
+      (
+        filled-container-color: var(--mat-sys-surface-container-highest),
+        filled-label-text-color: var(--mat-sys-on-primary-container),
+        filled-hover-state-layer-opacity: 0.2,
+        filled-state-layer-color: var(--mat-sys-primary-container),
+        filled-focus-state-layer-opacity: 0.5,
+      )
+    );
+  }
+}

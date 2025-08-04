@@ -1,0 +1,8 @@
+<div class="message-outer">
+  <div class="message-inner" [ngClass]="type()">
+    <mat-icon class="icon">{{ icon() ?? iconBasedOnType }}</mat-icon>
+    <div class="message-content">
+      <ng-content/>
+    </div>
+  </div>
+</div>

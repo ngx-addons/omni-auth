@@ -1,0 +1,87 @@
+<form #registerForm="ngForm" (ngSubmit)="onSubmit()" class="auth-form">
+  <div class="auth-form-body">
+    <omni-auth-ui-mat-input
+      #email="ngModel"
+      name="email"
+      required
+      type="text"
+      [label]="content().common.emailLabel"
+      [ngModel]="authRoute.currentEmail()"
+      [pattern]="emailPattern"
+      [placeholder]="content().common.emailPlaceholder"
+      (ngModelChange)="updateUserEmail($event)"
+    >
+      <ng-container>
+        @switch (true) {
+          @case (email.control.hasError("required")) {
+            <ng-container>{{ content().common.emailErrorRequiredText }}</ng-container>
+          }
+          @case (email.control.hasError("pattern")) {
+            <ng-container>{{ content().common.emailErrorPatternText }}</ng-container>
+          }
+        }
+      </ng-container>
+    </omni-auth-ui-mat-input>
+    <omni-auth-ui-mat-input
+      #name="ngModel"
+      minlength="2"
+      name="name"
+      required
+      type="text"
+      [label]="content().common.nameLabel"
+      [placeholder]="content().common.namePlaceholder"
+      [(ngModel)]="user.name"
+    >
+      @switch (true) {
+        @case (name.control.hasError("required")) {
+          <ng-container>{{ content().common.nameErrorRequiredText }}</ng-container>
+        }
+        @case (name.control.hasError("minLength")) {
+          <ng-container>{{ content().common.nameErrorMinLengthText }}</ng-container>
+        }
+      }
+    </omni-auth-ui-mat-input>
+    <omni-auth-ui-mat-input
+      #password="ngModel"
+      name="password"
+      required
+      type="password"
+      [class.invalid-password]="password.control.hasError('pattern')"
+      [label]="content().common.passwordLabel"
+      [pattern]="passwordPattern"
+      [placeholder]="content().common.passwordPlaceholder"
+      [(ngModel)]="user.password"
+    >
+      @switch (true) {
+        @case (password.control.hasError("required")) {
+          <ng-container>{{ content().common.passwordErrorRequiredText }}</ng-container>
+        }
+        @case (password.control.hasError("pattern")) {
+          <ng-container>{{ content().common.passwordPatternText }}</ng-container>
+        }
+      }
+    </omni-auth-ui-mat-input>
+
+    @for (attribute of config()?.additionalAttributes; track attribute.key) {
+      <mat-checkbox
+        [name]="attribute.key"
+        [ngModel]="user.attributes[attribute.key]"
+        (ngModelChange)="updateUserAttribute(attribute.key, $event)"
+        [required]="attribute.isRequired"
+        class="additional-attribute-checkbox">
+        {{ attribute.label }}
+      </mat-checkbox>
+    }
+
+    <ng-content select="[sign-up-footer]"></ng-content>
+    <omni-auth-print-error [content]="content()" source="signUp"></omni-auth-print-error>
+  </div>
+  <div class="auth-form-footer">
+    <omni-auth-ui-mat-button
+      type="primary"
+      [disabled]="!!registerForm.invalid"
+      [loading]="processing()"
+    >{{ content().signUp.submitLabel }}
+    </omni-auth-ui-mat-button>
+  </div>
+</form>

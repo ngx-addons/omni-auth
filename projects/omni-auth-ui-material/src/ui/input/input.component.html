@@ -1,0 +1,18 @@
+<mat-form-field class="field" subscriptSizing="dynamic">
+  <mat-label>{{ label() }}</mat-label>
+
+  <input
+    matInput
+    [disabled]="disabled"
+    [errorStateMatcher]="errorStateMatcher"
+    [ngModel]="value"
+    [placeholder]="placeholder() ?? ''"
+    [type]="type()"
+    (blur)="onTouched && onTouched()"
+    (ngModelChange)="onChangeLocalValue($event)"
+  />
+  @if (hint(); as hint) {
+    <mat-hint>{{ hint }}</mat-hint>
+  }
+  <mat-error><ng-content/></mat-error>
+</mat-form-field>

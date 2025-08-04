@@ -3,6 +3,17 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "paths": {
+      "@ngx-tools/omni-auth-connector-aws": [
+        "./projects/omni-auth-connector-aws/src/public-api.ts"
+      ],
+      "@ngx-tools/omni-auth-core": [
+        "./projects/omni-auth-core/src/public-api.ts"
+      ],
+      "@ngx-tools/omni-auth-ui-material": [
+        "./projects/omni-auth-ui-material/src/public-api.ts"
+      ]
+    },
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
@@ -13,7 +24,7 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "ES2022",
-    "module": "preserve"
+    "module": "preserve",
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
@@ -22,5 +33,31 @@
     "typeCheckHostBindings": true,
     "strictTemplates": true
   },
-  "files": []
+  "files": [],
+//  "references": [
+//    {
+//      "path": "./projects/omni-auth-core/tsconfig.lib.json"
+//    },
+//    {
+//      "path": "./projects/omni-auth-core/tsconfig.spec.json"
+//    },
+//    {
+//      "path": "./projects/omni-auth-ui-material/tsconfig.lib.json"
+//    },
+//    {
+//      "path": "./projects/omni-auth-ui-material/tsconfig.spec.json"
+//    },
+//    {
+//      "path": "./projects/omni-auth-connector-aws/tsconfig.lib.json"
+//    },
+//    {
+//      "path": "./projects/omni-auth-connector-aws/tsconfig.spec.json"
+//    },
+//    {
+//      "path": "./projects/demo/tsconfig.app.json"
+//    },
+//    {
+//      "path": "./projects/demo/tsconfig.spec.json"
+//    }
+//  ]
 }

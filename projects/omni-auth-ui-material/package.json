@@ -1,0 +1,14 @@
+{
+  "name": "@ngx-tools/omni-auth-ui-material",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^20.1.0",
+    "@angular/core": "^20.1.0",
+    "@angular/material": "^20.1.0",
+    "@angular/animations": "^20.1.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false
+}

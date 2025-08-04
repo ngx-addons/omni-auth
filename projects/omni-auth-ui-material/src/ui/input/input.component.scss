@@ -1,0 +1,4 @@
+.field {
+  width: var(--field-width, auto);
+  min-width: var(--field-min-width, auto);
+}

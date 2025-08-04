@@ -1,0 +1,10 @@
+.auth-form-container {
+  position: relative;
+  width: var(--auth-container-width, 350px);
+  min-height: var(--auth-container-min-height, 200px);
+}
+.message-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--auth-vertical-gap, 16px);
+}

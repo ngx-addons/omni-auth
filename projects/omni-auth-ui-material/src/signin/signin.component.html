@@ -1,0 +1,73 @@
+<form #registerForm="ngForm" (ngSubmit)="onSubmit()" class="auth-form">
+  <div class="auth-form-body">
+    <omni-auth-ui-mat-input
+      #email="ngModel"
+      name="email"
+      required
+      type="text"
+      [label]="content().common.emailLabel"
+      [ngModel]="currentEmail()"
+      [pattern]="emailPattern"
+      [placeholder]="content().common.emailPlaceholder"
+      (ngModelChange)="user.email = $event"
+    >
+      @switch (true) {
+        @case (email.control.hasError("required")) {
+          <ng-container>{{ content().common.emailErrorRequiredText }}</ng-container>
+        }
+        @case (email.control.hasError("pattern")) {
+          <ng-container>{{ content().common.emailErrorPatternText }}</ng-container>
+        }
+      }
+    </omni-auth-ui-mat-input>
+    <omni-auth-ui-mat-input
+      #password="ngModel"
+      name="password"
+      required
+      type="password"
+      [class.invalid-password]="password.control.hasError('pattern')"
+      [pattern]="passwordPattern"
+      [label]="content().common.passwordLabel"
+      [placeholder]="content().common.passwordPlaceholder"
+      [(ngModel)]="user.password"
+    >
+      @switch (true) {
+        @case (password.control.hasError("required")) {
+          <ng-container>{{ content().common.passwordErrorRequiredText }}</ng-container>
+        }
+        @case (password.control.hasError("pattern")) {
+          <ng-container>{{ content().common.passwordPatternText }}</ng-container>
+        }
+        @case (password.control.hasError("minlength")) {
+          <ng-container>{{ content().common.passwordErrorMinLengthText }}</ng-container>
+        }
+      }
+    </omni-auth-ui-mat-input>
+    <p>
+      <a
+        class="link"
+        tabindex="0"
+        target="_blank"
+        (click)="navigateToReset()"
+        (keyup)="navigateToReset()"
+      >
+        {{ content().signIn.forgetPassword }}
+      </a>
+    </p>
+    <omni-auth-print-error [content]="content()" source="signIn"></omni-auth-print-error>
+  </div>
+  <div class="auth-form-footer">
+    <omni-auth-ui-mat-button
+      type="primary"
+      [disabled]="!!registerForm.invalid"
+      [loading]="processing()"
+    >{{ content().signIn.submitLabel }}
+    </omni-auth-ui-mat-button>
+  </div>
+
+  <div class="auth-form-social">
+    <omni-auth-ui-mat-social-buttons
+      [content]="content()"
+    ></omni-auth-ui-mat-social-buttons>
+  </div>
+</form>

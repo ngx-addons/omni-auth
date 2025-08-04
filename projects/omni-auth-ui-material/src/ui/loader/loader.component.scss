@@ -1,0 +1,33 @@
+.loader-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+
+  &.over-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    &.backdrop-blur {
+      backdrop-filter: blur(4px);
+    }
+  }
+}
+
+.backdrop-blur {
+  backdrop-filter: blur(2px);
+  background: rgba(90, 90, 90, 0.04);
+}
+
+.vertical-center {
+  align-items: center;
+}

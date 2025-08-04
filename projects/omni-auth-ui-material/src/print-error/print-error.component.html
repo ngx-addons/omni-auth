@@ -1,0 +1,5 @@
+@if((source() | errorMessage : content().errors)(); as error) {
+  <omni-auth-ui-mat-message class="auth-form-error" type="warn">
+    {{ error }}
+  </omni-auth-ui-mat-message>
+}

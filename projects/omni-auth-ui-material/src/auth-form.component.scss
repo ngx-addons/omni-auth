@@ -1,0 +1,51 @@
+.auth-form {
+  padding: var(--auth-form-container-padding-horizontal, 0) var(--auth-form-container-padding-vertical, 0px);
+  .link {
+    cursor: pointer;
+    color: var(--auth-link-color, var(--mat-sys-primary));
+
+    &:hover {
+      color: var(--auth-link-hover-color, var(--mat-sys-primary-fixed));
+    }
+  }
+  &-header {
+    display: flex;
+    background: var(--auth-form-header-bg);
+    padding: var(--auth-form-header-padding-horizontal, 0) var(--auth-header-padding-vertical, 0px);
+    border-radius: var(--auth-form-header-border-radius, 0);
+  }
+
+  &-body {
+    --field-width: var(--auth-form-input-width, 100%);
+    padding: var(--auth-form-body-padding-horizontal, 14px) var(--auth-form-body-padding-vertical, 8px);
+    gap: var(--auth-form-body-gap, var(--auth-vertical-gap, 16px));
+
+    display: flex;
+    flex-direction: column;
+
+    .form-validation-error {
+
+    }
+  }
+
+  &-hint {
+    .description {
+      padding-top: 0.3px;
+      opacity: 60%;
+    }
+  }
+
+  &-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--auth-form-footer-gap, var(--auth-horizontal-gap), 8px);
+
+    background: var(--auth-form-footer-bg, transparent);
+    padding: var(--auth-form-footer-padding-horizontal, 16px) var(--auth-footer-padding-vertical, 8px);
+    border-radius: var(--auth-form-footer-border-radius, 4px 4px 0 0);
+  }
+
+  &-social {
+    padding: var(--auth-form-body-padding-horizontal, 14px) var(--auth-form-body-padding-vertical, 8px);
+  }
+}

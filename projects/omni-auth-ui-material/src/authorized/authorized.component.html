@@ -1,0 +1,16 @@
+@if (authService.currentUser(); as user) {
+  <div class="auth-form-body">
+    <omni-auth-ui-mat-message type="info">
+      @if (user?.displayName; as displayName) {
+        {{ content().loggedIn.welcomeMessage | replace: '{{displayName}}': displayName }}
+      } @else {
+        {{ content().loggedIn.welcomeMessageNoDisplayName }}
+      }
+    </omni-auth-ui-mat-message>
+    <omni-auth-print-error [content]="content()" source="signOut"></omni-auth-print-error>
+  </div>
+
+  <div class="auth-form-footer">
+    <omni-auth-ui-mat-button type="primary" (click)="authService.signOut()">Logout</omni-auth-ui-mat-button>
+  </div>
+}
