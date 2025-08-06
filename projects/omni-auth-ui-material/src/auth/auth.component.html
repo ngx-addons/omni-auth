@@ -1,12 +1,12 @@
 <div class="auth-form-container">
   @if (authService.authState.isLoading()) {
-    <omni-auth-ui-mat-loader [verticalCenter]="true"></omni-auth-ui-mat-loader>
+    <omni-auth-ui-mat-loader [verticalCenter]="true"/>
   }
 
   @if (authService.authState.value(); as user) {
     @switch (user.state) {
-      @case ('authorized') {
-        <omni-auth-ui-mat-authorized [content]="content()"></omni-auth-ui-mat-authorized>
+      @case ('authenticated') {
+        <omni-auth-ui-mat-authenticated [content]="content()"/>
       }
       @case ('error') {
         <omni-auth-ui-mat-message type="warn">
@@ -17,7 +17,7 @@
           <omni-auth-ui-mat-button type="primary" (click)="authService.signOut()">Logout</omni-auth-ui-mat-button>
         </div>
       }
-      @case ('unauthorized') {
+      @case ('unauthenticated') {
         @if (authRouteService.currentStep(); as currentStep) {
           @if (["login", "register"].includes(currentStep)) {
             <mat-tab-group
@@ -30,8 +30,8 @@
               </mat-tab>
 
               <mat-tab [label]="content().signUp.title">
-                <omni-auth-ui-mat-signup [content]="content()" [config]="config()?.signUp">
-                  <ng-content sign-up-footer select="[sign-up-footer]"></ng-content>
+                <omni-auth-ui-mat-signup [config]="config()?.signUp" [content]="content()">
+                  <ng-content sign-up-footer select="[sign-up-footer]"/>
                 </omni-auth-ui-mat-signup>
               </mat-tab>
             </mat-tab-group>

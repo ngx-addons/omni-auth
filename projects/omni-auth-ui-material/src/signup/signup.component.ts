@@ -4,7 +4,6 @@ import {FormsModule} from '@angular/forms';
 import {InputComponent} from '../ui/input/input.component';
 import {
   AUTH_CONFIG,
-  AUTH_SERVICE,
   AuthConfig,
   AuthRouteService,
   ContentConfig,
@@ -35,13 +34,13 @@ export type SignUpComponentConfig = {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SignUpComponent {
-  #authService = inject<OmniAuthService>(AUTH_SERVICE);
+  #authService = inject<OmniAuthService>(OmniAuthService);
   #env = inject<AuthConfig>(AUTH_CONFIG);
   authRoute = inject(AuthRouteService);
-  processing = signal(false);
-  content = input.required<Pick<ContentConfig, 'signUp' | 'common' | 'errors'>>();
+  readonly processing = signal(false);
+  readonly content = input.required<Pick<ContentConfig, 'signUp' | 'common' | 'errors'>>();
+  readonly config = input<SignUpComponentConfig>();
   termsAndConditions = output();
-  config = input<SignUpComponentConfig>();
 
   emailPattern = this.#env.validation?.emailPattern || patterns.emailPattern;
   passwordPattern = this.#env.validation?.passwordPattern || patterns.passwordPattern;

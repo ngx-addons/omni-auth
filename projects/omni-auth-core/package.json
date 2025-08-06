@@ -1,12 +1,13 @@
 {
   "name": "@ngx-tools/omni-auth-core",
+  "author": "Piotr Liszka",
   "version": "0.0.1",
   "peerDependencies": {
-    "@angular/common": "^20.1.0",
-    "@angular/core": "^20.1.0"
+    "@angular/common": ">=20.1",
+    "@angular/core": ">=20.1"
   },
   "dependencies": {
-    "tslib": "^2.3.0"
+    "tslib": "^2.8.1"
   },
   "sideEffects": false
 }

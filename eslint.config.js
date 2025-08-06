@@ -65,7 +65,7 @@ module.exports = tseslint.config(
           comments: 160,
         },
       ],
-      "max-lines": ["error", 400],
+      "max-lines": ["error", 600],
       "no-bitwise": "error",
       "no-console": "off",
       "no-new-wrappers": "error",

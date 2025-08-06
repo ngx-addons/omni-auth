@@ -1,6 +1,7 @@
-import {OmniAuthError} from "./auth-error";
+import { OmniAuthError } from './auth-error';
 
-export type ActionErrorCode = 'unknown'
+export type ActionErrorCode =
+  | 'unknown'
   | 'signInWithRedirectFailure'
   | 'userDoesNotExist'
   | 'alreadySignedIn'
@@ -12,7 +13,15 @@ export type ActionErrorCode = 'unknown'
 
 export class FlowError extends OmniAuthError {
   constructor(
-    public source: 'signIn' | 'signInWithProvider' | 'forgotPassword' | 'signUp' | 'confirmSignUp' | 'resendSignUpCode' | 'confirmForgotPassword' | 'signOut',
+    public source:
+      | 'signIn'
+      | 'signInWithProvider'
+      | 'forgotPassword'
+      | 'signUp'
+      | 'confirmSignUp'
+      | 'resendSignUpCode'
+      | 'confirmForgotPassword'
+      | 'signOut',
     public code: ActionErrorCode,
     public override error: Error | unknown,
     public silent = false,

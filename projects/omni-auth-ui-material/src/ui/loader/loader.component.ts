@@ -10,5 +10,5 @@ import {MatProgressSpinner} from '@angular/material/progress-spinner';
   styleUrl: 'loader.component.scss',
 })
 export class LoaderComponent {
-  verticalCenter = input(false);
+  readonly verticalCenter = input(false);
 }

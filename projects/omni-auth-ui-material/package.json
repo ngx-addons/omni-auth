@@ -1,5 +1,6 @@
 {
   "name": "@ngx-tools/omni-auth-ui-material",
+  "author": "Piotr Liszka",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^20.1.0",

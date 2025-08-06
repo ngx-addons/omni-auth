@@ -8,8 +8,8 @@ export const isError = (response: OmniAuthError | void) => {
 
 export type SocialProvider = 'google' | 'facebook' | 'apple' | 'github' | 'microsoft';
 
-export interface AuthState {
-  state: 'unknown' | 'authorized' | 'unauthorized' | 'error';
+export type AuthState = {
+  state: 'unknown' | 'authenticated' | 'unauthenticated' | 'error';
   user?: {
     displayName?: string;
     email?: string;
@@ -20,45 +20,45 @@ export interface AuthState {
   error?: OmniAuthError;
 }
 
-export type OmniAuthService = {
-  authState: ResourceRef<AuthState>;
+export abstract class OmniAuthService {
+  abstract authState: ResourceRef<AuthState>;
 
-  currentUser: Signal<AuthState['user']>;
+  abstract currentUser: Signal<AuthState['user']>;
 
-  getToken: () => Promise<string | null>;
+  abstract getToken: () => Promise<string | null>;
 
-  signOut(fromAllDevices?: boolean): Promise<void | FlowError>;
+  abstract signOut(fromAllDevices?: boolean): Promise<void | FlowError>;
 
-  resendSignUpCode(params: {
+  abstract resendSignUpCode(params: {
     email: string;
   }): Promise<void | FlowError>;
 
-  signUp(params: {
+  abstract signUp(params: {
     email: string;
     password: string;
     name: string;
     attributes?: Record<string, string | boolean>;
   }): Promise<void | FlowError>;
 
-  confirmSignUp(params: {
+  abstract confirmSignUp(params: {
     email: string;
     code: string;
   }): Promise<void | FlowError>;
 
-  signIn(params: {
+  abstract signIn(params: {
     email: string;
     password: string;
   }): Promise<void | FlowError>;
 
-  forgotPassword(params: {
+  abstract forgotPassword(params: {
     email: string;
   }): Promise<void | FlowError>;
 
-  confirmForgotPassword(params: {
+  abstract confirmForgotPassword(params: {
     email: string;
     code: string;
     newPassword: string;
   }): Promise<void | FlowError>;
 
-  signInWithProvider(providerKey: SocialProvider): Promise<void | FlowError>;
+  abstract signInWithProvider(providerKey: SocialProvider): Promise<void | FlowError>;
 }

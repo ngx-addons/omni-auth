@@ -6,7 +6,6 @@ import {SignUpComponent, SignUpComponentConfig} from '../signup/signup.component
 import {SignInComponent} from '../signin/signin.component';
 import {ResetPasswordComponent} from '../reset-password/reset-password.component';
 import {
-  AUTH_SERVICE,
   AuthRouteService,
   ContentConfig,
   defaultContent,
@@ -15,7 +14,7 @@ import {
 import {MessageComponent} from '../ui/message/message.component';
 import {ButtonComponent} from '../ui/button/button.component';
 import {LoaderComponent} from '../ui/loader/loader.component';
-import {AuthorizedComponent} from '../authorized/authorized.component';
+import {AuthenticatedComponent} from '../authenticated/authenticated.component';
 
 @Component({
   selector: 'omni-auth-ui-mat',
@@ -30,14 +29,14 @@ import {AuthorizedComponent} from '../authorized/authorized.component';
     MessageComponent,
     ButtonComponent,
     LoaderComponent,
-    AuthorizedComponent,
+    AuthenticatedComponent,
   ],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AuthComponent {
-  authService = inject<OmniAuthService>(AUTH_SERVICE);
+  authService = inject(OmniAuthService);
   authRouteService = inject(AuthRouteService);
 
   content = input<ContentConfig>(defaultContent);

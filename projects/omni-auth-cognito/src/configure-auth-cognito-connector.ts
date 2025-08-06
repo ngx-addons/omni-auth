@@ -20,7 +20,7 @@ export const AUTH_COGNITO_CONFIG = new InjectionToken<AuthCognitoConfig>('AUTH_C
 export const configureAuthCognitoConnector = (params: AuthCognitoConfig): Provider[] => {
   const oauth = params.cognito.oauth;
 
-  let providers: Provider = [
+  const providers: Provider = [
     {
       provide: AUTH_COGNITO_CONFIG,
       useValue: params,

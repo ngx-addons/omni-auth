@@ -34,10 +34,10 @@ export class InputComponent
   implements ControlValueAccessor, AfterViewInit {
   injector = inject(Injector);
 
-  type = input<'text' | 'password'>('text');
-  placeholder = input<string>();
-  label = input.required<string>();
-  hint = input<string>();
+  readonly type = input<'text' | 'password'>('text');
+  readonly placeholder = input<string>();
+  readonly label = input.required<string>();
+  readonly hint = input<string>();
 
   value?: InputValue;
   disabled = false;

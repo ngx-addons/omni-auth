@@ -78,20 +78,20 @@
         }
       }
     },
-    "omni-auth-connector-aws": {
+    "omni-auth-cognito": {
       "projectType": "library",
-      "root": "projects/omni-auth-connector-aws",
-      "sourceRoot": "projects/omni-auth-connector-aws/src",
+      "root": "projects/omni-auth-cognito",
+      "sourceRoot": "projects/omni-auth-cognito/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",
           "configurations": {
             "production": {
-              "tsConfig": "projects/omni-auth-connector-aws/tsconfig.lib.prod.json"
+              "tsConfig": "projects/omni-auth-cognito/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/omni-auth-connector-aws/tsconfig.lib.json"
+              "tsConfig": "projects/omni-auth-cognito/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -99,16 +99,16 @@
         "test": {
           "builder": "@angular/build:karma",
           "options": {
-            "tsConfig": "projects/omni-auth-connector-aws/tsconfig.spec.json"
+            "tsConfig": "projects/omni-auth-cognito/tsconfig.spec.json"
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "eslintConfig": "projects/omni-auth-connector-aws/.eslintrc.json",
+            "eslintConfig": "projects/omni-auth-cognito/eslint.config.js",
             "lintFilePatterns": [
-              "projects/omni-auth-connector-aws/src/**/*.ts",
-              "projects/omni-auth-connector-aws/src/**/*.html"
+              "projects/omni-auth-cognito/src/**/*.ts",
+              "projects/omni-auth-cognito/src/**/*.html"
             ]
           }
         }

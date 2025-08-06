@@ -4,7 +4,6 @@ import {MessageComponent} from '../ui/message/message.component';
 import {InputComponent} from '../ui/input/input.component';
 import {
   AUTH_CONFIG,
-  AUTH_SERVICE,
   AuthConfig,
   AuthRouteService,
   ContentConfig,
@@ -32,10 +31,10 @@ import {PrintErrorComponent} from '../print-error/print-error.component';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResetPasswordComponent {
-  #authService = inject<OmniAuthService>(AUTH_SERVICE);
+  #authService = inject(OmniAuthService);
   #env = inject<AuthConfig>(AUTH_CONFIG);
   authRoute = inject(AuthRouteService);
-  content = input.required<Pick<ContentConfig, 'resetPassword' | 'common' | 'errors'>>();
+  readonly content = input.required<Pick<ContentConfig, 'resetPassword' | 'common' | 'errors'>>();
 
   user: {
     email: string | null;

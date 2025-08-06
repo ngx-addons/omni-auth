@@ -5,14 +5,13 @@ import {FlowError} from './flow-error';
   providedIn: 'root',
 })
 export class ActionErrorCollectorService {
-  #currentError = signal<FlowError | null>(null);
+  readonly #currentError = signal<FlowError | null>(null);
 
-  currentError: Signal<FlowError | null> = this.#currentError;
+  readonly currentError: Signal<FlowError | null> = this.#currentError;
 
   reset() {
     this.#currentError.set(null)
   }
-
 
   handle(error: FlowError) {
     this.#currentError.set(error);

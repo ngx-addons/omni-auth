@@ -3,7 +3,7 @@ import {ContentConfig, ErrorMessagePipe, FlowError} from '@ngx-tools/omni-auth-c
 import {MessageComponent} from '../ui/message/message.component';
 
 @Component({
-  selector: 'omni-auth-print-error',
+  selector: 'omni-auth-ui-mat-print-error',
   standalone: true,
   imports: [ErrorMessagePipe, MessageComponent],
   templateUrl: './print-error.component.html',
@@ -11,6 +11,6 @@ import {MessageComponent} from '../ui/message/message.component';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PrintErrorComponent {
-  source = input.required<FlowError['source']>();
-  content = input.required<Pick<ContentConfig, 'errors'>>();
+  readonly source = input.required<FlowError['source']>();
+  readonly content = input.required<Pick<ContentConfig, 'errors'>>();
 }

@@ -2,7 +2,6 @@ import {ChangeDetectionStrategy, Component, inject, input} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MatTabsModule} from '@angular/material/tabs';
 import {
-  AUTH_SERVICE,
   ContentConfig,
   OmniAuthService
 } from '@ngx-tools/omni-auth-core';
@@ -12,7 +11,7 @@ import {ReplacePipe} from '../ui/replace.pipe';
 import {PrintErrorComponent} from '../print-error/print-error.component';
 
 @Component({
-  selector: 'omni-auth-ui-mat-authorized',
+  selector: 'omni-auth-ui-mat-authenticated',
   standalone: true,
   imports: [
     CommonModule,
@@ -22,11 +21,11 @@ import {PrintErrorComponent} from '../print-error/print-error.component';
     ReplacePipe,
     PrintErrorComponent,
   ],
-  templateUrl: './authorized.component.html',
-  styleUrls: ['./authorized.component.scss', './../auth-form.component.scss'],
+  templateUrl: './authenticated.component.html',
+  styleUrls: ['./authenticated.component.scss', './../auth-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AuthorizedComponent {
-  authService = inject<OmniAuthService>(AUTH_SERVICE);
-  content = input.required<Pick<ContentConfig, 'loggedIn' | 'errors'>>();
+export class AuthenticatedComponent {
+  authService = inject(OmniAuthService);
+  readonly content = input.required<Pick<ContentConfig, 'loggedIn' | 'errors'>>();
 }

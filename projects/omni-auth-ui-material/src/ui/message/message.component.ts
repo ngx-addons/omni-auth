@@ -13,8 +13,8 @@ export type MessageType = 'info' | 'warn';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MessageComponent {
-  icon = input<'info' | string>();
-  type = input<MessageType>('info');
+  readonly icon = input<'info' | string>();
+  readonly type = input<MessageType>('info');
 
   get iconBasedOnType() {
     switch (this.type()) {

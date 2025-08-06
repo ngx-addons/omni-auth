@@ -3,7 +3,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../dist/omni-auth-connector-aws",
+    "outDir": "../../dist/omni-auth-cognito",
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,

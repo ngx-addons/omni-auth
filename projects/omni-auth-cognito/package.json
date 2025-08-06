@@ -1,10 +1,11 @@
 {
-  "name": "@ngx-tools/omni-auth-connector-aws",
+  "name": "@ngx-tools/omni-auth-cognito",
+  "author": "Piotr Liszka",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^20.1.0",
     "@angular/core": "^20.1.0",
-    "aws-amplify/auth": "^6.12.0"
+    "aws-amplify": "^6.15.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"

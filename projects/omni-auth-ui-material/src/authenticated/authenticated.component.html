@@ -7,7 +7,7 @@
         {{ content().loggedIn.welcomeMessageNoDisplayName }}
       }
     </omni-auth-ui-mat-message>
-    <omni-auth-print-error [content]="content()" source="signOut"></omni-auth-print-error>
+    <omni-auth-ui-mat-print-error source="signOut" [content]="content()" />
   </div>
 
   <div class="auth-form-footer">

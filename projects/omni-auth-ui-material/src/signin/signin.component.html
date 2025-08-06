@@ -1,4 +1,4 @@
-<form #registerForm="ngForm" (ngSubmit)="onSubmit()" class="auth-form">
+<form #registerForm="ngForm" class="auth-form" (ngSubmit)="onSubmit()">
   <div class="auth-form-body">
     <omni-auth-ui-mat-input
       #email="ngModel"
@@ -26,8 +26,8 @@
       required
       type="password"
       [class.invalid-password]="password.control.hasError('pattern')"
-      [pattern]="passwordPattern"
       [label]="content().common.passwordLabel"
+      [pattern]="passwordPattern"
       [placeholder]="content().common.passwordPlaceholder"
       [(ngModel)]="user.password"
     >
@@ -54,7 +54,7 @@
         {{ content().signIn.forgetPassword }}
       </a>
     </p>
-    <omni-auth-print-error [content]="content()" source="signIn"></omni-auth-print-error>
+    <omni-auth-ui-mat-print-error source="signIn" [content]="content()" />
   </div>
   <div class="auth-form-footer">
     <omni-auth-ui-mat-button
@@ -68,6 +68,6 @@
   <div class="auth-form-social">
     <omni-auth-ui-mat-social-buttons
       [content]="content()"
-    ></omni-auth-ui-mat-social-buttons>
+    />
   </div>
 </form>

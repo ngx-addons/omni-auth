@@ -3,49 +3,74 @@ import {
   CanActivateFn,
   createUrlTreeFromSnapshot,
 } from '@angular/router';
-import { AUTH_SERVICE } from '../configure-auth';
 import { inject } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { map, skipWhile, take } from 'rxjs';
 import { OmniAuthService } from './auth.interface';
+import { AUTH_CONFIG, AuthConfig } from '../configure-auth';
 
-export const onlyAuthenticated: (config: {
-  redirectTo: string[];
-}) => CanActivateFn =
-  (config) => (route: ActivatedRouteSnapshot) => {
-    const authService = inject<OmniAuthService>(AUTH_SERVICE);
+/**
+ * @description Guard that checks if the user is authenticated user otherwise redirects to the specified route.
+ * @param config
+ */
+export const onlyAuthenticated: (config?: {
+  /**
+   * @description The route to redirect if someone is not authenticated. If not provided, will use the default from the AuthConfig.
+   */
+  redirectTo?: string[];
+}) => CanActivateFn = (config) => (route: ActivatedRouteSnapshot) => {
+  const authService = inject(OmniAuthService);
+  const libConfig = inject<AuthConfig>(AUTH_CONFIG);
 
-    // todo signal?
-    const loading$ = toObservable(authService.authState.isLoading);
+  const loading$ = toObservable(authService.authState.isLoading);
 
-    return loading$.pipe(
-      skipWhile((loading) => loading),
-      map(() => {
-        const user = authService.authState.value();
-        if (user === null) {
-          return createUrlTreeFromSnapshot(route, config.redirectTo);
-        }
+  console.log('Checking authentication state...');
 
-        return true;
-      }),
-      take(1),
-    );
-  };
+  return loading$.pipe(
+    skipWhile((loading) => loading),
+    map(() => {
+      const authenticated = authService.authState.value().state === 'authenticated';
+      if (!authenticated) {
+        console.log('User is not authenticated, redirecting...', config?.redirectTo ?? libConfig.routing?.guest ?? ['/']);
+        return createUrlTreeFromSnapshot(
+          route,
+          config?.redirectTo ?? libConfig.routing?.guest ?? ['/'],
+        );
+      }
 
-export const onlyGuest: (config: { redirectTo: string[] }) => CanActivateFn = (
-  config,
-) => {
+      console.log('User is authenticated, allowing access to the route');
+
+      return true;
+    }),
+    take(1),
+  );
+};
+
+/**
+ * @description Guard that checks if the user is not authenticated otherwise redirects to the specified route.
+ * @param config
+ */
+export const onlyGuest: (config?: {
+  /**
+   * @description The route to in case of unauthenticated user. If not provided, will use the default from the AuthConfig.
+   */
+  redirectTo?: string[];
+}) => CanActivateFn = (config) => {
   return (route: ActivatedRouteSnapshot) => {
-    const authService = inject<OmniAuthService>(AUTH_SERVICE);
+    const authService = inject(OmniAuthService);
+    const libConfig = inject<AuthConfig>(AUTH_CONFIG);
 
     const loading$ = toObservable(authService.authState.isLoading);
     return loading$.pipe(
       skipWhile((loading) => loading),
       map(() => {
-        const user = authService.authState.value();
+        const authenticated = authService.authState.value().state === 'authenticated';
 
-        if (user !== null) {
-          return createUrlTreeFromSnapshot(route, config.redirectTo);
+        if (authenticated) {
+          return createUrlTreeFromSnapshot(
+            route,
+            config?.redirectTo ?? libConfig.routing?.secured ?? ['/'],
+          );
         }
 
         return true;

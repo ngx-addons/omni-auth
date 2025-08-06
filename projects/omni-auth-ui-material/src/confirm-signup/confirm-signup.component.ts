@@ -1,17 +1,25 @@
-import {ChangeDetectionStrategy, Component, inject, input, Input, signal} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import {ButtonComponent} from '../ui/button/button.component';
-import {InputComponent} from '../ui/input/input.component';
-import {MessageComponent} from '../ui/message/message.component';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+  Input,
+  signal,
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ButtonComponent } from '../ui/button/button.component';
+import { InputComponent } from '../ui/input/input.component';
+import { MessageComponent } from '../ui/message/message.component';
 import {
   AUTH_CONFIG,
-  AUTH_SERVICE, AuthConfig,
+  AuthConfig,
   AuthRouteService,
   ContentConfig,
-  OmniAuthService, patterns,
+  OmniAuthService,
+  patterns,
 } from '@ngx-tools/omni-auth-core';
-import {PrintErrorComponent} from '../print-error/print-error.component';
+import { PrintErrorComponent } from '../print-error/print-error.component';
 
 @Component({
   selector: 'omni-auth-ui-mat-confirm-signup',
@@ -28,13 +36,16 @@ import {PrintErrorComponent} from '../print-error/print-error.component';
   ],
   templateUrl: './confirm-signup.component.html',
   styleUrls: ['./confirm-signup.component.scss', '../auth-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConfirmSignUpComponent {
-  #authService = inject<OmniAuthService>(AUTH_SERVICE);
+  #authService = inject(OmniAuthService);
   authRoute = inject(AuthRouteService);
-  content = input.required<Pick<ContentConfig, 'confirmationSignUp' | 'common' | 'errors'>>();
   #env = inject<AuthConfig>(AUTH_CONFIG);
+  content =
+    input.required<
+      Pick<ContentConfig, 'confirmationSignUp' | 'common' | 'errors'>
+    >();
 
   user: {
     email: string | null;
@@ -82,7 +93,7 @@ export class ConfirmSignUpComponent {
     }
 
     this.processing.set(true);
-    const response = await this.#authService.confirmSignUp({
+    await this.#authService.confirmSignUp({
       email,
       code: String(code),
     });

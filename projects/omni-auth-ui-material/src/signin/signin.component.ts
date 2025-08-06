@@ -4,7 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {InputComponent} from '../ui/input/input.component';
 import {
   AUTH_CONFIG,
-  AUTH_SERVICE, AuthConfig,
+  AuthConfig,
   AuthRouteService,
   ContentConfig,
   OmniAuthService, patterns,
@@ -22,12 +22,12 @@ import {PrintErrorComponent} from '../print-error/print-error.component';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SignInComponent {
-  #authService = inject<OmniAuthService>(AUTH_SERVICE);
+  #authService = inject(OmniAuthService);
   #authRoute = inject(AuthRouteService);
   #env = inject<AuthConfig>(AUTH_CONFIG);
 
-  content = input.required<Pick<ContentConfig, 'signIn' | 'socialButtons' | 'common' | 'errors'>>();
-  processing = signal(false);
+  readonly content = input.required<Pick<ContentConfig, 'signIn' | 'socialButtons' | 'common' | 'errors'>>();
+  readonly processing = signal(false);
 
   get currentEmail() {
     return this.#authRoute.currentEmail;

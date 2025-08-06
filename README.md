@@ -1,6 +1,6 @@
 # Authentication for Angular applications
 
-### General architecture overview for OmniAuth
+## General architecture overview for OmniAuth
 
 ```mermaid
 
@@ -65,30 +65,29 @@ This project provides a set of Angular packages to implement authentication in y
 🔜 Planned
 
 
-### Installation
+## Installation
 
-
-1. Install the core package:
+### 1. Install the core package:
 
 ```bash
   pnpm install @ngx-tools/auth-core
 ```
 
-2. Install the UI adapter package:
+### 2. Install the UI adapter package:
 
 ```bash
   pnpm install @ngx-tools/auth-ui-material
 ```
 
-3. Install the connector package:
+### 3. Install the connector package:
 
 ```bash
   pnpm install @ngx-tools/auth-connector-aws-cognito
 ```
 
-4. Configuration
+### 4. Configuration
 
-4.1 Configure core and selected connector
+#### 4.1 Configure core and selected connector
 
 ```typescript
 export const appConfig: ApplicationConfig = {
@@ -106,9 +105,11 @@ export const appConfig: ApplicationConfig = {
 };
 ```
 
-  4.2 Use selected UI adapter
-```angular2html
+## 5. Usage
 
+### 5.1 Use selected UI adapter to display ui form 
+
+```angular2html
 <omni-auth-ui-mat
   [config]="{
     signUp: {
@@ -128,3 +129,6 @@ export const appConfig: ApplicationConfig = {
   </p>
 </omni-auth-ui-mat>
 ```
+
+### 5.2 Use Auth Service Interface to access methods
+

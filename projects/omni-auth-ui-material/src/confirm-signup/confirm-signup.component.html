@@ -1,4 +1,4 @@
-<form #confirmForm="ngForm" (ngSubmit)="onSubmit()" class="auth-form">
+<form #confirmForm="ngForm" class="auth-form" (ngSubmit)="onSubmit()">
   <div class="auth-form-body">
     <omni-auth-ui-mat-message class="auth-form-hint" icon="email">
       <span class="title">{{ content().confirmationSignUp.subTitle }}</span>
@@ -41,7 +41,7 @@
         }
       }
     </omni-auth-ui-mat-input>
-    <omni-auth-print-error [content]="content()" source="confirmSignUp"></omni-auth-print-error>
+    <omni-auth-ui-mat-print-error source="confirmSignUp" [content]="content()" />
   </div>
   <div class="auth-form-footer">
     <omni-auth-ui-mat-button

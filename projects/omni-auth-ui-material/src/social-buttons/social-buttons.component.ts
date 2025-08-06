@@ -2,7 +2,6 @@ import {ChangeDetectionStrategy, Component, inject, input, signal} from '@angula
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {
-  AUTH_SERVICE,
   ContentConfig, OmniAuthService, SocialProvider,
 } from '@ngx-tools/omni-auth-core';
 import {MatButton} from '@angular/material/button';
@@ -25,12 +24,12 @@ import {PrintErrorComponent} from '../print-error/print-error.component';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SocialButtonsComponent {
-  content = input.required<Pick<ContentConfig, 'socialButtons' | 'common' | 'errors'>>();
-  error = signal<string | null>(null);
-  processing = signal<SocialProvider | null>(null);
-  #authService = inject<OmniAuthService>(AUTH_SERVICE);
+  readonly content = input.required<Pick<ContentConfig, 'socialButtons' | 'common' | 'errors'>>();
+  readonly error = signal<string | null>(null);
+  readonly processing = signal<SocialProvider | null>(null);
+  #authService = inject(OmniAuthService);
 
-  socialProviders = signal<{
+  readonly socialProviders = signal<{
     name: string,
     icon: string,
     key: SocialProvider,
