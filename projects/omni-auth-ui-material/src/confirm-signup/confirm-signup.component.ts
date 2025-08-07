@@ -18,7 +18,7 @@ import {
   ContentConfig,
   OmniAuthService,
   patterns,
-} from '@ngx-tools/omni-auth-core';
+} from '@ngx-addons/omni-auth-core';
 import { PrintErrorComponent } from '../print-error/print-error.component';
 
 @Component({

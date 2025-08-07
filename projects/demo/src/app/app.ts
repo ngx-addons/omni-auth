@@ -6,8 +6,8 @@ import {
   signal,
 } from '@angular/core';
 import {MatIconRegistry} from '@angular/material/icon';
-import {AuthComponent} from '@ngx-tools/omni-auth-ui-material';
-import {AUTH_SERVICE, OmniAuthService} from '@ngx-tools/omni-auth-core';
+import {AuthComponent} from '@ngx-addons/omni-auth-ui-material';
+import {OmniAuthService} from '@ngx-addons/omni-auth-core';
 
 @Component({
   selector: 'demo-root',
@@ -21,7 +21,7 @@ import {AUTH_SERVICE, OmniAuthService} from '@ngx-tools/omni-auth-core';
 export class App implements OnInit {
   protected readonly title = signal('demo');
   protected iconRegistry = inject(MatIconRegistry);
-  authService = inject<OmniAuthService>(AUTH_SERVICE);
+  authService = inject(OmniAuthService);
 
   ngOnInit(): void {
     this.iconRegistry.setDefaultFontSetClass('material-symbols-outlined');

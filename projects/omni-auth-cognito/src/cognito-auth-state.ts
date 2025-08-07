@@ -1,4 +1,4 @@
-import {AuthState, OmniAuthError} from '@ngx-tools/omni-auth-core';
+import {AuthState, OmniAuthError} from '@ngx-addons/omni-auth-core';
 
 export class CognitoAuthState implements AuthState {
   constructor(

@@ -1,64 +1,159 @@
-# AuthCore
+# @ngx-addons/omni-auth-core
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.0.
+A comprehensive Angular authentication library providing core functionality for authentication flows, guards, and error handling.
 
-## Code scaffolding
+## Features
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- **Authentication Guards**: Route protection with built-in auth guards
+- **Error Handling**: Comprehensive error collection and messaging system
+- **Routing Services**: Authentication-aware routing utilities
+- **Type Safety**: Full TypeScript support with well-defined interfaces
+- **Configurable**: Flexible configuration system with default patterns
+- **Zoneless**: Designed to work without Angular's NgZone for performance optimization
+- **UI Agnostic**: Compatible with various UI libraries (Material, Tailwind, PrimeNG, etc.)
+- **Persistence Layer**: Supports multiple authentication backends (Cognito, Firebase, etc.)
 
-```bash
-ng generate component component-name
+## General architecture overview for OmniAuth
+
+```mermaid
+
+mindmap
+(Core)
+  ))UI Layer((
+    {{Material Adapter}}
+    {{Tailwind Adapter}}
+    {{PrimeNG Adapter}}
+    {{Custom Adapter}}
+
+  ))Persistence Layer((
+    {{Cognito Connector}}
+    {{Firebase Connector}}
+    {{Custom Connector}}
+
+  ))Public Layer((
+    {{OmniAuthGuard}}
+    {{OmniAuthService}}
+        {{SignOut Method}}
+        {{Get State Method}}
+        {{Get Token Method}}
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Installation
 
 ```bash
-ng generate --help
+npm install @ngx-addons/omni-auth-core
 ```
-
-## Building
-
-To build the library, run:
 
 ```bash
-ng build auth-core
+pnpm add @ngx-addons/omni-auth-core
 ```
-
-This command will compile your project, and the build artifacts will be placed in the `dist/` directory.
-
-### Publishing the Library
-
-Once the project is built, you can publish your library by following these steps:
-
-1. Navigate to the `dist` directory:
-
-   ```bash
-   cd dist/auth-core
-   ```
-
-2. Run the `npm publish` command to publish your library to the npm registry:
-   ```bash
-   npm publish
-   ```
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
 
 ```bash
-ng test
+yarn install @ngx-addons/omni-auth-core
 ```
 
-## Running end-to-end tests
+## Quick Start
 
-For end-to-end (e2e) testing, run:
+### 1. Configure Authentication
+
+The library includes default configurations and patterns that can be customized to fit your application's needs.
+
+```typescript
+import {configureAuth} from '@ngx-addons/omni-auth-core';
+
+
+configureAuth({
+    authService: AuthAwsCognitoService, // configure connector package (see below)
+    bearerAuthentication: {
+      whitelistedEndpoints: [environment.apiUrl],
+    },
+    routing: {
+      secured: ['/', 'protected'],
+      guest: ['/'],
+    },
+  }
+);
+```
+
+### 2. Install the connector package:
+
+Connectors are responsible for integrating with different authentication backends. Currently, we support AWS Cognito. Here is the list of available connectors:
+
+| Connector Name | Status | Package                               |
+|----------------|:------:|:--------------------------------------|
+| Cognito        |   ✅    | @ngx-addons/auth-connector-aws-cognito |
+| Firebase       |   🔜   | 🔜                                    |
 
 ```bash
-ng e2e
+  pnpm install @ngx-addons/auth-connector-aws-cognito
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+You can also create your own custom connector by implementing the `OmniAuthService` interface.
 
-## Additional Resources
+### 3. Install the UI adapter package:
+UI Adapters provide pre-built UI components for authentication flows. Currently, we support Material Design. Here is the list of available UI adapters:
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```bash
+  pnpm install @ngx-addons/auth-ui-material
+```
+
+| Connector Name | Status |           Package           |
+|----------------|:------:|:---------------------------:|
+| Cognito        |   ✅    | @ngx-addons/auth-ui-material |
+| Firebase       |   🔜   |             🔜              |
+
+You can also create your own custom UI adapter by using `OmniAuthService` interface.
+
+### 4. Use Auth Guard
+
+```typescript
+import {onlyAuthenticated, onlyGuest} from '@ngx-addons/omni-auth-core';
+
+const routes: Routes = [
+  {
+    path: 'protected',
+    component: ProtectedComponent,
+    canActivate: [onlyAuthenticated()],
+  },
+  {
+    path: 'auth',
+    component: AuthComponent,
+    canActivate: [onlyGuest()],
+  }
+];
+
+```
+
+## TypeScript Support
+
+Full TypeScript support with comprehensive interfaces and type definitions for a better development experience.
+
+| Feature                        | Cognito | Firebase |
+|--------------------------------|:-------:|:--------:|
+| Login / With Email/Password    |    ✅    |    🔜    |
+| Login / With Username/Password |   🔜    |    🔜    |
+| Login / Passwordless           |   🔜    |    🔜    |
+| Login / Using google           |    ✅    |    🔜    |
+| Login / Using facebook         |   🔜    |    🔜    |
+| Login / Using microsoft        |   🔜    |    🔜    |
+| Login / Using apple            |   🔜    |    🔜    |
+| Login / Using github           |   🔜    |    🔜    |
+| Login / Using custom provider  |   🔜    |    🔜    |
+| Register                       |    ✅    |    🔜    |
+| Register / custom attributes   |    ✅    |    🔜    |
+| Register / marketing consent   |    ✅    |    🔜    |
+| Register / marketing consent   |    ✅    |    🔜    |
+| Forget password                |    ✅    |    🔜    |
+| Reset password                 |    ✅    |    🔜    |
+| Authorized welcome page        |    ✅    |    🔜    |
+| Sign Out feature               |    ✅    |    🔜    |
+| Validation                     |    ✅    |    🔜    |
+| Error Handling                 |    ✅    |    🔜    |
+
+✅ Done
+❌ Not possible
+🔜 Planned
+
+## License
+
+See the [LICENSE](LICENSE.md) file for details.

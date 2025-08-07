@@ -31,7 +31,7 @@ import {
   OmniAuthService,
   RuntimeError,
   SocialProvider,
-} from '@ngx-tools/omni-auth-core';
+} from '@ngx-addons/omni-auth-core';
 import { CognitoAuthState } from './cognito-auth-state';
 import { Router } from '@angular/router';
 import { toObservable } from '@angular/core/rxjs-interop';

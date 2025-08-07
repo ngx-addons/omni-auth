@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, input} from '@angular/core';
-import {ContentConfig, ErrorMessagePipe, FlowError} from '@ngx-tools/omni-auth-core';
+import {ContentConfig, ErrorMessagePipe, FlowError} from '@ngx-addons/omni-auth-core';
 import {MessageComponent} from '../ui/message/message.component';
 
 @Component({

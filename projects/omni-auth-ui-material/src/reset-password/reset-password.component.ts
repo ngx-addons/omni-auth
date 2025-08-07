@@ -9,7 +9,7 @@ import {
   ContentConfig,
   OmniAuthService,
   patterns,
-} from '@ngx-tools/omni-auth-core';
+} from '@ngx-addons/omni-auth-core';
 import {FormsModule} from '@angular/forms';
 import {ButtonComponent} from '../ui/button/button.component';
 import {PrintErrorComponent} from '../print-error/print-error.component';

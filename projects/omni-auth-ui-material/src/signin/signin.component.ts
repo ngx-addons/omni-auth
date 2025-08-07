@@ -8,7 +8,7 @@ import {
   AuthRouteService,
   ContentConfig,
   OmniAuthService, patterns,
-} from '@ngx-tools/omni-auth-core';
+} from '@ngx-addons/omni-auth-core';
 import {ButtonComponent} from '../ui/button/button.component';
 import {SocialButtonsComponent} from '../social-buttons/social-buttons.component';
 import {PrintErrorComponent} from '../print-error/print-error.component';

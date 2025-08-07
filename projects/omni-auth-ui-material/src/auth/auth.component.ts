@@ -10,7 +10,7 @@ import {
   ContentConfig,
   defaultContent,
   OmniAuthService
-} from '@ngx-tools/omni-auth-core';
+} from '@ngx-addons/omni-auth-core';
 import {MessageComponent} from '../ui/message/message.component';
 import {ButtonComponent} from '../ui/button/button.component';
 import {LoaderComponent} from '../ui/loader/loader.component';

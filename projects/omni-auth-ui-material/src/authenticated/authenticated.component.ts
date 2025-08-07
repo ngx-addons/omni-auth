@@ -4,7 +4,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {
   ContentConfig,
   OmniAuthService
-} from '@ngx-tools/omni-auth-core';
+} from '@ngx-addons/omni-auth-core';
 import {MessageComponent} from '../ui/message/message.component';
 import {ButtonComponent} from '../ui/button/button.component';
 import {ReplacePipe} from '../ui/replace.pipe';

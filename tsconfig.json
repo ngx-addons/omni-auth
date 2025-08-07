@@ -4,13 +4,13 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
-      "@ngx-tools/omni-auth-cognito": [
+      "@ngx-addons/omni-auth-cognito": [
         "./dist/omni-auth-cognito"
       ],
-      "@ngx-tools/omni-auth-core": [
+      "@ngx-addons/omni-auth-core": [
         "./dist/omni-auth-core"
       ],
-      "@ngx-tools/omni-auth-ui-material": [
+      "@ngx-addons/omni-auth-ui-material": [
         "./dist/omni-auth-ui-material"
       ]
     },

@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {
   ContentConfig, OmniAuthService, SocialProvider,
-} from '@ngx-tools/omni-auth-core';
+} from '@ngx-addons/omni-auth-core';
 import {MatButton} from '@angular/material/button';
 import {LoaderOverlayDirective} from '../ui/loader/loader-overlay.directive';
 import {PrintErrorComponent} from '../print-error/print-error.component';

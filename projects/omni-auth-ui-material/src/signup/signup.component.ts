@@ -9,7 +9,7 @@ import {
   ContentConfig,
   OmniAuthService,
   patterns,
-} from '@ngx-tools/omni-auth-core';
+} from '@ngx-addons/omni-auth-core';
 import {ButtonComponent} from '../ui/button/button.component';
 import {MatCheckbox} from '@angular/material/checkbox';
 import {PrintErrorComponent} from '../print-error/print-error.component';

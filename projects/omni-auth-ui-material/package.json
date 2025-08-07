@@ -1,15 +1,37 @@
 {
-  "name": "@ngx-tools/omni-auth-ui-material",
+  "name": "@ngx-addons/omni-auth-ui-material",
   "author": "Piotr Liszka",
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": false,
+  "keywords": [
+    "@ngx-addons/omni-auth-ui-material",
+    "omni-auth-ui-material",
+    "angular",
+    "auth",
+    "authentication",
+    "login",
+    "registration",
+    "sign-up",
+    "sign-in"
+  ],
+  "description": "User interface components for OmniAuth in Angular applications.",
   "peerDependencies": {
-    "@angular/common": "^20.1.0",
+    "@angular/common": ">=20.1",
     "@angular/core": "^20.1.0",
-    "@angular/material": "^20.1.0",
-    "@angular/animations": "^20.1.0"
+    "@angular/material": ">=20.1",
+    "@angular/animations": ">=20.1"
   },
   "dependencies": {
-    "tslib": "^2.3.0"
+    "tslib": "^2.8.1"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ngx-addons/ngx-addons.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ngx-addons/ngx-addons/issues"
+  },
+  "homepage": "https://github.com/ngx-addons/ngx-addons#readme"
 }
