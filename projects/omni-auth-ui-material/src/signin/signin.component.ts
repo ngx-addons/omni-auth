@@ -1,32 +1,59 @@
-import {ChangeDetectionStrategy, Component, inject, input, signal} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import {InputComponent} from '../ui/input/input.component';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+  signal,
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { InputComponent } from '../ui/input/input.component';
 import {
   AUTH_CONFIG,
   AuthConfig,
   AuthRouteService,
   ContentConfig,
-  OmniAuthService, patterns,
+  OmniAuthService,
+  patterns,
 } from '@ngx-addons/omni-auth-core';
-import {ButtonComponent} from '../ui/button/button.component';
-import {SocialButtonsComponent} from '../social-buttons/social-buttons.component';
-import {PrintErrorComponent} from '../print-error/print-error.component';
+import { ButtonComponent } from '../ui/button/button.component';
+import {
+  SignInProvider,
+  SocialButtonsComponent,
+} from '../social-buttons/social-buttons.component';
+import { PrintErrorComponent } from '../print-error/print-error.component';
+
+export type SignInComponentConfig = {
+  signInProviders?: SignInProvider[];
+};
 
 @Component({
   selector: 'omni-auth-ui-mat-signin',
   standalone: true,
-  imports: [CommonModule, FormsModule, InputComponent, ButtonComponent, SocialButtonsComponent, PrintErrorComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    InputComponent,
+    ButtonComponent,
+    SocialButtonsComponent,
+    PrintErrorComponent,
+  ],
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.scss', './../auth-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignInComponent {
   #authService = inject(OmniAuthService);
   #authRoute = inject(AuthRouteService);
   #env = inject<AuthConfig>(AUTH_CONFIG);
 
-  readonly content = input.required<Pick<ContentConfig, 'signIn' | 'socialButtons' | 'common' | 'errors'>>();
+  readonly content =
+    input.required<
+      Pick<ContentConfig, 'signIn' | 'socialButtons' | 'common' | 'errors'>
+    >();
+
+  readonly config = input<SignInComponentConfig>();
+
   readonly processing = signal(false);
 
   get currentEmail() {
@@ -38,7 +65,8 @@ export class SignInComponent {
     password: null,
   };
   emailPattern = this.#env.validation?.emailPattern || patterns.emailPattern;
-  passwordPattern = this.#env.validation?.passwordPattern || patterns.passwordPattern;
+  passwordPattern =
+    this.#env.validation?.passwordPattern || patterns.passwordPattern;
 
   async onSubmit() {
     const email = this.user.email ?? this.#authRoute.currentEmail();
@@ -60,7 +88,7 @@ export class SignInComponent {
   navigateToReset() {
     this.#authRoute.nextStep(
       'reset_password',
-      this.user.email ? {email: this.user.email} : undefined
-    )
+      this.user.email ? { email: this.user.email } : undefined,
+    );
   }
 }

@@ -25,7 +25,7 @@
             >
               <mat-tab [label]="content().signIn.title">
                 <ng-template matTabContent>
-                  <omni-auth-ui-mat-signin [content]="content()"/>
+                  <omni-auth-ui-mat-signin [config]="config()?.signIn" [content]="content()"/>
                 </ng-template>
               </mat-tab>
 

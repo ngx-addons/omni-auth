@@ -1,17 +1,6 @@
 <div class="auth-container">
   <omni-auth-ui-mat
-    [config]="{
-    signUp: {
-      additionalAttributes: [
-          {
-           key: 'newsletterConsent',
-           type: 'checkbox',
-           isRequired: true,
-           label: 'Subscribe to our newsletter',
-         }
-       ]
-      }
-    }"
+    [config]="config"
   >
     <p sign-up-footer>
       By signing up, you agree to our <a class="link" tabindex="0">terms and conditions</a>
@@ -19,4 +8,4 @@
   </omni-auth-ui-mat>
 </div>
 
-<pre>{{authService.currentUser()}}</pre>
+<pre>{{ authService.currentUser() }}</pre>

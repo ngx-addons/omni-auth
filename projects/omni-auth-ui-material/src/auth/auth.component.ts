@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {MatTabsModule} from '@angular/material/tabs';
 import {ConfirmSignUpComponent} from '../confirm-signup/confirm-signup.component';
 import {SignUpComponent, SignUpComponentConfig} from '../signup/signup.component';
-import {SignInComponent} from '../signin/signin.component';
+import { SignInComponent, SignInComponentConfig } from '../signin/signin.component';
 import {ResetPasswordComponent} from '../reset-password/reset-password.component';
 import {
   AuthRouteService,
@@ -15,6 +15,12 @@ import {MessageComponent} from '../ui/message/message.component';
 import {ButtonComponent} from '../ui/button/button.component';
 import {LoaderComponent} from '../ui/loader/loader.component';
 import {AuthenticatedComponent} from '../authenticated/authenticated.component';
+import { SignInProvider } from '../social-buttons/social-buttons.component';
+
+export type AuthComponentConfig = {
+  signUp?: SignUpComponentConfig,
+  signIn?: SignInComponentConfig;
+}
 
 @Component({
   selector: 'omni-auth-ui-mat',
@@ -41,7 +47,5 @@ export class AuthComponent {
 
   content = input<ContentConfig>(defaultContent);
 
-  config = input<{
-    signUp: SignUpComponentConfig
-  }>();
+  config = input<AuthComponentConfig>();
 }

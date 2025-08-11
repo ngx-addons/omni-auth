@@ -6,7 +6,9 @@ export const isError = (response: OmniAuthError | void) => {
   return response instanceof OmniAuthError;
 };
 
-export type SocialProvider = 'google' | 'facebook' | 'apple' | 'github' | 'microsoft';
+export type CustomSignInProviderKey = string;
+export type SocialSignInProviderKey = 'google' | 'facebook' | 'apple' | 'github' | 'microsoft';
+export type SignInProviderKey = CustomSignInProviderKey | SocialSignInProviderKey;
 
 export type AuthState = {
   state: 'unknown' | 'authenticated' | 'unauthenticated' | 'error';
@@ -60,5 +62,5 @@ export abstract class OmniAuthService {
     newPassword: string;
   }): Promise<void | FlowError>;
 
-  abstract signInWithProvider(providerKey: SocialProvider): Promise<void | FlowError>;
+  abstract signInWithProvider(providerKey: SocialSignInProviderKey | CustomSignInProviderKey): Promise<void | FlowError>;
 }

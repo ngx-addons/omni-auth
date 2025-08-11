@@ -13,7 +13,7 @@ export { configureAuth, jwtInterceptor } from './configure-auth';
 export type { AuthState } from './lib/auth.interface';
 export { OmniAuthService } from './lib/auth.interface';
 export { isError } from './lib/auth.interface';
-export type { SocialProvider } from './lib/auth.interface';
+export type { SocialSignInProviderKey, CustomSignInProviderKey, SignInProviderKey } from './lib/auth.interface';
 export type { ContentConfig } from './lib/config/default-content.config';
 export { defaultContent } from './lib/config/default-content.config';
 export { onlyAuthenticated, onlyGuest } from './lib/auth-guard';

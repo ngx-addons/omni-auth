@@ -30,7 +30,7 @@ import {
   OmniAuthError,
   OmniAuthService,
   RuntimeError,
-  SocialProvider,
+  SignInProviderKey
 } from '@ngx-addons/omni-auth-core';
 import { CognitoAuthState } from './cognito-auth-state';
 import { Router } from '@angular/router';
@@ -347,7 +347,7 @@ export class AuthAwsCognitoService extends OmniAuthService {
   }
 
   async signInWithProvider(
-    provider: SocialProvider,
+    provider: SignInProviderKey,
   ): Promise<void | FlowError> {
     try {
       this.#actionErrorCollector.reset();
@@ -363,6 +363,9 @@ export class AuthAwsCognitoService extends OmniAuthService {
           break;
         case 'apple':
           amazonProvider = 'Apple';
+          break;
+        case 'amazon':
+          amazonProvider = 'Amazon';
           break;
         default:
           amazonProvider = {

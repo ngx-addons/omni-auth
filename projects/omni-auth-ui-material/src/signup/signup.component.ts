@@ -40,7 +40,7 @@ export class SignUpComponent {
   readonly processing = signal(false);
   readonly content = input.required<Pick<ContentConfig, 'signUp' | 'common' | 'errors'>>();
   readonly config = input<SignUpComponentConfig>();
-  termsAndConditions = output();
+  readonly termsAndConditions = output();
 
   emailPattern = this.#env.validation?.emailPattern || patterns.emailPattern;
   passwordPattern = this.#env.validation?.passwordPattern || patterns.passwordPattern;

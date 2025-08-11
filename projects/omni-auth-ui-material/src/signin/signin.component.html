@@ -54,7 +54,7 @@
         {{ content().signIn.forgetPassword }}
       </a>
     </p>
-    <omni-auth-ui-mat-print-error source="signIn" [content]="content()" />
+    <omni-auth-ui-mat-print-error source="signIn" [content]="content()"/>
   </div>
   <div class="auth-form-footer">
     <omni-auth-ui-mat-button
@@ -65,9 +65,12 @@
     </omni-auth-ui-mat-button>
   </div>
 
-  <div class="auth-form-social">
-    <omni-auth-ui-mat-social-buttons
-      [content]="content()"
-    />
-  </div>
+  @if (config()?.signInProviders; as signInProviders) {
+    <div class="auth-form-social">
+      <omni-auth-ui-mat-social-buttons
+        [content]="content()"
+        [signInProviders]="signInProviders"
+      />
+    </div>
+  }
 </form>
