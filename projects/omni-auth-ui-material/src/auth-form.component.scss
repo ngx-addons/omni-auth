@@ -38,7 +38,7 @@
   &-footer {
     display: flex;
     justify-content: flex-end;
-    gap: var(--auth-form-footer-gap, var(--auth-horizontal-gap), 8px);
+    gap: var(--auth-form-footer-gap, var(--auth-horizontal-gap, 8px));
 
     background: var(--auth-form-footer-bg, transparent);
     padding: var(--auth-form-footer-padding-horizontal, 16px) var(--auth-footer-padding-vertical, 8px);
