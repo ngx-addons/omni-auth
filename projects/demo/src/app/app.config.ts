@@ -24,8 +24,8 @@ export const appConfig: ApplicationConfig = {
         userPoolClientId: environment.cognito.userPoolClientId,
         oauth: {
           domain: environment.cognito.userPoolDomain,
-          redirectSignIn: ['http://localhost:4200'],
-          redirectSignOut: ['http://localhost:4200'],
+          redirectSignIn: ['http://localhost:4200/'],
+          redirectSignOut: ['http://localhost:4200/'],
           providers: ['Google']
         }
       }

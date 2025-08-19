@@ -1,7 +1,7 @@
 {
   "name": "@ngx-addons/omni-auth-core",
   "author": "Piotr Liszka",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "license": "MIT",
   "private": false,
   "keywords": [
@@ -17,9 +17,11 @@
   ],
   "description": "Core library for authentication in Angular applications.",
   "peerDependencies": {
-    "tslib": "^2.8.1",
     "@angular/common": "^20.1.4",
     "@angular/core": "^20.1.4"
+  },
+  "dependencies": {
+    "tslib": "^2.8.1"
   },
   "sideEffects": false,
   "repository": {

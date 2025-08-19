@@ -4,6 +4,8 @@ export type ActionErrorCode =
   | 'unknown'
   | 'signInWithRedirectFailure'
   | 'userDoesNotExist'
+  | 'userAlreadyExists'
+  | 'userIsNotConfirmed'
   | 'alreadySignedIn'
   | 'incorrectUsernameOrPassword'
   | 'usernameNotFound'

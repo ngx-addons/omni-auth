@@ -8,10 +8,11 @@ import {
 import { MatIconRegistry } from '@angular/material/icon';
 import { AuthComponent, AuthComponentConfig } from '@ngx-addons/omni-auth-ui-material';
 import { OmniAuthService } from '@ngx-addons/omni-auth-core';
+import {JsonPipe} from '@angular/common';
 
 @Component({
   selector: 'demo-root',
-  imports: [AuthComponent],
+  imports: [AuthComponent, JsonPipe],
   templateUrl: './app.html',
   styleUrl: './app.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

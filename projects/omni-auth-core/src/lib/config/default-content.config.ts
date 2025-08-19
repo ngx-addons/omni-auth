@@ -81,6 +81,8 @@ export const defaultContent = {
     usernameNotFound: 'Username not found',
     incorrectUsernameOrPassword: 'Password or email is incorrect',
     userDoesNotExist: 'User does not exist',
+    userIsNotConfirmed: 'User is not confirmed',
+    userAlreadyExists: 'User already exists',
     alreadySignedIn: 'You are already signed in',
     signInWithRedirectFailure: 'Sign in using external provider failed',
     invalidConfiguration: 'Missing or invalid configuration, see console for details',
