@@ -36,6 +36,7 @@ import {CognitoAuthState} from './cognito-auth-state';
 import {Router} from '@angular/router';
 import {toObservable} from '@angular/core/rxjs-interop';
 import {filter, Subscription} from 'rxjs';
+import { AUTH_COGNITO_CONFIG, AuthCognitoConfig } from './configure-auth-cognito-connector';
 
 @Injectable({
   providedIn: 'root',
@@ -45,6 +46,7 @@ export class AuthAwsCognitoService extends OmniAuthService {
   #actionErrorCollector = inject(ActionErrorCollectorService);
   #router = inject(Router);
   #env = inject<AuthConfig>(AUTH_CONFIG);
+  #envCognito = inject<AuthCognitoConfig>(AUTH_COGNITO_CONFIG);
   #document = inject<Document>(DOCUMENT);
   #navigateOnLoad$?: Subscription;
 
@@ -142,14 +144,21 @@ export class AuthAwsCognitoService extends OmniAuthService {
         );
       }
 
-      let redirectUrl = window.location.origin;
+      const allowedRedirectUrls = this.#envCognito.cognito.oauth?.redirectSignOut ?? [];
+      const baseUrl = window.location.origin;
+      const possibleUrls = [
+        baseUrl,
+        `${baseUrl}/`,
+      ];
 
       if (this.#env.routing?.guest) {
-        redirectUrl =
-          redirectUrl +
-          '/' +
-          this.#router.createUrlTree(this.#env.routing?.guest).toString();
+        const guestUrl = `${baseUrl}/${this.#router.createUrlTree(this.#env.routing?.guest).toString()}`;
+
+        possibleUrls.unshift(guestUrl);
+        possibleUrls.unshift(`${guestUrl}/`);
       }
+
+      const redirectUrl = possibleUrls.find(url => allowedRedirectUrls.includes(url));
 
       await signOut({
         global: fromAllDevices,
@@ -386,6 +395,8 @@ export class AuthAwsCognitoService extends OmniAuthService {
 
   #transformError(source: FlowError['source'], error: unknown) {
     switch (true) {
+      case String(error).includes('Cannot reset password for the user as there is no registered/verified email'):
+        return new FlowError(source, 'notVerified', error);
       case String(error).includes('already a signed in user'):
         return new FlowError(source, 'alreadySignedIn', error);
       case String(error).includes('User already exists.'):
@@ -403,8 +414,10 @@ export class AuthAwsCognitoService extends OmniAuthService {
       ):
         return new FlowError(source, 'invalidCode', error);
       case String(error).includes('The given preferredRedirectUrl'):
+        console.error(error);
         return new FlowError(source, 'invalidConfiguration', error, true);
       case String(error).includes('User cancelled OAuth flow'):
+        console.error(error);
         return new FlowError(source, 'cancelledFlow', error, true);
       case String(error).includes('can not be converted to'):
         return new FlowError(
@@ -417,8 +430,7 @@ export class AuthAwsCognitoService extends OmniAuthService {
           true,
         );
       default:
-        console.error('Unknown error occurred:', error);
-
+        console.error(error);
         return new FlowError(source, 'unknown', error);
     }
   }

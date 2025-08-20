@@ -3,6 +3,7 @@ import { OmniAuthError } from './auth-error';
 export type ActionErrorCode =
   | 'unknown'
   | 'signInWithRedirectFailure'
+  | 'notVerified'
   | 'userDoesNotExist'
   | 'userAlreadyExists'
   | 'userIsNotConfirmed'

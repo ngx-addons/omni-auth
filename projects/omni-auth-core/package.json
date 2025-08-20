@@ -1,7 +1,7 @@
 {
   "name": "@ngx-addons/omni-auth-core",
   "author": "Piotr Liszka",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "license": "MIT",
   "private": false,
   "keywords": [

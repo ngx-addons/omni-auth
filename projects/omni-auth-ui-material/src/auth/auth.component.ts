@@ -45,7 +45,7 @@ export class AuthComponent {
   authService = inject(OmniAuthService);
   authRouteService = inject(AuthRouteService);
 
-  content = input<ContentConfig>(defaultContent);
+  readonly content = input<ContentConfig>(defaultContent);
 
-  config = input<AuthComponentConfig>();
+  readonly config = input<AuthComponentConfig>();
 }

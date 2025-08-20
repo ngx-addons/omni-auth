@@ -42,7 +42,7 @@ export class ConfirmSignUpComponent {
   #authService = inject(OmniAuthService);
   authRoute = inject(AuthRouteService);
   #env = inject<AuthConfig>(AUTH_CONFIG);
-  content =
+  readonly content =
     input.required<
       Pick<ContentConfig, 'confirmationSignUp' | 'common' | 'errors'>
     >();
