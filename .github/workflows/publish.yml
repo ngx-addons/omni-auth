@@ -34,6 +34,8 @@ jobs:
         uses: EndBug/version-check@v2
         with:
           diff-search: true
+          static-checking: localIsNew
+          file-url: https://unpkg.com/@ngx-addons/omni-auth-core/package.json
           file-name: ./dist/omni-auth-core/package.json
 
       - name: Publish to npm -> omni-auth-core
@@ -47,6 +49,8 @@ jobs:
         uses: EndBug/version-check@v2
         with:
           diff-search: true
+          static-checking: localIsNew
+          file-url: https://unpkg.com/@ngx-addons/omni-auth-cognito/package.json
           file-name: ./dist/omni-auth-cognito/package.json
 
       - name: Publish to npm -> omni-auth-cognito
@@ -60,6 +64,8 @@ jobs:
         uses: EndBug/version-check@v2
         with:
           diff-search: true
+          static-checking: localIsNew
+          file-url: https://unpkg.com/@ngx-addons/omni-auth-ui-material/package.json
           file-name: ./dist/omni-auth-ui-material/package.json
 
       - name: Publish to npm -> omni-auth-ui-material
