@@ -6,7 +6,7 @@ export class CognitoAuthState implements AuthState {
     public user?: {
       displayName: string;
       email?: string;
-      name?: string;
+      fullName?: string;
       phone?: string;
       verified: boolean;
     },
@@ -21,7 +21,7 @@ export class CognitoAuthState implements AuthState {
   static fromAuthenticated(user: {
     displayName: string,
     email?: string;
-    name?: string;
+    fullName?: string;
     phone?: string;
     verified: boolean;
   }) {

@@ -2,6 +2,8 @@
   <div class="auth-form-body">
     <omni-auth-ui-mat-input
       #email="ngModel"
+      maxlength="255"
+      minlength="3"
       name="email"
       required
       type="text"
@@ -19,28 +21,42 @@
           @case (email.control.hasError("pattern")) {
             <ng-container>{{ content().common.emailErrorPatternText }}</ng-container>
           }
+          @case (email.control.hasError("minLength")) {
+            <ng-container>{{ content().common.emailErrorMinLengthText }}</ng-container>
+          }
+          @case (email.control.hasError("maxlength")) {
+            <ng-container>{{ content().common.emailErrorMaxLengthText }}</ng-container>
+          }
         }
       </ng-container>
     </omni-auth-ui-mat-input>
-    <omni-auth-ui-mat-input
-      #name="ngModel"
-      minlength="2"
-      name="name"
-      required
-      type="text"
-      [label]="content().common.nameLabel"
-      [placeholder]="content().common.namePlaceholder"
-      [(ngModel)]="user.name"
-    >
-      @switch (true) {
-        @case (name.control.hasError("required")) {
-          <ng-container>{{ content().common.nameErrorRequiredText }}</ng-container>
+
+    @if (config()?.fullName?.enabled) {
+      <omni-auth-ui-mat-input
+        #name="ngModel"
+        maxlength="255"
+        minlength="2"
+        name="fullName"
+        required
+        type="text"
+        [label]="content().common.fullNameLabel"
+        [placeholder]="content().common.fullNamePlaceholder"
+        [(ngModel)]="user.fullName"
+      >
+        @switch (true) {
+          @case (name.control.hasError("required")) {
+            <ng-container>{{ content().common.fullNameErrorRequiredText }}</ng-container>
+          }
+          @case (name.control.hasError("minLength")) {
+            <ng-container>{{ content().common.fullNameErrorMinLengthText }}</ng-container>
+          }
+          @case (name.control.hasError("maxlength")) {
+            <ng-container>{{ content().common.fullNameErrorMaxLengthText }}</ng-container>
+          }
         }
-        @case (name.control.hasError("minLength")) {
-          <ng-container>{{ content().common.nameErrorMinLengthText }}</ng-container>
-        }
-      }
-    </omni-auth-ui-mat-input>
+      </omni-auth-ui-mat-input>
+    }
+
     <omni-auth-ui-mat-input
       #password="ngModel"
       name="password"
@@ -66,18 +82,19 @@
       <mat-checkbox
         class="additional-attribute-checkbox"
         [name]="attribute.key"
-        [ngModel]="user.attributes[attribute.key]"
+        [ngModel]="user.customAttributes[attribute.key]"
         [required]="attribute.isRequired"
         (ngModelChange)="updateUserAttribute(attribute.key, $event)">
         {{ attribute.label }}
       </mat-checkbox>
     }
 
-    <ng-content select="[sign-up-footer]" />
-    <omni-auth-ui-mat-print-error source="signUp" [content]="content()" />
+    <ng-content select="[sign-up-footer]"/>
+    <omni-auth-ui-mat-print-error source="signUp" [content]="content()"/>
   </div>
   <div class="auth-form-footer">
     <omni-auth-ui-mat-button
+      buttonType="submit"
       type="primary"
       [disabled]="!!registerForm.invalid"
       [loading]="processing()"

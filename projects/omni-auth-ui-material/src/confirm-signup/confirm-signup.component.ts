@@ -3,7 +3,6 @@ import {
   Component,
   inject,
   input,
-  Input,
   signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';

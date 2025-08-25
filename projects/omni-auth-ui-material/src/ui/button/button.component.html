@@ -2,13 +2,14 @@
   class="button"
   mat-flat-button
   omniAuthUiMatLoadingOverlay
-  [class.icon-only]="iconOnly"
-  [disabled]="disabled || loading"
-  [loading]="loading"
-  [ngClass]="type"
+  [class.icon-only]="iconOnly()"
+  [disabled]="disabled || loading()"
+  [loading]="loading()"
+  [ngClass]="type()"
+  [type]="buttonType()"
 >
-  @if (icon) {
+  @if (icon(); as icon) {
     <mat-icon>{{ icon }}</mat-icon>
   }
-  <ng-content />
+  <ng-content/>
 </button>

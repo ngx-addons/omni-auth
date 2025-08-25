@@ -1,6 +1,6 @@
-import {Component, input} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {MatProgressSpinner} from '@angular/material/progress-spinner';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'omni-auth-ui-mat-loader',
@@ -8,6 +8,7 @@ import {MatProgressSpinner} from '@angular/material/progress-spinner';
   imports: [CommonModule, MatProgressSpinner],
   templateUrl: './loader.component.html',
   styleUrl: 'loader.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoaderComponent {
   readonly verticalCenter = input(false);

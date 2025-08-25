@@ -15,7 +15,6 @@ import {MessageComponent} from '../ui/message/message.component';
 import {ButtonComponent} from '../ui/button/button.component';
 import {LoaderComponent} from '../ui/loader/loader.component';
 import {AuthenticatedComponent} from '../authenticated/authenticated.component';
-import { SignInProvider } from '../social-buttons/social-buttons.component';
 
 export type AuthComponentConfig = {
   signUp?: SignUpComponentConfig,

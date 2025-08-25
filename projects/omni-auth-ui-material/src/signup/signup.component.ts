@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, inject, input, Input, output, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, input, output, signal} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {InputComponent} from '../ui/input/input.component';
@@ -6,9 +6,9 @@ import {
   AUTH_CONFIG,
   AuthConfig,
   AuthRouteService,
-  ContentConfig,
+  ContentConfig, emailToFullName,
   OmniAuthService,
-  patterns,
+  patterns
 } from '@ngx-addons/omni-auth-core';
 import {ButtonComponent} from '../ui/button/button.component';
 import {MatCheckbox} from '@angular/material/checkbox';
@@ -22,6 +22,10 @@ type AdditionalAttributeFieldConfig = {
 };
 
 export type SignUpComponentConfig = {
+  fullName?: {
+    enabled: boolean,
+    enableAutoFill?: boolean
+  }
   additionalAttributes?: AdditionalAttributeFieldConfig[]
 }
 
@@ -46,34 +50,35 @@ export class SignUpComponent {
   passwordPattern = this.#env.validation?.passwordPattern || patterns.passwordPattern;
   user: {
     tos: boolean;
-    name: string | null;
+    fullName: string | null;
     email: string | null;
     password: string | null;
-    attributes: Record<string, string | boolean>;
+    customAttributes: Record<string, string | boolean>;
   } = {
     tos: false,
-    name: null,
+    fullName: null,
     email: null,
     password: null,
-    attributes: {}
+    customAttributes: {}
   };
 
   async onSubmit() {
     const email = this.user.email ?? this.authRoute.currentEmail();
     const password = this.user.password;
-    const name = this.user.name;
-    const attributes = this.user.attributes;
+    const fullName = this.user.fullName;
+    const customAttributes = this.user.customAttributes;
 
-    if (!name || !email || !password) {
+    if (!email || !password) {
       return;
     }
 
     this.processing.set(true);
+
     await this.#authService.signUp({
       email,
       password,
-      name,
-      attributes,
+      fullName: fullName ?? undefined,
+      customAttributes,
     });
 
     this.processing.set(false);
@@ -81,18 +86,22 @@ export class SignUpComponent {
 
   updateUserEmail($event: string) {
     this.user.email = $event;
-    const emailParts = $event.split('@');
 
-    if (emailParts.length === 2) {
-      this.user.name = $event.split('@')[0];
+    if(!this.config()?.fullName?.enabled || !this.config()?.fullName?.enableAutoFill) {
+      return;
+    }
+
+    const nextEmail = emailToFullName($event);
+    if (nextEmail) {
+      this.user.fullName = nextEmail
     }
   }
 
   updateUserAttribute(key: string, value: string | boolean) {
-    if (!this.user.attributes) {
-      this.user.attributes = {};
+    if (!this.user.customAttributes) {
+      this.user.customAttributes = {};
     }
 
-    this.user.attributes[key] = value;
+    this.user.customAttributes[key] = value;
   }
 }

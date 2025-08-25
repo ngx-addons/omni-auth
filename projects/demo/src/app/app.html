@@ -8,4 +8,12 @@
   </omni-auth-ui-mat>
 </div>
 
-<pre>{{ authService.currentUser() | json }}</pre>
+<div class="auth-result">
+  <h4>Current User:</h4>
+  <pre>{{ authService.currentUser() | json }}</pre>
+  <h4>ID Token:</h4>
+  <div>{{ authService.idToken() | json }}</div>
+  <h4>Access Token:</h4>
+  <div>{{ authService.accessToken() | json }}</div>
+</div>
+

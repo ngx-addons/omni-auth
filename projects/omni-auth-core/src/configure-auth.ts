@@ -1,7 +1,5 @@
-import { inject, InjectionToken, Provider, Type } from '@angular/core';
+import { InjectionToken, Provider, Type } from '@angular/core';
 import { OmniAuthService } from './lib/auth.interface';
-import { HttpInterceptorFn } from '@angular/common/http';
-import { from, switchMap } from 'rxjs';
 
 export type AuthConfig = {
   /** @description Authentication service class */
@@ -44,45 +42,4 @@ export const configureAuth = (params: AuthConfig): Provider[] => {
       useValue: params,
     },
   ];
-};
-
-export const jwtInterceptor: HttpInterceptorFn = (request, next) => {
-  const config = inject<AuthConfig>(AUTH_CONFIG);
-  const authService = inject(OmniAuthService);
-
-  const bearerConfig = config.bearerAuthentication;
-
-  if (bearerConfig?.whitelistedEndpoints?.length) {
-    const whiteListed = bearerConfig?.whitelistedEndpoints.find((url) => {
-      if (url instanceof RegExp) {
-        return url.test(request.url);
-      }
-      return request.url.includes(url);
-    });
-
-    if (!whiteListed) {
-      return next(request.clone());
-    }
-  }
-
-  const token$ = from(authService.getToken());
-
-  return token$.pipe(
-    switchMap((token) => {
-      if (!token) {
-        return next(request.clone());
-      }
-
-      let headers = request.headers;
-
-      headers = headers.append(
-        bearerConfig?.headerName ?? 'Authorization',
-        `${bearerConfig?.headerValuePrefix ?? 'Bearer '}${token}`,
-      );
-
-      const newReq = request.clone({ headers });
-
-      return next(newReq);
-    }),
-  );
 };
