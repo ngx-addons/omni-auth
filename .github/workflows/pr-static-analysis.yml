@@ -1,0 +1,30 @@
+name: 🧪 Static analysis
+
+on:
+  pull_request:
+    types: [edited, opened, synchronize]
+    branches: ['main']
+  workflow_dispatch:
+
+jobs:
+  code-analysis:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - name: Use Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install
+      - name: Unit tests
+        run: pnpm run tests:headless
+      - name: Linter
+        run: pnpm run lint
+      - name: Build
+        run: build:prd
