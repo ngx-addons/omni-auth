@@ -52,6 +52,7 @@
     >{{ content().confirmationSignUp.resendLabel }}
     </omni-auth-ui-mat-button>
     <omni-auth-ui-mat-button
+      buttonType="submit"
       type="primary"
       [disabled]="!!confirmForm.invalid"
       [loading]="processing()"

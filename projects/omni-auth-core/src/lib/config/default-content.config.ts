@@ -6,14 +6,17 @@ export const defaultContent = {
   common: {
     emailLabel: 'Email',
     passwordLabel: 'Password',
-    nameLabel: 'Name',
+    fullNameLabel: 'Full name',
 
-    nameErrorRequiredText: 'Name is required',
-    nameErrorMinLengthText: 'Name needs to be at least 2 characters long',
-    namePlaceholder: 'Joe Doe',
+    fullNameErrorRequiredText: 'Full name is required',
+    fullNameErrorMinLengthText: 'Full name needs to be at least 2 characters long',
+    fullNameErrorMaxLengthText: 'Full name can be maximum 255 characters long',
+    fullNamePlaceholder: 'Joe Doe',
 
     emailErrorRequiredText: 'Email is required',
     emailErrorPatternText: 'Email is invalid',
+    emailErrorMinLengthText: 'Email needs to be at least 3 characters long',
+    emailErrorMaxLengthText: 'Email can be maximum 255 characters long',
     emailPlaceholder: 'joe.doe@example.com',
 
     passwordErrorRequiredText: 'Password is required',

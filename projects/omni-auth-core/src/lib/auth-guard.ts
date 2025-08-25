@@ -24,21 +24,17 @@ export const onlyAuthenticated: (config?: {
 
   const loading$ = toObservable(authService.authState.isLoading);
 
-  console.log('Checking authentication state...');
-
   return loading$.pipe(
     skipWhile((loading) => loading),
     map(() => {
       const authenticated = authService.authState.value().state === 'authenticated';
+
       if (!authenticated) {
-        console.log('User is not authenticated, redirecting...', config?.redirectTo ?? libConfig.routing?.guest ?? ['/']);
         return createUrlTreeFromSnapshot(
           route,
           config?.redirectTo ?? libConfig.routing?.guest ?? ['/'],
         );
       }
-
-      console.log('User is authenticated, allowing access to the route');
 
       return true;
     }),

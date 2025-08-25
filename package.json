@@ -8,9 +8,16 @@
     "build:omni-auth-ui-material:prd": "ng build omni-auth-ui-material",
     "build:prd": "pnpm run build:omni-auth-core:prd && pnpm run build:omni-auth-cognito:prd && pnpm run build:omni-auth-ui-material:prd",
     "publish:omni-auth-core": "cd dist/omni-auth-core && npm publish && cd ~",
+    "publish:omni-auth-core:ci": "cd dist/omni-auth-core && npm publish --provenance && cd ~",
     "publish:omni-auth-ui-material": "cd dist/omni-auth-ui-material && npm publish && cd ~",
+    "publish:omni-auth-ui-material:ci": "cd dist/omni-auth-ui-material && npm publish --provenance && cd ~",
     "publish:omni-auth-cognito": "cd dist/omni-auth-cognito && npm publish && cd ~",
-    "publish": "pnpm run publish:omni-auth-core && pnpm run publish:omni-auth-ui-material && pnpm run publish:omni-auth-cognito"
+    "publish:omni-auth-cognito:ci": "cd dist/omni-auth-cognito && npm publish --provenance && cd ~",
+    "tests:headless:coverage": "ng test --no-watch --no-progress --browsers=ChromeHeadless --code-coverage omni-auth-core",
+    "tests:headless": "ng test --no-watch --no-progress --browsers=ChromeHeadless omni-auth-core",
+    "lint": "ng lint",
+    "publish": "pnpm run publish:omni-auth-core && pnpm run publish:omni-auth-ui-material && pnpm run publish:omni-auth-cognito",
+    "publish:ci": "pnpm run publish:omni-auth-core:ci && pnpm run publish:omni-auth-ui-material:ci && pnpm run publish:omni-auth-cognito:ci"
   },
   "prettier": {
     "overrides": [
@@ -54,6 +61,7 @@
     "karma-coverage": "~2.2.1",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "ng-mocks": "^14.13.5",
     "ng-packagr": "^20.1.0",
     "prettier": "^3.6.2",
     "typescript": "~5.8.3",

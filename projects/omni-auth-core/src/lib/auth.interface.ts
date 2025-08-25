@@ -1,33 +1,42 @@
-import {ResourceRef, Signal} from '@angular/core';
-import {FlowError} from './error/flow-error';
-import {OmniAuthError} from './error/auth-error';
+import { ResourceRef, Signal } from '@angular/core';
+import { FlowError } from './error/flow-error';
+import { OmniAuthError } from './error/auth-error';
 
 export const isError = (response: OmniAuthError | void) => {
   return response instanceof OmniAuthError;
 };
 
 export type CustomSignInProviderKey = string;
-export type SocialSignInProviderKey = 'google' | 'facebook' | 'apple' | 'github' | 'microsoft';
-export type SignInProviderKey = CustomSignInProviderKey | SocialSignInProviderKey;
+export type SocialSignInProviderKey =
+  | 'google'
+  | 'facebook'
+  | 'apple'
+  | 'github'
+  | 'microsoft';
+export type SignInProviderKey =
+  | CustomSignInProviderKey
+  | SocialSignInProviderKey;
 
 export type AuthState = {
   state: 'unknown' | 'authenticated' | 'unauthenticated' | 'error';
   user?: {
     displayName?: string;
     email?: string;
-    name?: string;
+    fullName?: string;
     phone?: string;
     verified: boolean;
   };
   error?: OmniAuthError;
-}
+};
 
 export abstract class OmniAuthService {
   abstract authState: ResourceRef<AuthState>;
 
   abstract currentUser: Signal<AuthState['user']>;
 
-  abstract getToken: () => Promise<string | null>;
+  abstract idToken: Signal<string | null>;
+
+  abstract accessToken: Signal<string | null>;
 
   abstract signOut(fromAllDevices?: boolean): Promise<void | FlowError>;
 
@@ -38,8 +47,8 @@ export abstract class OmniAuthService {
   abstract signUp(params: {
     email: string;
     password: string;
-    name: string;
-    attributes?: Record<string, string | boolean>;
+    fullName?: string;
+    customAttributes?: Record<string, string | boolean>;
   }): Promise<void | FlowError>;
 
   abstract confirmSignUp(params: {
@@ -52,9 +61,7 @@ export abstract class OmniAuthService {
     password: string;
   }): Promise<void | FlowError>;
 
-  abstract forgotPassword(params: {
-    email: string;
-  }): Promise<void | FlowError>;
+  abstract forgotPassword(params: { email: string }): Promise<void | FlowError>;
 
   abstract confirmForgotPassword(params: {
     email: string;
@@ -62,5 +69,7 @@ export abstract class OmniAuthService {
     newPassword: string;
   }): Promise<void | FlowError>;
 
-  abstract signInWithProvider(providerKey: SocialSignInProviderKey | CustomSignInProviderKey): Promise<void | FlowError>;
+  abstract signInWithProvider(
+    providerKey: SocialSignInProviderKey | CustomSignInProviderKey,
+  ): Promise<void | FlowError>;
 }

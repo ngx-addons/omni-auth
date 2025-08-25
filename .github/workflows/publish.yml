@@ -1,0 +1,68 @@
+name: 🚀 Publish
+
+on:
+#  todo enable me
+#  pull_request:
+#    types: [closed]
+#    branches: ['main']
+  workflow_dispatch:
+
+jobs:
+  code-analysis:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - name: Use Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Install dependencies
+        run: pnpm install
+      - name: Unit tests
+        run: pnpm run tests:headless:coverage
+
+      - name: Build
+        run: build:prd
+
+      ## PUBLISH CORE:
+      - id: omni-auth-core
+        uses: EndBug/version-check@v2
+        with:
+          file-name: ./dist/omni-auth-core/package.json
+
+      - name: Publish to npm -> omni-auth-core
+        if: steps.omni-auth-core.outputs.changed == 'true'
+        run: publish:omni-auth-cognito:ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      ## PUBLISH COGNITO CONNECTOR:
+      - id: omni-auth-cognito
+        uses: EndBug/version-check@v2
+        with:
+          file-name: ./dist/omni-auth-cognito/package.json
+
+      - name: Publish to npm -> omni-auth-cognito
+        if: steps.omni-auth-cognito.outputs.changed == 'true'
+        run: publish:omni-auth-cognito:ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      ## PUBLISH MATERIAL UI:
+      - id: omni-auth-ui-material
+        uses: EndBug/version-check@v2
+        with:
+          file-name: ./dist/omni-auth-ui-material/package.json
+
+      - name: Publish to npm -> omni-auth-ui-material
+        if: steps.omni-auth-ui-material.outputs.changed == 'true'
+        run: publish:omni-auth-ui-material:ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+

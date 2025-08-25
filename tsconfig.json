@@ -5,16 +5,16 @@
   "compilerOptions": {
     "paths": {
       "@ngx-addons/omni-auth-cognito": [
-        "./dist/omni-auth-cognito",
-        "./projects/omni-auth-cognito/src/public-api.ts"
+        "./projects/omni-auth-cognito/src/public-api.ts",
+        "./dist/omni-auth-cognito"
       ],
       "@ngx-addons/omni-auth-core": [
-        "./dist/omni-auth-core",
-        "./projects/omni-auth-core/src/public-api.ts"
+        "./projects/omni-auth-core/src/public-api.ts",
+        "./dist/omni-auth-core"
       ],
       "@ngx-addons/omni-auth-ui-material": [
-        "./dist/omni-auth-ui-material",
-        "./projects/omni-auth-ui-material/src/public-api.ts"
+        "./projects/omni-auth-ui-material/src/public-api.ts",
+        "./dist/omni-auth-ui-material"
       ]
     },
     "strict": true,
