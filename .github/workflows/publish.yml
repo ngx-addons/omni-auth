@@ -40,7 +40,7 @@ jobs:
 
       - name: Publish to npm -> omni-auth-core
         if: steps.omni-auth-core.outputs.changed == 'true'
-        run: publish:omni-auth-cognito:ci
+        run: pnpm run publish:omni-auth-cognito:ci
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -55,7 +55,7 @@ jobs:
 
       - name: Publish to npm -> omni-auth-cognito
         if: steps.omni-auth-cognito.outputs.changed == 'true'
-        run: publish:omni-auth-cognito:ci
+        run: pnpm run publish:omni-auth-cognito:ci
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -70,7 +70,7 @@ jobs:
 
       - name: Publish to npm -> omni-auth-ui-material
         if: steps.omni-auth-ui-material.outputs.changed == 'true'
-        run: publish:omni-auth-ui-material:ci
+        run: pnpm run publish:omni-auth-ui-material:ci
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
