@@ -9,6 +9,8 @@ on:
 
 jobs:
   code-analysis:
+    permissions:
+      id-token: write
     name: "Build, test, and publish"
     runs-on: ubuntu-latest
     steps:
