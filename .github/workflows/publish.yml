@@ -9,13 +9,12 @@ on:
 
 jobs:
   code-analysis:
+    name: "Build, test, and publish"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Install pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: 9
       - name: Use Node.js 24
         uses: actions/setup-node@v4
         with:
@@ -28,7 +27,7 @@ jobs:
         run: pnpm run tests:headless:coverage
 
       - name: Build
-        run: build:prd
+        run: pnpm run build:prd
 
       ## PUBLISH CORE:
       - id: omni-auth-core

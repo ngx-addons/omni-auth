@@ -3,9 +3,9 @@ import { inject } from '@angular/core';
 import {
   AUTH_CONFIG,
   AuthConfig,
-  OmniAuthService,
-} from '@ngx-addons/omni-auth-core';
-import { from, switchMap } from 'rxjs';
+} from './../../configure-auth';
+import { OmniAuthService } from './../auth.interface';
+import { switchMap } from 'rxjs';
 import { toObservable } from '@angular/core/rxjs-interop';
 
 export const jwtInterceptor: HttpInterceptorFn = (request, next) => {
