@@ -9,6 +9,7 @@ on:
 
 jobs:
   code-analysis:
+    name: "Build, test, and publish"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -26,7 +27,7 @@ jobs:
         run: pnpm run tests:headless:coverage
 
       - name: Build
-        run: build:prd
+        run: pnpm run build:prd
 
       ## PUBLISH CORE:
       - id: omni-auth-core

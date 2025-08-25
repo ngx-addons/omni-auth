@@ -8,6 +8,7 @@ on:
 
 jobs:
   code-analysis:
+    name: "Code analysis, test and build"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -25,4 +26,4 @@ jobs:
       - name: Linter
         run: pnpm run lint
       - name: Build
-        run: build:prd
+        run: pnpm run build:prd

@@ -2,9 +2,10 @@ import { computed, resource, signal } from '@angular/core';
 import {
   AuthState,
   isError,
-  OmniAuthError,
   OmniAuthService,
-} from '@ngx-addons/omni-auth-core';
+} from './auth.interface';
+import { OmniAuthError } from './error/auth-error';
+
 
 export class OmniAuthServiceMock implements OmniAuthService {
   authState = resource<AuthState, unknown>({
