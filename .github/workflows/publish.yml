@@ -42,7 +42,7 @@ jobs:
 
       - name: Publish to npm -> omni-auth-core
         if: steps.omni-auth-core.outputs.changed == 'true'
-        run: pnpm run publish:omni-auth-cognito:ci
+        run: pnpm run publish:omni-auth-core:ci
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
