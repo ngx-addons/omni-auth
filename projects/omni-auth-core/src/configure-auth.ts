@@ -1,5 +1,5 @@
 import { InjectionToken, Provider, Type } from '@angular/core';
-import { OmniAuthService } from './lib/auth.interface';
+import { OmniAuthService } from './lib/auth.service';
 
 export type AuthConfig = {
   /** @description Authentication service class */

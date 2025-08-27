@@ -1,6 +1,6 @@
 import { AUTH_CONFIG, AuthConfig, configureAuth } from './configure-auth';
-import { OmniAuthServiceMock } from './lib/auth.interface.spec';
-import { OmniAuthService } from './lib/auth.interface';
+import { OmniAuthServiceMock } from './lib/auth.service.spec';
+import { OmniAuthService } from './lib/auth.service';
 import { inject, Injectable, provideZonelessChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 

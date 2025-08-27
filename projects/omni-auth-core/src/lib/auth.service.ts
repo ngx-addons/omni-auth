@@ -1,6 +1,7 @@
 import { ResourceRef, Signal } from '@angular/core';
 import { FlowError } from './error/flow-error';
 import { OmniAuthError } from './error/auth-error';
+import { JwtPayloadType } from './types';
 
 export const isError = (response: OmniAuthError | void) => {
   return response instanceof OmniAuthError;
@@ -36,7 +37,11 @@ export abstract class OmniAuthService {
 
   abstract idToken: Signal<string | null>;
 
+  abstract idTokenPayload: Signal<JwtPayloadType | null>;
+
   abstract accessToken: Signal<string | null>;
+
+  abstract accessTokenPayload: Signal<JwtPayloadType | null>;
 
   abstract signOut(fromAllDevices?: boolean): Promise<void | FlowError>;
 

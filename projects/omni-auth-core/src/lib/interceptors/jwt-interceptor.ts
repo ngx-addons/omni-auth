@@ -4,7 +4,7 @@ import {
   AUTH_CONFIG,
   AuthConfig,
 } from './../../configure-auth';
-import { OmniAuthService } from './../auth.interface';
+import { OmniAuthService } from './../auth.service';
 import { switchMap } from 'rxjs';
 import { toObservable } from '@angular/core/rxjs-interop';
 

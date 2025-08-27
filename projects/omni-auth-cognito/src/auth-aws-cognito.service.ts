@@ -3,7 +3,7 @@ import {
   inject,
   Injectable,
   resource,
-  ResourceRef,
+  ResourceRef
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import {
@@ -27,6 +27,7 @@ import {
   AuthRouteService,
   AuthState,
   FlowError,
+  JwtPayloadType,
   OmniAuthError,
   OmniAuthService,
   RuntimeError,
@@ -34,13 +35,12 @@ import {
 } from '@ngx-addons/omni-auth-core';
 import { CognitoAuthState } from './cognito-auth-state';
 import { Router } from '@angular/router';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { toObservable } from '@angular/core/rxjs-interop';
 import { filter, Subscription } from 'rxjs';
 import {
   AUTH_COGNITO_CONFIG,
   AuthCognitoConfig,
 } from './configure-auth-cognito-connector';
-import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 
 @Injectable({
   providedIn: 'root',
@@ -117,6 +117,13 @@ export class AuthAwsCognitoService extends OmniAuthService {
     },
   });
 
+  session = resource({
+    params: () => ({
+      authState: this.authState.value(),
+    }),
+    loader: async () => fetchAuthSession(),
+  });
+
   readonly currentUser = computed(() => {
     const state = this.authState.value();
 
@@ -130,18 +137,28 @@ export class AuthAwsCognitoService extends OmniAuthService {
     }),
   ).pipe(filter(Boolean));
 
-  readonly session = toSignal(fromPromise(fetchAuthSession()));
-
   readonly idToken = computed(() => {
-    const sessionValue = this.session();
+    const sessionValue = this.session.value();
 
     return sessionValue?.tokens?.idToken?.toString() ?? null;
   });
 
+  readonly idTokenPayload = computed(() => {
+    const sessionValue = this.session.value();
+
+    return (sessionValue?.tokens?.idToken?.payload as JwtPayloadType) ?? null;
+  });
+
   readonly accessToken = computed(() => {
-    const sessionValue = this.session();
+    const sessionValue = this.session.value();
 
     return sessionValue?.tokens?.idToken?.toString() ?? null;
+  });
+
+  readonly accessTokenPayload = computed(() => {
+    const sessionValue = this.session.value();
+
+    return (sessionValue?.tokens?.idToken?.payload as JwtPayloadType) ?? null;
   });
 
   async signOut(fromAllDevices = false): Promise<void | FlowError> {

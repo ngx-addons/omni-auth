@@ -3,7 +3,7 @@ import {
   AuthState,
   isError,
   OmniAuthService,
-} from './auth.interface';
+} from './auth.service';
 import { OmniAuthError } from './error/auth-error';
 
 
@@ -26,9 +26,13 @@ export class OmniAuthServiceMock implements OmniAuthService {
 
   readonly currentUser = computed(() => this.authState.value()?.user);
 
-  accessToken= signal('lorem-ipsum-dolor-sit-amet');
+  readonly accessToken= signal('lorem-ipsum-dolor-sit-amet');
 
-  idToken= signal('lorem-ipsum-dolor-sit-amet');
+  readonly idToken= signal('lorem-ipsum-dolor-sit-amet');
+
+  readonly idTokenPayload= signal(null);
+
+  readonly accessTokenPayload= signal(null);
 
   signOut = async () => {
     return;

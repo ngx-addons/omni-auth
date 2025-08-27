@@ -6,7 +6,7 @@ import {
 import { inject } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { map, skipWhile, take } from 'rxjs';
-import { OmniAuthService } from './auth.interface';
+import { OmniAuthService } from './auth.service';
 import { AUTH_CONFIG, AuthConfig } from '../configure-auth';
 
 /**
