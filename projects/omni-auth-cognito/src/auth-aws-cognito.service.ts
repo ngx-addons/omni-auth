@@ -482,6 +482,7 @@ export class AuthAwsCognitoService extends OmniAuthService {
     this.#navigateOnLoad$ = this.#isAuthenticated$.subscribe(() => {
       this.#authRouteService.navigateToSecuredPage();
       this.#navigateOnLoad$?.unsubscribe();
+      this.#navigateOnLoad$ = undefined;
     });
   }
 }
