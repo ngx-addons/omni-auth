@@ -1,10 +1,9 @@
 name: 🚀 Publish
 
 on:
-#  todo enable me
-#  pull_request:
-#    types: [closed]
-#    branches: ['main']
+  pull_request:
+    types: [closed]
+    branches: ['main']
   workflow_dispatch:
 
 jobs:
