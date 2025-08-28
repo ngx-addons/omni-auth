@@ -12,6 +12,8 @@ import {
 } from '@ngx-addons/omni-auth-ui-material';
 import { OmniAuthService } from '@ngx-addons/omni-auth-core';
 import { JsonPipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'demo-root',
@@ -25,6 +27,7 @@ export class App implements OnInit {
   protected readonly title = signal('demo');
   protected iconRegistry = inject(MatIconRegistry);
   authService = inject(OmniAuthService);
+  httpClient = inject(HttpClient);
 
   config: AuthComponentConfig = {
     signIn: {
@@ -74,5 +77,9 @@ export class App implements OnInit {
 
   ngOnInit(): void {
     this.iconRegistry.setDefaultFontSetClass('material-symbols-outlined');
+  }
+
+  makeTestRequest() {
+    this.httpClient.get(environment.apiTestingUrl).subscribe();
   }
 }

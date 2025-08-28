@@ -21,5 +21,7 @@
     <textarea name="accessToken">{{ authService.accessToken() | json }}</textarea>
     <h4>Access Token Payload:</h4>
     <pre>{{ authService.accessTokenPayload() | json }}</pre>
+
+    <button type="button" (click)="makeTestRequest()">Get request to test:</button>
   </div>
 </div>

@@ -35,11 +35,19 @@ export abstract class OmniAuthService {
 
   abstract currentUser: Signal<AuthState['user']>;
 
-  abstract idToken: Signal<string | null>;
+  /**
+   * @description The access token is used for authorizing requests to
+   * protected resources, "undefined" means the token is still being loaded
+   */
+  abstract idToken: Signal<string | null | undefined>;
 
   abstract idTokenPayload: Signal<JwtPayloadType | null>;
 
-  abstract accessToken: Signal<string | null>;
+  /**
+   * @description The access token is used for authorizing requests to
+   * protected resources, "undefined" means the token is still being loaded
+   */
+  abstract accessToken: Signal<string | null | undefined>;
 
   abstract accessTokenPayload: Signal<JwtPayloadType | null>;
 
