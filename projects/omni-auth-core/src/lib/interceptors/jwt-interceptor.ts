@@ -5,7 +5,7 @@ import {
   AuthConfig,
 } from './../../configure-auth';
 import { OmniAuthService } from './../auth.service';
-import {switchMap, take} from 'rxjs';
+import {filter, switchMap, take} from 'rxjs';
 import { toObservable } from '@angular/core/rxjs-interop';
 
 export const jwtInterceptor: HttpInterceptorFn = (request, next) => {
@@ -27,9 +27,10 @@ export const jwtInterceptor: HttpInterceptorFn = (request, next) => {
     }
   }
 
-  const token$ = toObservable(authService.idToken);
+  const token$ = toObservable(authService.accessToken);
 
   return token$.pipe(
+    filter((token) => token !== undefined),
     take(1),
     switchMap((token) => {
       if (!token) {

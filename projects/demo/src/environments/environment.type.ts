@@ -4,4 +4,5 @@ export type EnvironmentType = {
     userPoolClientId: string;
     userPoolDomain: string;
   };
+  apiTestingUrl: string;
 };

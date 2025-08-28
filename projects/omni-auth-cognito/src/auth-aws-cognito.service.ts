@@ -3,7 +3,7 @@ import {
   inject,
   Injectable,
   resource,
-  ResourceRef
+  ResourceRef,
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import {
@@ -118,6 +118,7 @@ export class AuthAwsCognitoService extends OmniAuthService {
   });
 
   session = resource({
+    defaultValue: undefined,
     params: () => ({
       authState: this.authState.value(),
     }),
@@ -139,6 +140,9 @@ export class AuthAwsCognitoService extends OmniAuthService {
 
   readonly idToken = computed(() => {
     const sessionValue = this.session.value();
+    if (!sessionValue) {
+      return undefined;
+    }
 
     return sessionValue?.tokens?.idToken?.toString() ?? null;
   });
@@ -151,6 +155,9 @@ export class AuthAwsCognitoService extends OmniAuthService {
 
   readonly accessToken = computed(() => {
     const sessionValue = this.session.value();
+    if (!sessionValue) {
+      return undefined;
+    }
 
     return sessionValue?.tokens?.idToken?.toString() ?? null;
   });
