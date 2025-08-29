@@ -1,4 +1,7 @@
 # @ngx-addons/omni-auth-core
+![License MIT](https://img.shields.io/npm/l/%40ngx-addons%2Fomni-auth-core)
+![NPM Version](https://img.shields.io/npm/v/%40ngx-addons%2Fomni-auth-core)
+![Build & Tests](https://img.shields.io/github/actions/workflow/status/ngx-addons/ngx-addons/pr-static-analysis.yml?label=Build%20%26%20Tests)
 
 A comprehensive Angular authentication library providing core functionality for authentication flows, guards, and error handling.
 
@@ -12,6 +15,9 @@ A comprehensive Angular authentication library providing core functionality for 
 - **Zoneless**: Designed to work without Angular's NgZone for performance optimization
 - **UI Agnostic**: Compatible with various UI libraries (Material, Tailwind, PrimeNG, etc.)
 - **Persistence Layer**: Supports multiple authentication backends (Cognito, Firebase, etc.)
+
+| ![Login Page](docs/assets/login_page.png) | ![Login Page](docs/assets/register_page.png) |
+|------------------------------|----------------------------------------------|
 
 ## General architecture overview for OmniAuth
 
@@ -42,7 +48,7 @@ import {configureAuth} from '@ngx-addons/omni-auth-core';
 
 
 configureAuth({
-    authService: AuthAwsCognitoService, // configure connector package (see below)
+    authService: AuthAwsCognitoService, // configure selected connector package (see below)
     bearerAuthentication: {
       whitelistedEndpoints: [environment.apiUrl],
     },
@@ -58,16 +64,16 @@ configureAuth({
 
 Connectors are responsible for integrating with different authentication backends. Currently, we support AWS Cognito. Here is the list of available connectors:
 
-| Connector Name | Status | Package                               |
-|----------------|:------:|:--------------------------------------|
-| Cognito        |   ✅    | @ngx-addons/auth-connector-aws-cognito |
-| Firebase       |   🔜   | 🔜                                    |
+| Connector Name | Status | Package                               |                                                                                | 
+|----------------|:------:|:--------------------------------------|--------------------------------------------------------------------------------|
+| Cognito        |   ✅    | @ngx-addons/omni-auth-cognito | ![NPM Version](https://img.shields.io/npm/v/%40ngx-addons%2Fomni-auth-cognito) |
+| Firebase       |   🔜   | 🔜                                    | |
 
 ```bash
   pnpm install @ngx-addons/auth-connector-aws-cognito
 ```
 
-You can also create your own custom connector by implementing the `OmniAuthService` interface.
+💡You can also create your own custom connector by implementing the `OmniAuthService` interface.
 
 ### 3. Install the UI adapter package:
 UI Adapters provide pre-built UI components for authentication flows. Currently, we support Material Design. Here is the list of available UI adapters:
@@ -76,12 +82,12 @@ UI Adapters provide pre-built UI components for authentication flows. Currently,
   pnpm install @ngx-addons/auth-ui-material
 ```
 
-| Connector Name | Status |           Package           |
-|----------------|:------:|:---------------------------:|
-| Cognito        |   ✅    | @ngx-addons/auth-ui-material |
-| Firebase       |   🔜   |             🔜              |
+| Connector Name | Status |              Package              |                                                                                |
+|----------------|:------:|:---------------------------------:|:------------------------------------------------------------------------------:|
+| Cognito        |   ✅    | @ngx-addons/omni-auth-ui-material | ![NPM Version](https://img.shields.io/npm/v/%40ngx-addons%2Fomni-auth-cognito) |
+| Firebase       |   🔜   |                🔜                 |                                                                                |
 
-You can also create your own custom UI adapter by using `OmniAuthService` interface.
+💡You can also create your own custom UI adapter by using `OmniAuthService` interface.
 
 ### 4. Use Auth Guard
 
@@ -103,9 +109,7 @@ const routes: Routes = [
 
 ```
 
-## TypeScript Support
-
-Full TypeScript support with comprehensive interfaces and type definitions for a better development experience.
+## Supported Features
 
 | Feature                        | Cognito | Firebase |
 |--------------------------------|:-------:|:--------:|
@@ -128,6 +132,7 @@ Full TypeScript support with comprehensive interfaces and type definitions for a
 | Sign Out feature               |    ✅    |    🔜    |
 | Validation                     |    ✅    |    🔜    |
 | Error Handling                 |    ✅    |    🔜    |
+| Refreshing token               |    ✅    |    🔜    |
 
 ✅ Done
 ❌ Not possible

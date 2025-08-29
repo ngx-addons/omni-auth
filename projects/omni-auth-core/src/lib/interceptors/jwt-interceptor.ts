@@ -6,7 +6,6 @@ import {
 } from './../../configure-auth';
 import { OmniAuthService } from './../auth.service';
 import {filter, switchMap, take} from 'rxjs';
-import { toObservable } from '@angular/core/rxjs-interop';
 
 export const jwtInterceptor: HttpInterceptorFn = (request, next) => {
   const config = inject<AuthConfig>(AUTH_CONFIG);
@@ -27,9 +26,9 @@ export const jwtInterceptor: HttpInterceptorFn = (request, next) => {
     }
   }
 
-  const token$ = toObservable(authService.accessToken);
-
-  return token$.pipe(
+  return authService.accessToken$.pipe(
+    // wait until the token is loaded
+    // even if it's null, session is checked, but a user is not authenticated
     filter((token) => token !== undefined),
     take(1),
     switchMap((token) => {

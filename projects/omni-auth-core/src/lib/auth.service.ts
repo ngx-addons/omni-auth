@@ -1,7 +1,9 @@
 import { ResourceRef, Signal } from '@angular/core';
 import { FlowError } from './error/flow-error';
 import { OmniAuthError } from './error/auth-error';
-import { JwtPayloadType } from './types';
+import { TokenProxy } from './token/token-proxy';
+import { JwtToken } from './token/jwt-token';
+import { Observable } from 'rxjs';
 
 export const isError = (response: OmniAuthError | void) => {
   return response instanceof OmniAuthError;
@@ -14,11 +16,15 @@ export type SocialSignInProviderKey =
   | 'apple'
   | 'github'
   | 'microsoft';
+
 export type SignInProviderKey =
   | CustomSignInProviderKey
   | SocialSignInProviderKey;
 
-export type AuthState = {
+export type AuthState<
+  ADDITIONAL_ID_TOKEN_PAYLOAD_CLAIMS = unknown,
+  ADDITIONAL_ACCESS_TOKEN_PAYLOAD_CLAIMS = unknown,
+> = {
   state: 'unknown' | 'authenticated' | 'unauthenticated' | 'error';
   user?: {
     displayName?: string;
@@ -27,29 +33,45 @@ export type AuthState = {
     phone?: string;
     verified: boolean;
   };
+  tokens?: TokenProxy<
+    ADDITIONAL_ID_TOKEN_PAYLOAD_CLAIMS,
+    ADDITIONAL_ACCESS_TOKEN_PAYLOAD_CLAIMS
+  >;
   error?: OmniAuthError;
 };
 
-export abstract class OmniAuthService {
-  abstract authState: ResourceRef<AuthState>;
+export abstract class OmniAuthService<
+  ADDITIONAL_ID_TOKEN_PAYLOAD_CLAIMS = unknown,
+  ADDITIONAL_ACCESS_TOKEN_PAYLOAD_CLAIMS = unknown,
+> {
+  abstract authState: ResourceRef<AuthState<
+    ADDITIONAL_ID_TOKEN_PAYLOAD_CLAIMS,
+    ADDITIONAL_ACCESS_TOKEN_PAYLOAD_CLAIMS
+  >>;
 
   abstract currentUser: Signal<AuthState['user']>;
 
   /**
-   * @description The access token is used for authorizing requests to
-   * protected resources, "undefined" means the token is still being loaded
+   * @description An ID token is an artifact that proves that
+   * the user has been authenticated.
+   *
+   * @returns {undefined|null|JwtToken} undefined - means the token is still being loaded,
+   * null means there is no access token (user not authenticated) JwtToken means the user is authenticated
    */
-  abstract idToken: Signal<string | null | undefined>;
-
-  abstract idTokenPayload: Signal<JwtPayloadType | null>;
+  abstract idToken$: Observable<
+    JwtToken<ADDITIONAL_ID_TOKEN_PAYLOAD_CLAIMS> | null | undefined
+  >;
 
   /**
-   * @description The access token is used for authorizing requests to
-   * protected resources, "undefined" means the token is still being loaded
+   * @description The access token is the artifact that allows
+   * the client application to access the user's resource.
+   *
+   * @returns {undefined|null|JwtToken} undefined - means the token is still being loaded,
+   * null means there is no access token (user not authenticated) JwtToken means the user is authenticated
    */
-  abstract accessToken: Signal<string | null | undefined>;
-
-  abstract accessTokenPayload: Signal<JwtPayloadType | null>;
+  abstract accessToken$: Observable<
+    JwtToken<ADDITIONAL_ACCESS_TOKEN_PAYLOAD_CLAIMS> | null | undefined
+  >;
 
   abstract signOut(fromAllDevices?: boolean): Promise<void | FlowError>;
 

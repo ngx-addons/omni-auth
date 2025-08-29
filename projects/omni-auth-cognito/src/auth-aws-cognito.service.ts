@@ -27,20 +27,40 @@ import {
   AuthRouteService,
   AuthState,
   FlowError,
-  JwtPayloadType,
+  JwtToken,
   OmniAuthError,
   OmniAuthService,
   RuntimeError,
   SignInProviderKey,
+  TokenFetcher,
+  TokenProxy,
 } from '@ngx-addons/omni-auth-core';
 import { CognitoAuthState } from './cognito-auth-state';
 import { Router } from '@angular/router';
 import { toObservable } from '@angular/core/rxjs-interop';
-import { filter, Subscription } from 'rxjs';
+import { filter, map, startWith, Subscription, switchMap } from 'rxjs';
 import {
   AUTH_COGNITO_CONFIG,
   AuthCognitoConfig,
 } from './configure-auth-cognito-connector';
+
+const tokenFetcher: TokenFetcher = async (refresh: boolean) => {
+  const refreshedTokens = await fetchAuthSession({
+    forceRefresh: refresh,
+  });
+
+  const idToken = refreshedTokens?.tokens?.idToken;
+  const accessToken = refreshedTokens?.tokens?.accessToken;
+
+  if (!idToken || !accessToken) {
+    return null;
+  }
+
+  return {
+    idToken: new JwtToken(idToken.toString(), idToken.payload),
+    accessToken: new JwtToken(accessToken.toString(), accessToken.payload),
+  };
+};
 
 @Injectable({
   providedIn: 'root',
@@ -93,8 +113,7 @@ export class AuthAwsCognitoService extends OmniAuthService {
     loader: async () => {
       try {
         const session = await fetchAuthSession();
-
-        if (!session?.tokens?.idToken && !session.tokens?.accessToken) {
+        if (!session?.tokens) {
           return CognitoAuthState.fromUnauthenticated();
         }
 
@@ -104,26 +123,33 @@ export class AuthAwsCognitoService extends OmniAuthService {
           throw 'Runtime error: user authenticated, but cannot be fetched';
         }
 
-        return CognitoAuthState.fromAuthenticated({
-          displayName: user.name ?? user.email ?? '',
-          email: user.email,
-          fullName: user.name,
-          phone: user.phone_number,
-          verified: Boolean(user.email_verified),
-        });
+        return CognitoAuthState.fromAuthenticated(
+          {
+            displayName: user.name ?? user.email ?? '',
+            email: user.email,
+            fullName: user.name,
+            phone: user.phone_number,
+            verified: Boolean(user.email_verified),
+          },
+          new TokenProxy(tokenFetcher),
+        );
       } catch (e) {
         return CognitoAuthState.fromError(new OmniAuthError(e));
       }
     },
   });
 
-  session = resource({
-    defaultValue: undefined,
-    params: () => ({
-      authState: this.authState.value(),
-    }),
-    loader: async () => fetchAuthSession(),
-  });
+  accessToken$ = toObservable(this.authState.value).pipe(
+    startWith(undefined),
+    map((state) => state?.tokens || null),
+    switchMap(async (tokenProxy) => tokenProxy?.getAccessToken() ?? null),
+  );
+
+  idToken$ = toObservable(this.authState.value).pipe(
+    startWith(undefined),
+    map((state) => state?.tokens || null),
+    switchMap(async (tokenProxy) => tokenProxy?.getIdToken() ?? null),
+  );
 
   readonly currentUser = computed(() => {
     const state = this.authState.value();
@@ -137,36 +163,6 @@ export class AuthAwsCognitoService extends OmniAuthService {
       return state.state === 'authenticated';
     }),
   ).pipe(filter(Boolean));
-
-  readonly idToken = computed(() => {
-    const sessionValue = this.session.value();
-    if (!sessionValue) {
-      return undefined;
-    }
-
-    return sessionValue?.tokens?.idToken?.toString() ?? null;
-  });
-
-  readonly idTokenPayload = computed(() => {
-    const sessionValue = this.session.value();
-
-    return (sessionValue?.tokens?.idToken?.payload as JwtPayloadType) ?? null;
-  });
-
-  readonly accessToken = computed(() => {
-    const sessionValue = this.session.value();
-    if (!sessionValue) {
-      return undefined;
-    }
-
-    return sessionValue?.tokens?.idToken?.toString() ?? null;
-  });
-
-  readonly accessTokenPayload = computed(() => {
-    const sessionValue = this.session.value();
-
-    return (sessionValue?.tokens?.idToken?.payload as JwtPayloadType) ?? null;
-  });
 
   async signOut(fromAllDevices = false): Promise<void | FlowError> {
     try {

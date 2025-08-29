@@ -1,10 +1,12 @@
-import { computed, resource, signal } from '@angular/core';
+import { computed, resource } from '@angular/core';
 import {
   AuthState,
   isError,
   OmniAuthService,
 } from './auth.service';
 import { OmniAuthError } from './error/auth-error';
+import { TokenProxy } from './token/token-proxy';
+import { of } from 'rxjs';
 
 
 export class OmniAuthServiceMock implements OmniAuthService {
@@ -19,6 +21,7 @@ export class OmniAuthServiceMock implements OmniAuthService {
           displayName: 'Display Name',
           email: 'name@sample-email.com',
           verified: true,
+          tokens: new TokenProxy(async () => null),
         },
       };
     },
@@ -26,13 +29,9 @@ export class OmniAuthServiceMock implements OmniAuthService {
 
   readonly currentUser = computed(() => this.authState.value()?.user);
 
-  readonly accessToken= signal('lorem-ipsum-dolor-sit-amet');
+  idToken$ = of(null);
 
-  readonly idToken= signal('lorem-ipsum-dolor-sit-amet');
-
-  readonly idTokenPayload= signal(null);
-
-  readonly accessTokenPayload= signal(null);
+  accessToken$ = of(null);
 
   signOut = async () => {
     return;
