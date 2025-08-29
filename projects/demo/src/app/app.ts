@@ -11,13 +11,13 @@ import {
   AuthComponentConfig,
 } from '@ngx-addons/omni-auth-ui-material';
 import { OmniAuthService } from '@ngx-addons/omni-auth-core';
-import { JsonPipe } from '@angular/common';
+import { AsyncPipe, JsonPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 
 @Component({
   selector: 'demo-root',
-  imports: [AuthComponent, JsonPipe],
+  imports: [AuthComponent, JsonPipe, AsyncPipe],
   templateUrl: './app.html',
   styleUrl: './app.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

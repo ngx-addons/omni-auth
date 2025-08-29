@@ -1,3 +1,7 @@
+export { JwtToken } from './lib/token/jwt-token';
+export { TokenProxy } from './lib/token/token-proxy';
+export { type TokenFetcher } from './lib/token/token-proxy';
+
 export { jwtInterceptor } from './lib/interceptors/jwt-interceptor';
 export { emailToFullName } from './lib/email-to-full-name';
 
