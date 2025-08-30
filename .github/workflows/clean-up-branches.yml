@@ -1,0 +1,18 @@
+name: 🧹 Branches Cleaner
+
+on:
+  schedule:
+    - cron: "0 0 * * 0,5" # At 00:00 on Sunday and Friday
+
+jobs:
+  cleanup-branches:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: GitHub Branch Cleaner
+        uses: mmorenoregalado/action-branches-cleaner@v2.0.1
+        with:
+          base_branches: main
+          token: ${{ secrets.GITHUB_TOKEN }}
+          days_old_threshold: 3
