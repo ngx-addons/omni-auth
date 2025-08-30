@@ -1,11 +1,11 @@
 import { JwtPayloadType } from '../types';
 
-export class JwtToken<ADDITIONAL_PAYLOAD_CLAIMS = unknown> {
+export class JwtToken<EXTRA_CLAIMS = unknown> {
   expireAt: Date | null;
 
   constructor(
     public token: string,
-    public payload: JwtPayloadType & ADDITIONAL_PAYLOAD_CLAIMS,
+    public payload: JwtPayloadType & EXTRA_CLAIMS,
   ) {
     this.expireAt = payload.exp ? new Date(payload.exp * 1000) : null;
   }
