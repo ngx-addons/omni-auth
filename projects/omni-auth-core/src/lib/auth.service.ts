@@ -22,8 +22,8 @@ export type SignInProviderKey =
   | SocialSignInProviderKey;
 
 export type AuthState<
-  ADDITIONAL_ID_TOKEN_PAYLOAD_CLAIMS = unknown,
-  ADDITIONAL_ACCESS_TOKEN_PAYLOAD_CLAIMS = unknown,
+  EXTRA_ACCESS_TOKEN_CLAIMS = unknown,
+  EXTRA_ID_TOKEN_CLAIMS = unknown
 > = {
   state: 'unknown' | 'authenticated' | 'unauthenticated' | 'error';
   user?: {
@@ -34,19 +34,19 @@ export type AuthState<
     verified: boolean;
   };
   tokens?: TokenProxy<
-    ADDITIONAL_ID_TOKEN_PAYLOAD_CLAIMS,
-    ADDITIONAL_ACCESS_TOKEN_PAYLOAD_CLAIMS
+    EXTRA_ACCESS_TOKEN_CLAIMS,
+    EXTRA_ID_TOKEN_CLAIMS
   >;
   error?: OmniAuthError;
 };
 
 export abstract class OmniAuthService<
-  ADDITIONAL_ID_TOKEN_PAYLOAD_CLAIMS = unknown,
-  ADDITIONAL_ACCESS_TOKEN_PAYLOAD_CLAIMS = unknown,
+  EXTRA_ACCESS_TOKEN_CLAIMS = unknown,
+  EXTRA_ID_TOKEN_CLAIMS = unknown,
 > {
   abstract authState: ResourceRef<AuthState<
-    ADDITIONAL_ID_TOKEN_PAYLOAD_CLAIMS,
-    ADDITIONAL_ACCESS_TOKEN_PAYLOAD_CLAIMS
+    EXTRA_ACCESS_TOKEN_CLAIMS,
+    EXTRA_ID_TOKEN_CLAIMS
   >>;
 
   abstract currentUser: Signal<AuthState['user']>;
@@ -59,7 +59,7 @@ export abstract class OmniAuthService<
    * null means there is no access token (user not authenticated) JwtToken means the user is authenticated
    */
   abstract idToken$: Observable<
-    JwtToken<ADDITIONAL_ID_TOKEN_PAYLOAD_CLAIMS> | null | undefined
+    JwtToken<EXTRA_ID_TOKEN_CLAIMS> | null | undefined
   >;
 
   /**
@@ -70,7 +70,7 @@ export abstract class OmniAuthService<
    * null means there is no access token (user not authenticated) JwtToken means the user is authenticated
    */
   abstract accessToken$: Observable<
-    JwtToken<ADDITIONAL_ACCESS_TOKEN_PAYLOAD_CLAIMS> | null | undefined
+    JwtToken<EXTRA_ACCESS_TOKEN_CLAIMS> | null | undefined
   >;
 
   abstract signOut(fromAllDevices?: boolean): Promise<void | FlowError>;
