@@ -1,5 +1,0 @@
----
-keyword: InstallationPage
----
-
-...
