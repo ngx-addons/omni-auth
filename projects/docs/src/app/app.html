@@ -1,7 +1,13 @@
 <ng-doc-root>
-	<ng-doc-navbar>
-			<h3 ngDocNavbarLeft style="margin: 0">omni-auth-core</h3>
-	</ng-doc-navbar>
-	<ng-doc-sidebar />
-<router-outlet />
+  <ng-doc-navbar>
+    <h3 ngDocNavbarLeft>
+      <span class="brand-title-ngx">Ngx</span>
+      <span class="brand-title-omni-auth">OmniAuth</span>
+    </h3>
+    <div @preventInitialChild class="header-controls" ngDocNavbarRight>
+      <ng-doc-theme-toggle/>
+    </div>
+  </ng-doc-navbar>
+  <ng-doc-sidebar/>
+  <router-outlet/>
 </ng-doc-root>
