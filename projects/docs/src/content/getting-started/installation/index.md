@@ -25,10 +25,11 @@ Then you need to choose and install one of the available connector packages.
 
 Here is the list of available connectors:
 
-| Connector Name | Status | Package                       |                                                                                |
-| -------------- | :----: | :---------------------------- | ------------------------------------------------------------------------------ |
-| Cognito        |   ✅   | @ngx-addons/omni-auth-cognito | ![NPM Version](https://img.shields.io/npm/v/%40ngx-addons%2Fomni-auth-cognito) |
-| Firebase       |   🔜   | 🔜                            |                                                                                |
+| Connector Name | Status | Package                       |                                                                                    |
+| -------------- | :----: | :---------------------------- |------------------------------------------------------------------------------------|
+| Cognito        |   ✅   | @ngx-addons/omni-auth-cognito | ![NPM Version](https://img.shields.io/npm/v/%40ngx-addons%2Fomni-auth-cognito)[](https://www.npmjs.com/package/@ngx-addons/omni-auth-cognito) |
+| Firebase       |   🔜   | 🔜                            |                                                                                    |
+
 
 ```bash group="connector" name="npm"
 npm install @ngx-addons/omni-auth-cognito
@@ -48,6 +49,12 @@ Finally, you can install one of the available UI packages.
 
 > **Note**
 > UI packages provide pre-built components and styles for authentication-related user interfaces. Currently, we support Material Design.
+
+
+| UI Package | Status | Package                            |                                                                                                                                                       |
+|------------| :----: |:-----------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Material   |   ✅   | @ngx-addons/omni-auth-ui-material  | ![NPM Version](https://img.shields.io/npm/v/%40ngx-addons%2Fomni-auth-ui-material)[](https://www.npmjs.com/package/@ngx-addons/omni-auth-ui-material) |
+
 
 ```bash group="ui" name="npm"
 npm install @ngx-addons/omni-auth-ui-material

@@ -28,7 +28,13 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideHttpClient(withInterceptorsFromDi()),
     provideRouter(
-      NG_DOC_ROUTING,
+      [
+        ...NG_DOC_ROUTING,
+        {
+          path: '**',
+          redirectTo: 'getting-started/what-is-ngx-omni-auth',
+        },
+      ],
       withInMemoryScrolling({
         scrollPositionRestoration: 'enabled',
         anchorScrolling: 'enabled',

@@ -7,6 +7,7 @@ import {
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { preventInitialChildAnimations } from '@ng-doc/ui-kit';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -18,6 +19,7 @@ import { preventInitialChildAnimations } from '@ng-doc/ui-kit';
     NgDocNavbarComponent,
     NgDocSidebarComponent,
     NgDocThemeToggleComponent,
+    NgOptimizedImage,
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
