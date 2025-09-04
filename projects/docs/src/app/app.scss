@@ -1,12 +1,24 @@
-.brand-title-ngx {
-  font-family: var(--ng-doc-font-family);
-  font-weight: 400;
+.brand {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &-logo {
+    margin-right: 8px;
+  }
+
+  &-title-ngx {
+    font-family: var(--ng-doc-font-family);
+    font-weight: 400;
+  }
+
+  &-title-omni-auth {
+    font-family: var(--ng-doc-heading-font-family);
+    font-weight: 700;
+  }
+
 }
 
-.brand-title-omni-auth {
-  font-family: var(--ng-doc-heading-font-family);
-  font-weight: 700;
-}
 
 .header-controls {
   display: flex;
