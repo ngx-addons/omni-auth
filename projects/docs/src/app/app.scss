@@ -8,12 +8,12 @@
   }
 
   &-title-ngx {
-    font-family: var(--ng-doc-font-family);
+    font-family: var(--ng-doc-font-family), serif;
     font-weight: 400;
   }
 
   &-title-omni-auth {
-    font-family: var(--ng-doc-heading-font-family);
+    font-family: var(--ng-doc-heading-font-family), serif;
     font-weight: 700;
   }
 

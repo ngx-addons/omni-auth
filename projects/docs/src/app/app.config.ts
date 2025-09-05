@@ -20,6 +20,9 @@ import {
   provideZonelessChangeDetection,
 } from '@angular/core';
 import { provideRouter, withInMemoryScrolling } from '@angular/router';
+import {configureAuth} from "@ngx-addons/omni-auth-core";
+import {AuthAwsCognitoService, configureAuthCognitoConnector} from "@ngx-addons/omni-auth-cognito";
+import {environment} from "../../../demo/src/environments/environment";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -46,5 +49,23 @@ export const appConfig: ApplicationConfig = {
     provideSearchEngine(NgDocDefaultSearchEngine),
     providePageSkeleton(NG_DOC_DEFAULT_PAGE_SKELETON),
     provideMainPageProcessor(NG_DOC_DEFAULT_PAGE_PROCESSORS),
+    configureAuth({
+      authService: AuthAwsCognitoService,
+      bearerAuthentication: {
+        whitelistedEndpoints: [environment.apiTestingUrl],
+      },
+    }),
+    configureAuthCognitoConnector({
+      cognito: {
+        userPoolId: environment.cognito.userPoolId,
+        userPoolClientId: environment.cognito.userPoolClientId,
+        oauth: {
+          domain: environment.cognito.userPoolDomain,
+          redirectSignIn: ['http://localhost:4200/'],
+          redirectSignOut: ['http://localhost:4200/'],
+          providers: ['Google'],
+        },
+      },
+    }),
   ],
 };
