@@ -10,7 +10,7 @@ const CognitoWithMaterialPage: NgDocPage = {
   playgrounds: {
     TagPlayground: {
       target: CognitoWithMaterialComponent,
-      template: `<ng-doc-selector>Button</ng-doc-selector>`,
+      template: `<ng-doc-selector>The code is available in github repo.</ng-doc-selector>`,
     },
   },
 };

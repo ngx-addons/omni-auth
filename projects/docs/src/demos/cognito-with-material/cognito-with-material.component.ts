@@ -22,7 +22,7 @@ import { MatIconRegistry } from '@angular/material/icon';
       class="material-demo mat-typography"
       [class]="[theme(), currentTheme()]"
     >
-      <omni-auth-ui-mat [config]="config">
+      <omni-auth-ui-mat [config]="config()">
         <p sign-up-footer>
           By signing up, you agree to our
           <a class="link" tabindex="0">terms and conditions</a>
@@ -38,7 +38,10 @@ export class CognitoWithMaterialComponent implements OnInit {
   protected readonly themeService = inject(NgDocThemeService);
   protected readonly iconRegistry = inject(MatIconRegistry);
 
-  readonly theme = input<'blue' | 'azure' | 'green' | 'orange'>('green');
+  readonly theme = input<'blue' | 'azure' | 'green' | 'orange' | 'magenta'>(
+    'green',
+  );
+  readonly providers = input<boolean>(true);
   readonly change = toSignal(this.themeService.themeChanges());
   readonly currentTheme = computed(() => {
     this.change();
@@ -50,13 +53,29 @@ export class CognitoWithMaterialComponent implements OnInit {
     return this.themeService.currentTheme as 'auto' | 'dark';
   });
 
-  ngOnInit(): void {
-    this.iconRegistry.setDefaultFontSetClass('material-symbols-outlined');
-  }
+  readonly config = computed(() => {
+    const withProviders = this.providers();
 
-  config: AuthComponentConfig = {
-    signIn: {
-      signInProviders: [
+    const config: AuthComponentConfig = {
+      signIn: {},
+      signUp: {
+        fullName: {
+          enabled: true,
+          enableAutoFill: true,
+        },
+        additionalAttributes: [
+          {
+            key: 'newsletterConsent',
+            type: 'checkbox',
+            isRequired: true,
+            label: 'Subscribe to our newsletter',
+          },
+        ],
+      },
+    };
+
+    if (withProviders) {
+      config.signIn!.signInProviders = [
         {
           label: 'Google',
           tooltip: 'Sign in with Google',
@@ -82,21 +101,12 @@ export class CognitoWithMaterialComponent implements OnInit {
           tooltip: 'Sign in with a custom provider',
           key: 'custom-provider',
         },
-      ],
-    },
-    signUp: {
-      fullName: {
-        enabled: true,
-        enableAutoFill: true,
-      },
-      additionalAttributes: [
-        {
-          key: 'newsletterConsent',
-          type: 'checkbox',
-          isRequired: true,
-          label: 'Subscribe to our newsletter',
-        },
-      ],
-    },
-  };
+      ];
+    }
+    return config;
+  });
+
+  ngOnInit(): void {
+    this.iconRegistry.setDefaultFontSetClass('material-symbols-outlined');
+  }
 }
