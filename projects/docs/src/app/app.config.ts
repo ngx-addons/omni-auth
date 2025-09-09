@@ -22,7 +22,7 @@ import {
 import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import {configureAuth} from "@ngx-addons/omni-auth-core";
 import {AuthAwsCognitoService, configureAuthCognitoConnector} from "@ngx-addons/omni-auth-cognito";
-import {environment} from "../../../demo/src/environments/environment";
+import {environment} from "../environments/environment";
 
 export const appConfig: ApplicationConfig = {
   providers: [
