@@ -7,7 +7,9 @@
   <p align="center">
     Angular authentication library providing core functionality for authentication flows, guards, and error handling.
     <br />
-    <a href="https://github.com/ngx-addons/omni-auth">Documentation</a>
+    <a href="https://ngx-addons.github.io/omni-auth/demo/cognito-with-material">Demo</a>
+    ·
+    <a href="https://ngx-addons.github.io/omni-auth/">Documentation</a>
     ·
     <a href="https://github.com/ngx-addons/omni-auth/issues/new/choose">Report Bug</a>
     ·
