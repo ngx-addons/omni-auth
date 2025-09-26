@@ -2,7 +2,7 @@
 keyword: ContributionPage
 ---
 
-Contributions are welcome! If you have suggestions for improvements, bug fixes, or new features, please feel free to open an issue or submit a pull request on our [GitHub repository](https://github.com/ngx-addons/ngx-addons)
+Contributions are welcome! If you have suggestions for improvements, bug fixes, or new features, please feel free to open an issue or submit a pull request on our [GitHub repository](https://github.com/ngx-addons/omni-auth)
 
 ## How to contribute
 
@@ -41,6 +41,5 @@ To set up a development environment for ngx-omni-auth, follow these steps:
 
 - Start the development server with:
   ```bash
-   ng serve demo # to view the demo application.
    ng serve docs # to view the documentation site.
   ```

@@ -1,7 +1,7 @@
 {
   "name": "@ngx-addons/omni-auth-cognito",
   "author": "Piotr Liszka",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "license": "MIT",
   "private": false,
   "keywords": [
@@ -28,10 +28,10 @@
   "sideEffects": false,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ngx-addons/ngx-addons.git"
+    "url": "git+https://github.com/ngx-addons/omni-auth.git"
   },
   "bugs": {
-    "url": "https://github.com/ngx-addons/ngx-addons/issues"
+    "url": "https://github.com/ngx-addons/omni-auth/issues"
   },
-  "homepage": "https://github.com/ngx-addons/ngx-addons#readme"
+  "homepage": "https://github.com/ngx-addons/omni-auth#readme"
 }
