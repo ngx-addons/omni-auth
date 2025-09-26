@@ -27,14 +27,6 @@ jobs:
       - name: Unit tests
         run: pnpm run tests:headless:coverage
 
-  publish_npm:
-    needs:
-      - prepare
-    permissions:
-      id-token: write
-    name: Publish to npm
-    runs-on: ubuntu-latest
-    steps:
       - name: Build
         run: pnpm run build:prd
 
@@ -83,16 +75,5 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-  publis_docs:
-    needs:
-      - prepare
-    permissions:
-      id-token: write
-    name: "Publish to npm"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Build
-        run: pnpm run build:docs:prd
-
-      - name: Publish docs
+      - name: Publish docs to gh-pages
         run: npx angular-cli-ghpages --dir=dist/docs/browser --no-silent
