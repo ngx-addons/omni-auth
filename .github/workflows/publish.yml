@@ -10,8 +10,10 @@ jobs:
   prepare:
     permissions:
       id-token: write
-    name: Install dependencies, test
+    name: Install dependencies, test, build and publish
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
       - name: Install pnpm
