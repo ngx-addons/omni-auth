@@ -1,0 +1,287 @@
+[
+  {
+    "title": "OmniAuthCore",
+    "items": [
+      {
+        "route": "/api/type-aliases/omni-auth-core/AuthConfig",
+        "type": "TypeAlias",
+        "name": "AuthConfig"
+      },
+      {
+        "route": "/api/variables/omni-auth-core/AUTH_CONFIG",
+        "type": "Variable",
+        "name": "AUTH_CONFIG"
+      },
+      {
+        "route": "/api/variables/omni-auth-core/configureAuth",
+        "type": "Variable",
+        "name": "configureAuth"
+      },
+      {
+        "route": "/api/classes/omni-auth-core/JwtToken",
+        "type": "Class",
+        "name": "JwtToken"
+      },
+      {
+        "route": "/api/classes/omni-auth-core/TokenProxy",
+        "type": "Class",
+        "name": "TokenProxy"
+      },
+      {
+        "route": "/api/type-aliases/omni-auth-core/TokenFetcher",
+        "type": "TypeAlias",
+        "name": "TokenFetcher"
+      },
+      {
+        "route": "/api/variables/omni-auth-core/jwtInterceptor",
+        "type": "Variable",
+        "name": "jwtInterceptor"
+      },
+      {
+        "route": "/api/variables/omni-auth-core/emailToFullName",
+        "type": "Variable",
+        "name": "emailToFullName"
+      },
+      {
+        "route": "/api/classes/omni-auth-core/ErrorMessagePipe",
+        "type": "Pipe",
+        "name": "ErrorMessagePipe"
+      },
+      {
+        "route": "/api/classes/omni-auth-core/RuntimeError",
+        "type": "Class",
+        "name": "RuntimeError"
+      },
+      {
+        "route": "/api/classes/omni-auth-core/ActionErrorCollectorService",
+        "type": "Injectable",
+        "name": "ActionErrorCollectorService"
+      },
+      {
+        "route": "/api/classes/omni-auth-core/FlowError",
+        "type": "Class",
+        "name": "FlowError"
+      },
+      {
+        "route": "/api/classes/omni-auth-core/OmniAuthError",
+        "type": "Class",
+        "name": "OmniAuthError"
+      },
+      {
+        "route": "/api/type-aliases/omni-auth-core/AuthState",
+        "type": "TypeAlias",
+        "name": "AuthState"
+      },
+      {
+        "route": "/api/classes/omni-auth-core/OmniAuthService",
+        "type": "Class",
+        "name": "OmniAuthService"
+      },
+      {
+        "route": "/api/variables/omni-auth-core/isError",
+        "type": "Variable",
+        "name": "isError"
+      },
+      {
+        "route": "/api/type-aliases/omni-auth-core/SocialSignInProviderKey",
+        "type": "TypeAlias",
+        "name": "SocialSignInProviderKey"
+      },
+      {
+        "route": "/api/type-aliases/omni-auth-core/CustomSignInProviderKey",
+        "type": "TypeAlias",
+        "name": "CustomSignInProviderKey"
+      },
+      {
+        "route": "/api/type-aliases/omni-auth-core/SignInProviderKey",
+        "type": "TypeAlias",
+        "name": "SignInProviderKey"
+      },
+      {
+        "route": "/api/type-aliases/omni-auth-core/ContentConfig",
+        "type": "TypeAlias",
+        "name": "ContentConfig"
+      },
+      {
+        "route": "/api/variables/omni-auth-core/defaultContent",
+        "type": "Variable",
+        "name": "defaultContent"
+      },
+      {
+        "route": "/api/variables/omni-auth-core/onlyAuthenticated",
+        "type": "Variable",
+        "name": "onlyAuthenticated"
+      },
+      {
+        "route": "/api/variables/omni-auth-core/onlyGuest",
+        "type": "Variable",
+        "name": "onlyGuest"
+      },
+      {
+        "route": "/api/classes/omni-auth-core/AuthRouteService",
+        "type": "Injectable",
+        "name": "AuthRouteService"
+      },
+      {
+        "route": "/api/type-aliases/omni-auth-core/JwtPayloadType",
+        "type": "TypeAlias",
+        "name": "JwtPayloadType"
+      },
+      {
+        "route": "/api/type-aliases/omni-auth-core/JwtPayloadStandardClaims",
+        "type": "TypeAlias",
+        "name": "JwtPayloadStandardClaims"
+      },
+      {
+        "route": "/api/variables/omni-auth-core/passwordPattern",
+        "type": "Variable",
+        "name": "passwordPattern"
+      },
+      {
+        "route": "/api/variables/omni-auth-core/emailPattern",
+        "type": "Variable",
+        "name": "emailPattern"
+      },
+      {
+        "route": "/api/type-aliases/omni-auth-core/ActionErrorCode",
+        "type": "TypeAlias",
+        "name": "ActionErrorCode"
+      }
+    ]
+  },
+  {
+    "title": "OmniAuthCognito",
+    "items": [
+      {
+        "route": "/api/classes/omni-auth-cognito/AuthAwsCognitoService",
+        "type": "Injectable",
+        "name": "AuthAwsCognitoService"
+      },
+      {
+        "route": "/api/classes/omni-auth-cognito/CognitoAuthState",
+        "type": "Class",
+        "name": "CognitoAuthState"
+      },
+      {
+        "route": "/api/type-aliases/omni-auth-cognito/AuthCognitoConfig",
+        "type": "TypeAlias",
+        "name": "AuthCognitoConfig"
+      },
+      {
+        "route": "/api/variables/omni-auth-cognito/AUTH_COGNITO_CONFIG",
+        "type": "Variable",
+        "name": "AUTH_COGNITO_CONFIG"
+      },
+      {
+        "route": "/api/variables/omni-auth-cognito/configureAuthCognitoConnector",
+        "type": "Variable",
+        "name": "configureAuthCognitoConnector"
+      }
+    ]
+  },
+  {
+    "title": "OmniAuthUiMaterial",
+    "items": [
+      {
+        "route": "/api/type-aliases/omni-auth-ui-material/AuthComponentConfig",
+        "type": "TypeAlias",
+        "name": "AuthComponentConfig"
+      },
+      {
+        "route": "/api/classes/omni-auth-ui-material/AuthComponent",
+        "type": "Component",
+        "name": "AuthComponent"
+      },
+      {
+        "route": "/api/classes/omni-auth-ui-material/SocialButtonsComponent",
+        "type": "Component",
+        "name": "SocialButtonsComponent"
+      },
+      {
+        "route": "/api/classes/omni-auth-ui-material/AuthenticatedComponent",
+        "type": "Component",
+        "name": "AuthenticatedComponent"
+      },
+      {
+        "route": "/api/classes/omni-auth-ui-material/ConfirmSignUpComponent",
+        "type": "Component",
+        "name": "ConfirmSignUpComponent"
+      },
+      {
+        "route": "/api/classes/omni-auth-ui-material/PrintErrorComponent",
+        "type": "Component",
+        "name": "PrintErrorComponent"
+      },
+      {
+        "route": "/api/classes/omni-auth-ui-material/ResetPasswordComponent",
+        "type": "Component",
+        "name": "ResetPasswordComponent"
+      },
+      {
+        "route": "/api/type-aliases/omni-auth-ui-material/SignInComponentConfig",
+        "type": "TypeAlias",
+        "name": "SignInComponentConfig"
+      },
+      {
+        "route": "/api/classes/omni-auth-ui-material/SignInComponent",
+        "type": "Component",
+        "name": "SignInComponent"
+      },
+      {
+        "route": "/api/type-aliases/omni-auth-ui-material/SignUpComponentConfig",
+        "type": "TypeAlias",
+        "name": "SignUpComponentConfig"
+      },
+      {
+        "route": "/api/classes/omni-auth-ui-material/SignUpComponent",
+        "type": "Component",
+        "name": "SignUpComponent"
+      },
+      {
+        "route": "/api/type-aliases/omni-auth-ui-material/SignInProvider",
+        "type": "TypeAlias",
+        "name": "SignInProvider"
+      },
+      {
+        "route": "/api/classes/omni-auth-ui-material/HostStateMatcher",
+        "type": "Class",
+        "name": "HostStateMatcher"
+      },
+      {
+        "route": "/api/classes/omni-auth-ui-material/ReplacePipe",
+        "type": "Pipe",
+        "name": "ReplacePipe"
+      },
+      {
+        "route": "/api/classes/omni-auth-ui-material/ButtonComponent",
+        "type": "Component",
+        "name": "ButtonComponent"
+      },
+      {
+        "route": "/api/classes/omni-auth-ui-material/InputComponent",
+        "type": "Component",
+        "name": "InputComponent"
+      },
+      {
+        "route": "/api/classes/omni-auth-ui-material/LoaderOverlayDirective",
+        "type": "Directive",
+        "name": "LoaderOverlayDirective"
+      },
+      {
+        "route": "/api/classes/omni-auth-ui-material/LoaderComponent",
+        "type": "Component",
+        "name": "LoaderComponent"
+      },
+      {
+        "route": "/api/type-aliases/omni-auth-ui-material/MessageType",
+        "type": "TypeAlias",
+        "name": "MessageType"
+      },
+      {
+        "route": "/api/classes/omni-auth-ui-material/MessageComponent",
+        "type": "Component",
+        "name": "MessageComponent"
+      }
+    ]
+  }
+]
