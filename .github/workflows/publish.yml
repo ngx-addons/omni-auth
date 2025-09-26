@@ -75,5 +75,9 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+      - run: |
+          git config --global user.name "Automation"
+          git config --global user.email "automation@ngx-addons"
+
       - name: Publish docs to gh-pages
         run: npx angular-cli-ghpages --dir=dist/docs/browser --no-silent
