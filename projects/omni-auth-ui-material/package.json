@@ -1,7 +1,7 @@
 {
   "name": "@ngx-addons/omni-auth-ui-material",
   "author": "Piotr Liszka",
-  "version": "1.1.5",
+  "version": "1.2.0",
   "license": "MIT",
   "private": false,
   "keywords": [

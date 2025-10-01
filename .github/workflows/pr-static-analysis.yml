@@ -25,5 +25,10 @@ jobs:
         run: pnpm run tests:headless
       - name: Linter
         run: pnpm run lint
+
+      - name: Write environments
+        run: |
+          echo "${{vars.DOCS_ENV}}" >> projects/docs/src/environments/environment.ts
+
       - name: Build
         run: pnpm run build:prd

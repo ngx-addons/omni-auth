@@ -1,18 +1,8 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  inject,
-  input,
-  OnInit,
-} from '@angular/core';
-import {
-  AuthComponent,
-  AuthComponentConfig,
-} from '@ngx-addons/omni-auth-ui-material';
-import { NgDocThemeService } from '@ng-doc/app/services/theme';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { MatIconRegistry } from '@angular/material/icon';
+import {ChangeDetectionStrategy, Component, computed, inject, input, OnInit, ViewEncapsulation,} from '@angular/core';
+import {AuthComponent, AuthComponentConfig,} from '@ngx-addons/omni-auth-ui-material';
+import {NgDocThemeService} from '@ng-doc/app/services/theme';
+import {toSignal} from '@angular/core/rxjs-interop';
+import {MatIconRegistry} from '@angular/material/icon';
 
 @Component({
   selector: 'demo-cognito-with-material',
@@ -32,6 +22,7 @@ import { MatIconRegistry } from '@angular/material/icon';
   `,
   styleUrls: ['cognito-with-material.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
   standalone: true,
 })
 export class CognitoWithMaterialComponent implements OnInit {
@@ -42,6 +33,9 @@ export class CognitoWithMaterialComponent implements OnInit {
     'green',
   );
   readonly providers = input<boolean>(true);
+  readonly providersWithLabels = input<boolean>(true);
+  readonly additionalConsent = input<boolean>(true);
+  readonly withFullName = input<boolean>(true);
   readonly change = toSignal(this.themeService.themeChanges());
   readonly currentTheme = computed(() => {
     this.change();
@@ -55,51 +49,61 @@ export class CognitoWithMaterialComponent implements OnInit {
 
   readonly config = computed(() => {
     const withProviders = this.providers();
+    const labels = this.providersWithLabels();
+    const fullWidth = labels;
+    const additionalConsent = this.additionalConsent();
+    const withFullName = this.withFullName();
 
     const config: AuthComponentConfig = {
       signIn: {},
       signUp: {
-        fullName: {
+        fullName: withFullName ? {
           enabled: true,
           enableAutoFill: true,
-        },
-        additionalAttributes: [
+        } : undefined,
+        additionalAttributes: additionalConsent ? [
           {
             key: 'newsletterConsent',
             type: 'checkbox',
-            isRequired: true,
+            isRequired: false,
             label: 'Subscribe to our newsletter',
           },
-        ],
+        ] : [],
       },
     };
 
+    const tooltip = 'This feature is not enabled in demo';
     if (withProviders) {
       config.signIn!.signInProviders = [
         {
-          label: 'Google',
-          tooltip: 'Sign in with Google',
+          label: labels ? 'Continue with Google' : undefined,
+          tooltip,
           key: 'google',
+          fullWidth: fullWidth,
         },
         {
-          label: 'Facebook',
-          tooltip: 'Sign in with Facebook',
+          label: labels ? 'Continue with Facebook' : undefined,
+          tooltip,
           key: 'facebook',
+          fullWidth: fullWidth,
         },
         {
-          label: 'Apple',
-          tooltip: 'Sign in with Apple',
+          label: labels ? 'Continue with Apple' : undefined,
+          tooltip,
           key: 'apple',
+          fullWidth: fullWidth,
         },
         {
-          label: 'GitHub',
-          tooltip: 'Sign in with GitHub',
+          label: labels ? 'Continue with Microsoft' : undefined,
+          tooltip,
           key: 'github',
+          fullWidth: fullWidth,
         },
         {
-          label: 'Custom Provider',
-          tooltip: 'Sign in with a custom provider',
+          label: labels ? 'Continue with Custom Provider' : undefined,
+          tooltip,
           key: 'custom-provider',
+          fullWidth: fullWidth,
         },
       ];
     }
