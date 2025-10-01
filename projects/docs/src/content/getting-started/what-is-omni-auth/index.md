@@ -18,4 +18,4 @@ Perfect for Angular applications of any scale, from simple projects to complex e
 
 OmniAuth is designed to be modular and flexible. The core module provides the main functionality, while additional modules can be added for specific authentication providers or ui components.
 
-![general_architecture.png](/assets/general_architecture.png)
+![general_architecture.png](assets/general_architecture.png)
