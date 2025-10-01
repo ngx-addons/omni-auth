@@ -27,6 +27,7 @@
   gap: var(--auth-social-gap, 8px);
   width: 100%;
   &-item {
+    box-shadow: var(--mat-sys-level1);
     transition: opacity 100ms ease-in-out;
     &:disabled {
       opacity: 0.2;
@@ -36,8 +37,21 @@
       opacity: 0.7;
     }
 
-    background: var(--auth-social-button-bg, var(--mat-sys-secondary-fixed));
+    &.full-width {
+      flex-grow: 1;
+      width: 100%;
+    }
 
+    background: var(--auth-social-button-bg, #fff);
+
+    &-content {
+      gap: var(--auth-social-vertical-gap, 6px);
+      color: var(--auth-social-button-text-color, #000);
+
+      vertical-align: middle;
+      display: flex;
+      align-items: center;
+    }
     svg {
       max-width: 24px;
       max-height: 24px;

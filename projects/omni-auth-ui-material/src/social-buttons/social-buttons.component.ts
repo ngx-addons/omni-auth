@@ -16,6 +16,7 @@ import {
 import { MatButton } from '@angular/material/button';
 import { LoaderOverlayDirective } from '../ui/loader/loader-overlay.directive';
 import { PrintErrorComponent } from '../print-error/print-error.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 export type SignInProvider = {
   /**
@@ -24,9 +25,9 @@ export type SignInProvider = {
   key: SignInProviderKey;
 
   /**
-   *  @description Name of the social provider, e.g. 'Google', 'Facebook', etc.
+   *  @description Label on button, e.g. 'Continue with Google', 'Sign in with Facebook', etc.
    */
-  label: string;
+  label?: string;
 
   /**
    *  @description Tooltip text that appears when hovering over the button.
@@ -40,6 +41,8 @@ export type SignInProvider = {
     src: string;
     alt: string;
   };
+
+  fullWidth?: boolean;
 };
 
 @Component({
@@ -52,6 +55,7 @@ export type SignInProvider = {
     LoaderOverlayDirective,
     PrintErrorComponent,
     NgOptimizedImage,
+    MatTooltipModule,
   ],
   templateUrl: './social-buttons.component.html',
   styleUrls: ['./social-buttons.component.scss'],
