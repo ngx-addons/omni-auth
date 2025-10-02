@@ -5,4 +5,6 @@ export type EnvironmentType = {
     userPoolDomain: string;
   };
   apiTestingUrl: string;
+  redirectSignIn: string;
+  redirectSignOut: string;
 };

@@ -35,7 +35,7 @@ export const appConfig: ApplicationConfig = {
         ...NG_DOC_ROUTING,
         {
           path: '**',
-          redirectTo: 'getting-started/what-is-ngx-omni-auth',
+          redirectTo: 'getting-started/what-is-omni-auth',
         },
       ],
       withInMemoryScrolling({
@@ -61,8 +61,8 @@ export const appConfig: ApplicationConfig = {
         userPoolClientId: environment.cognito.userPoolClientId,
         oauth: {
           domain: environment.cognito.userPoolDomain,
-          redirectSignIn: ['http://localhost:4200/'],
-          redirectSignOut: ['http://localhost:4200/'],
+          redirectSignIn: [environment.redirectSignIn],
+          redirectSignOut: [environment.redirectSignOut],
           providers: ['Google'],
         },
       },
