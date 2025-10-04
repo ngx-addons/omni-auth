@@ -1,1 +1,46 @@
+@use "@angular/material" as mat;
 @import "@ng-doc/app/styles/themes/dark.css";
+
+.cdk-overlay-container {
+  @include mat.theme((
+    color: mat.$blue-palette,
+    typography: Roboto,
+    density: 0,
+  ));
+}
+
+.material-demo {
+
+
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  --border-radius: 8px;
+  color-scheme: light;
+
+  &.dark {
+    color-scheme: dark;
+  }
+
+  &.auto {
+    color-scheme: light dark
+  }
+
+  &.blue {
+    @include mat.theme((color: mat.$blue-palette));
+  }
+
+  &.azure {
+    @include mat.theme((color: mat.$azure-palette));
+  }
+
+  &.green {
+    @include mat.theme((color: mat.$green-palette));
+  }
+
+  &.orange {
+    @include mat.theme((color: mat.$orange-palette));
+  }
+
+  &.magenta {
+    @include mat.theme((color: mat.$magenta-palette));
+  }
+}

@@ -3,12 +3,13 @@ import {CommonModule} from '@angular/common';
 import {MatTabsModule} from '@angular/material/tabs';
 import {ConfirmSignUpComponent} from '../confirm-signup/confirm-signup.component';
 import {SignUpComponent, SignUpComponentConfig} from '../signup/signup.component';
-import { SignInComponent, SignInComponentConfig } from '../signin/signin.component';
+import {SignInComponent, SignInComponentConfig} from '../signin/signin.component';
 import {ResetPasswordComponent} from '../reset-password/reset-password.component';
 import {
+  AUTH_CONFIG,
   AuthRouteService,
   ContentConfig,
-  defaultContent,
+  defaultContentEmail, defaultContentUsername,
   OmniAuthService
 } from '@ngx-addons/omni-auth-core';
 import {MessageComponent} from '../ui/message/message.component';
@@ -43,8 +44,9 @@ export type AuthComponentConfig = {
 export class AuthComponent {
   authService = inject(OmniAuthService);
   authRouteService = inject(AuthRouteService);
+  #env = inject(AUTH_CONFIG);
 
-  readonly content = input<ContentConfig>(defaultContent);
+  readonly content = input<ContentConfig>(this.#env.identifierType === 'email' ? defaultContentEmail : defaultContentUsername);
 
   readonly config = input<AuthComponentConfig>();
 }

@@ -6,7 +6,8 @@ import {
   AUTH_CONFIG,
   AuthConfig,
   AuthRouteService,
-  ContentConfig, emailToFullName,
+  ContentConfig,
+  emailToFullName,
   OmniAuthService,
   patterns
 } from '@ngx-addons/omni-auth-core';
@@ -40,42 +41,45 @@ export type SignUpComponentConfig = {
 export class SignUpComponent {
   #authService = inject<OmniAuthService>(OmniAuthService);
   #env = inject<AuthConfig>(AUTH_CONFIG);
+  env = inject<AuthConfig>(AUTH_CONFIG);
   authRoute = inject(AuthRouteService);
   readonly processing = signal(false);
   readonly content = input.required<Pick<ContentConfig, 'signUp' | 'common' | 'errors'>>();
   readonly config = input<SignUpComponentConfig>();
   readonly termsAndConditions = output();
 
-  emailPattern = this.#env.validation?.emailPattern || patterns.emailPattern;
+  #defaultIdentifierPattern = (this.#env.identifierType === 'email' ? patterns.emailPattern : patterns.usernamePattern);
+  identifierPattern = this.#env.validation?.identifierPattern || this.#defaultIdentifierPattern;
   passwordPattern = this.#env.validation?.passwordPattern || patterns.passwordPattern;
+
   user: {
+    identifier: string | null;
+    password: string | null;
     tos: boolean;
     fullName: string | null;
-    email: string | null;
-    password: string | null;
     customAttributes: Record<string, string | boolean>;
   } = {
+    identifier: null,
+    password: null,
     tos: false,
     fullName: null,
-    email: null,
-    password: null,
     customAttributes: {}
   };
 
   async onSubmit() {
-    const email = this.user.email ?? this.authRoute.currentEmail();
+    const identifier = this.user.identifier ?? this.authRoute.currentIdentifier();
     const password = this.user.password;
     const fullName = this.user.fullName;
     const customAttributes = this.user.customAttributes;
 
-    if (!email || !password) {
+    if (!identifier || !password) {
       return;
     }
 
     this.processing.set(true);
 
     await this.#authService.signUp({
-      email,
+      identifier,
       password,
       fullName: fullName ?? undefined,
       customAttributes,
@@ -84,16 +88,16 @@ export class SignUpComponent {
     this.processing.set(false);
   }
 
-  updateUserEmail($event: string) {
-    this.user.email = $event;
+  updateUserIdentifier($event: string) {
+    this.user.identifier = $event;
 
-    if(!this.config()?.fullName?.enabled || !this.config()?.fullName?.enableAutoFill) {
+    if (!this.config()?.fullName?.enabled || !this.config()?.fullName?.enableAutoFill) {
       return;
     }
 
-    const nextEmail = emailToFullName($event);
-    if (nextEmail) {
-      this.user.fullName = nextEmail
+    const nextIdentifier = emailToFullName($event) || $event;
+    if (nextIdentifier) {
+      this.user.fullName = nextIdentifier
     }
   }
 

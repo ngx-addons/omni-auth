@@ -7,22 +7,22 @@
       </div>
     </omni-auth-ui-mat-message>
     <omni-auth-ui-mat-input
-      #email="ngModel"
-      name="email"
+      #identifier="ngModel"
+      name="identifier"
       required
       type="text"
-      [label]="content().common.emailLabel"
-      [ngModel]="authRoute.currentEmail()"
-      [pattern]="emailPattern"
-      [placeholder]="content().common.emailPlaceholder"
-      (ngModelChange)="user.email = $event"
+      [label]="content().common.identifierLabel"
+      [ngModel]="authRoute.currentIdentifier()"
+      [pattern]="identifierPattern"
+      [placeholder]="content().common.identifierPlaceholder"
+      (ngModelChange)="user.identifier = $event"
     >
       @switch (true) {
-        @case (email.control.hasError("required")) {
-          <ng-container>{{ content().common.emailErrorRequiredText }}</ng-container>
+        @case (identifier.control.hasError("required")) {
+          <ng-container>{{ content().common.identifierErrorRequiredText }}</ng-container>
         }
-        @case (email.control.hasError("pattern")) {
-          <ng-container>{{ content().common.emailErrorPatternText }}</ng-container>
+        @case (identifier.control.hasError("pattern")) {
+          <ng-container>{{ content().common.identifierErrorPatternText }}</ng-container>
         }
       }
     </omni-auth-ui-mat-input>

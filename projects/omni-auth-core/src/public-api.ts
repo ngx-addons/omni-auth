@@ -26,7 +26,7 @@ export type {
   SignInProviderKey,
 } from './lib/auth.service';
 export type { ContentConfig } from './lib/config/default-content.config';
-export { defaultContent } from './lib/config/default-content.config';
+export { defaultContentEmail, defaultContentUsername } from './lib/config/default-content.config';
 export { onlyAuthenticated, onlyGuest } from './lib/auth-guard';
 export { AuthRouteService } from './lib/routing/auth-route.service';
 export * from './lib/types';

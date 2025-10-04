@@ -1,13 +1,19 @@
-import { InjectionToken, Provider, Type } from '@angular/core';
-import { OmniAuthService } from './lib/auth.service';
+import {InjectionToken, Provider, Type} from '@angular/core';
+import {OmniAuthService} from './lib/auth.service';
+import {AuthRouteService} from './lib/routing/auth-route.service';
+import {ActionErrorCollectorService} from './lib/error/action-error-collector.service';
 
 export type AuthConfig = {
   /** @description Authentication service class */
   authService: Type<OmniAuthService>;
+
+  /**  @description User identifier type, default is 'email' */
+  identifierType: 'email' | 'username';
+
   bearerAuthentication?: {
     /**
      * @description List of endpoints that do not require authentication, can be RegExp or string.
-     * In case of empty array, all endpoints will require authentication.
+     * In the case of an empty array, all endpoints will require authentication.
      * */
     whitelistedEndpoints: (RegExp | string)[];
     /** @description Authentication token header name, default is 'Authorization' */
@@ -22,24 +28,29 @@ export type AuthConfig = {
     guest: string[];
   };
   validation?: {
-    /** @description Email validation pattern, used in sign out / sign in method */
-    emailPattern?: RegExp;
-    /** @description Password validation pattern, used in sign out / sign in method */
+    /** @description Identifier validation pattern, used in sign-out / sign in method */
+    identifierPattern?: RegExp;
+    /** @description Password validation pattern, used in sign-out / sign in method */
     passwordPattern?: RegExp;
   };
 };
 
 export const AUTH_CONFIG = new InjectionToken<AuthConfig>('AUTH_CONFIG');
 
-export const configureAuth = (params: AuthConfig): Provider[] => {
+export const configureAuth = (params: Partial<AuthConfig> & Pick<AuthConfig, 'authService'>): Provider[] => {
   return [
+    AuthRouteService,
+    ActionErrorCollectorService,
     {
       provide: OmniAuthService,
       useClass: params.authService,
     },
     {
       provide: AUTH_CONFIG,
-      useValue: params,
+      useValue: {
+        ...params,
+        identifierType: params.identifierType ?? 'email',
+      },
     },
   ];
 };

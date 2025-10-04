@@ -1,10 +1,10 @@
-export const defaultContent = {
+export const defaultContentEmail = {
   loggedIn: {
     welcomeMessage: 'Welcome back, {{displayName}}!',
     welcomeMessageNoDisplayName: 'Welcome back!',
   },
   common: {
-    emailLabel: 'Email',
+    identifierLabel: 'Email',
     passwordLabel: 'Password',
     fullNameLabel: 'Full name',
 
@@ -13,11 +13,11 @@ export const defaultContent = {
     fullNameErrorMaxLengthText: 'Full name can be maximum 255 characters long',
     fullNamePlaceholder: 'Joe Doe',
 
-    emailErrorRequiredText: 'Email is required',
-    emailErrorPatternText: 'Email is invalid',
-    emailErrorMinLengthText: 'Email needs to be at least 3 characters long',
-    emailErrorMaxLengthText: 'Email can be maximum 255 characters long',
-    emailPlaceholder: 'joe.doe@example.com',
+    identifierErrorRequiredText: 'Email is required',
+    identifierErrorPatternText: 'Email is invalid',
+    identifierErrorMinLengthText: 'Email needs to be at least 3 characters long',
+    identifierErrorMaxLengthText: 'Email can be maximum 255 characters long',
+    identifierPlaceholder: 'joe.doe@example.com',
 
     passwordErrorRequiredText: 'Password is required',
     passwordErrorMinLengthText:
@@ -81,8 +81,7 @@ export const defaultContent = {
   },
   errors: {
     invalidCode: 'Provided code is invalid',
-    usernameNotFound: 'Username not found',
-    incorrectUsernameOrPassword: 'Password or email is incorrect',
+    incorrectIdentifierOrPassword: 'Password or email is incorrect',
     userDoesNotExist: 'User does not exist',
     userIsNotConfirmed: 'User is not confirmed',
     userAlreadyExists: 'User already exists',
@@ -95,4 +94,21 @@ export const defaultContent = {
   },
 };
 
-export type ContentConfig = typeof defaultContent;
+export const defaultContentUsername = {
+  ...defaultContentEmail,
+  common: {
+    ...defaultContentEmail.common,
+    identifierLabel: 'Username',
+    identifierErrorRequiredText: 'Username is required',
+    identifierErrorPatternText: 'Username is invalid',
+    identifierErrorMinLengthText: 'Username needs to be at least 3 characters long',
+    identifierErrorMaxLengthText: 'Username can be maximum 255 characters long',
+    identifierPlaceholder: 'joe.doe',
+  },
+  errors: {
+    ...defaultContentEmail.errors,
+    incorrectUsernameOrPassword: 'Password or username is incorrect',
+  }
+}
+
+export type ContentConfig = typeof defaultContentEmail;

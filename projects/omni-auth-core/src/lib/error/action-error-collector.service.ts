@@ -1,9 +1,7 @@
 import {Injectable, Signal, signal} from '@angular/core';
 import {FlowError} from './flow-error';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class ActionErrorCollectorService {
   readonly #currentError = signal<FlowError | null>(null);
 

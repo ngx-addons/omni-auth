@@ -47,30 +47,32 @@ export class ConfirmSignUpComponent {
     >();
 
   user: {
-    email: string | null;
+    identifier: string | null;
     code?: string;
   } = {
-    email: null,
+    identifier: null,
     code: undefined,
   };
 
-  emailPattern = this.#env.validation?.emailPattern || patterns.emailPattern;
+  #defaultIdentifierPattern = (this.#env.identifierType === 'email' ? patterns.emailPattern : patterns.usernamePattern);
+  identifierPattern = this.#env.validation?.identifierPattern || this.#defaultIdentifierPattern;
+  passwordPattern = this.#env.validation?.passwordPattern || patterns.passwordPattern;
 
   readonly resending = signal(false);
   readonly processing = signal(false);
   disabledResend = false;
 
   async resendCode() {
-    const email = this.user.email ?? this.authRoute.currentEmail();
+    const identifier = this.user.identifier ?? this.authRoute.currentIdentifier();
 
-    if (!email) {
+    if (!identifier) {
       return;
     }
 
     this.resending.set(true);
 
     const hasError = await this.#authService.resendSignUpCode({
-      email,
+      identifier,
     });
 
     this.resending.set(false);
@@ -84,16 +86,16 @@ export class ConfirmSignUpComponent {
   }
 
   async onSubmit() {
-    const email = this.user.email ?? this.authRoute.currentEmail();
+    const identifier = this.user.identifier ?? this.authRoute.currentIdentifier();
     const code = this.user.code;
 
-    if (!email || !code) {
+    if (!identifier || !code) {
       return;
     }
 
     this.processing.set(true);
     await this.#authService.confirmSignUp({
-      email,
+      identifier,
       code: String(code),
     });
 

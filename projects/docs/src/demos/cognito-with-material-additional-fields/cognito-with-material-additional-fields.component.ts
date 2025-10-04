@@ -3,6 +3,9 @@ import {AuthComponent, AuthComponentConfig,} from '@ngx-addons/omni-auth-ui-mate
 import {NgDocThemeService} from '@ng-doc/app/services/theme';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {MatIconRegistry} from '@angular/material/icon';
+import {configureAuth} from '@ngx-addons/omni-auth-core';
+import {AuthAwsCognitoService, configureAuthCognitoConnector} from '@ngx-addons/omni-auth-cognito';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'demo-cognito-with-material',
@@ -20,22 +23,29 @@ import {MatIconRegistry} from '@angular/material/icon';
       </omni-auth-ui-mat>
     </div>
   `,
-  styleUrls: ['cognito-with-material.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   standalone: true,
+  providers: [
+    configureAuth({
+      authService: AuthAwsCognitoService
+    }),
+    configureAuthCognitoConnector({
+      cognito: {
+        userPoolId: environment.cognito.userPoolId,
+        userPoolClientId: environment.cognito.userPoolClientId,
+      },
+    }),
+  ]
 })
-export class CognitoWithMaterialComponent implements OnInit {
+export class CognitoWithMaterialAdditionalFieldsComponent implements OnInit {
   protected readonly themeService = inject(NgDocThemeService);
   protected readonly iconRegistry = inject(MatIconRegistry);
 
   readonly theme = input<'blue' | 'azure' | 'green' | 'orange' | 'magenta'>(
-    'green',
+    'azure',
   );
-  readonly providers = input<boolean>(true);
-  readonly providersWithLabels = input<boolean>(true);
   readonly additionalConsent = input<boolean>(true);
-  readonly withFullName = input<boolean>(true);
   readonly change = toSignal(this.themeService.themeChanges());
   readonly currentTheme = computed(() => {
     this.change();
@@ -48,19 +58,11 @@ export class CognitoWithMaterialComponent implements OnInit {
   });
 
   readonly config = computed(() => {
-    const withProviders = this.providers();
-    const labels = this.providersWithLabels();
-    const fullWidth = labels;
     const additionalConsent = this.additionalConsent();
-    const withFullName = this.withFullName();
 
     const config: AuthComponentConfig = {
       signIn: {},
       signUp: {
-        fullName: withFullName ? {
-          enabled: true,
-          enableAutoFill: true,
-        } : undefined,
         additionalAttributes: additionalConsent ? [
           {
             key: 'newsletterConsent',
@@ -68,45 +70,16 @@ export class CognitoWithMaterialComponent implements OnInit {
             isRequired: false,
             label: 'Subscribe to our newsletter',
           },
+          {
+            key: 'termsAndConditionsConsent',
+            type: 'checkbox',
+            isRequired: true,
+            label: 'Accept terms and conditions',
+          },
         ] : [],
       },
     };
 
-    const tooltip = 'This feature is not enabled in demo';
-    if (withProviders) {
-      config.signIn!.signInProviders = [
-        {
-          label: labels ? 'Continue with Google' : undefined,
-          tooltip,
-          key: 'google',
-          fullWidth: fullWidth,
-        },
-        {
-          label: labels ? 'Continue with Facebook' : undefined,
-          tooltip,
-          key: 'facebook',
-          fullWidth: fullWidth,
-        },
-        {
-          label: labels ? 'Continue with Apple' : undefined,
-          tooltip,
-          key: 'apple',
-          fullWidth: fullWidth,
-        },
-        {
-          label: labels ? 'Continue with Microsoft' : undefined,
-          tooltip,
-          key: 'github',
-          fullWidth: fullWidth,
-        },
-        {
-          label: labels ? 'Continue with Custom Provider' : undefined,
-          tooltip,
-          key: 'custom-provider',
-          fullWidth: fullWidth,
-        },
-      ];
-    }
     return config;
   });
 
