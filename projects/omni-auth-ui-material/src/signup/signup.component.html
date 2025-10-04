@@ -1,31 +1,31 @@
 <form #registerForm="ngForm" class="auth-form" (ngSubmit)="onSubmit()">
   <div class="auth-form-body">
     <omni-auth-ui-mat-input
-      #email="ngModel"
+      #identifier="ngModel"
       maxlength="255"
       minlength="3"
-      name="email"
+      name="identifier"
       required
       type="text"
-      [label]="content().common.emailLabel"
-      [ngModel]="authRoute.currentEmail()"
-      [pattern]="emailPattern"
-      [placeholder]="content().common.emailPlaceholder"
-      (ngModelChange)="updateUserEmail($event)"
+      [label]="content().common.identifierLabel"
+      [ngModel]="authRoute.currentIdentifier()"
+      [pattern]="identifierPattern"
+      [placeholder]="content().common.identifierPlaceholder"
+      (ngModelChange)="updateUserIdentifier($event)"
     >
       <ng-container>
         @switch (true) {
-          @case (email.control.hasError("required")) {
-            <ng-container>{{ content().common.emailErrorRequiredText }}</ng-container>
+          @case (identifier.control.hasError("required")) {
+            <ng-container>{{ content().common.identifierErrorRequiredText }}</ng-container>
           }
-          @case (email.control.hasError("pattern")) {
-            <ng-container>{{ content().common.emailErrorPatternText }}</ng-container>
+          @case (identifier.control.hasError("pattern")) {
+            <ng-container>{{ content().common.identifierErrorPatternText }}</ng-container>
           }
-          @case (email.control.hasError("minLength")) {
-            <ng-container>{{ content().common.emailErrorMinLengthText }}</ng-container>
+          @case (identifier.control.hasError("minLength")) {
+            <ng-container>{{ content().common.identifierErrorMinLengthText }}</ng-container>
           }
-          @case (email.control.hasError("maxlength")) {
-            <ng-container>{{ content().common.emailErrorMaxLengthText }}</ng-container>
+          @case (identifier.control.hasError("maxlength")) {
+            <ng-container>{{ content().common.identifierErrorMaxLengthText }}</ng-container>
           }
         }
       </ng-container>

@@ -29,7 +29,6 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideAnimations(),
-    provideHttpClient(withInterceptorsFromDi()),
     provideRouter(
       [
         ...NG_DOC_ROUTING,
@@ -49,23 +48,5 @@ export const appConfig: ApplicationConfig = {
     provideSearchEngine(NgDocDefaultSearchEngine),
     providePageSkeleton(NG_DOC_DEFAULT_PAGE_SKELETON),
     provideMainPageProcessor(NG_DOC_DEFAULT_PAGE_PROCESSORS),
-    configureAuth({
-      authService: AuthAwsCognitoService,
-      bearerAuthentication: {
-        whitelistedEndpoints: [environment.apiTestingUrl],
-      },
-    }),
-    configureAuthCognitoConnector({
-      cognito: {
-        userPoolId: environment.cognito.userPoolId,
-        userPoolClientId: environment.cognito.userPoolClientId,
-        oauth: {
-          domain: environment.cognito.userPoolDomain,
-          redirectSignIn: [environment.redirectSignIn],
-          redirectSignOut: [environment.redirectSignOut],
-          providers: ['Google'],
-        },
-      },
-    }),
   ],
 };

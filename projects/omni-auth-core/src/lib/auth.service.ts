@@ -76,30 +76,30 @@ export abstract class OmniAuthService<
   abstract signOut(fromAllDevices?: boolean): Promise<void | FlowError>;
 
   abstract resendSignUpCode(params: {
-    email: string;
+    identifier: string;
   }): Promise<void | FlowError>;
 
   abstract signUp(params: {
-    email: string;
+    identifier: string;
     password: string;
     fullName?: string;
     customAttributes?: Record<string, string | boolean>;
   }): Promise<void | FlowError>;
 
   abstract confirmSignUp(params: {
-    email: string;
+    identifier: string;
     code: string;
   }): Promise<void | FlowError>;
 
   abstract signIn(params: {
-    email: string;
+    identifier: string;
     password: string;
   }): Promise<void | FlowError>;
 
-  abstract forgotPassword(params: { email: string }): Promise<void | FlowError>;
+  abstract forgotPassword(params: { identifier: string }): Promise<void | FlowError>;
 
   abstract confirmForgotPassword(params: {
-    email: string;
+    identifier: string;
     code: string;
     newPassword: string;
   }): Promise<void | FlowError>;

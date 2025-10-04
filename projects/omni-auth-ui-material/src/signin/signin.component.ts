@@ -56,29 +56,29 @@ export class SignInComponent {
 
   readonly processing = signal(false);
 
-  get currentEmail() {
-    return this.#authRoute.currentEmail;
+  get currentIdentifier() {
+    return this.#authRoute.currentIdentifier;
   }
 
   user = {
-    email: null,
+    identifier: null,
     password: null,
   };
-  emailPattern = this.#env.validation?.emailPattern || patterns.emailPattern;
-  passwordPattern =
-    this.#env.validation?.passwordPattern || patterns.passwordPattern;
+  #defaultIdentifierPattern = (this.#env.identifierType === 'email' ? patterns.emailPattern : patterns.usernamePattern);
+  identifierPattern = this.#env.validation?.identifierPattern || this.#defaultIdentifierPattern;
+  passwordPattern = this.#env.validation?.passwordPattern || patterns.passwordPattern;
 
   async onSubmit() {
-    const email = this.user.email ?? this.#authRoute.currentEmail();
+    const identifier = this.user.identifier ?? this.#authRoute.currentIdentifier();
     const password = this.user.password;
 
-    if (!email || !password) {
+    if (!identifier || !password) {
       return;
     }
 
     this.processing.set(true);
     await this.#authService.signIn({
-      email,
+      identifier,
       password,
     });
 
@@ -88,7 +88,7 @@ export class SignInComponent {
   navigateToReset() {
     this.#authRoute.nextStep(
       'reset_password',
-      this.user.email ? { email: this.user.email } : undefined,
+      this.user.identifier ? { identifier: this.user.identifier } : undefined,
     );
   }
 }

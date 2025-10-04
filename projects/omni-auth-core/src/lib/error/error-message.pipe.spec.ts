@@ -3,13 +3,13 @@ import { provideZonelessChangeDetection } from '@angular/core';
 import { ErrorMessagePipe } from './error-message.pipe';
 import { ActionErrorCollectorService } from '../error/action-error-collector.service';
 import { FlowError } from '../error/flow-error';
-import { defaultContent } from '../config/default-content.config';
+import { defaultContentEmail } from '../config/default-content.config';
 
 describe('ErrorMessagePipe', () => {
   let pipe: ErrorMessagePipe;
   let collectorService: ActionErrorCollectorService;
   const mockMessages = {
-    ...defaultContent.errors,
+    ...defaultContentEmail.errors,
     invalidCode: 'Mock Invalid Code Message',
     unknown: 'Mock Unknown Code Message',
   };

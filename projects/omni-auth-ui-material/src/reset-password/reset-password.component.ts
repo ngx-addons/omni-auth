@@ -37,16 +37,17 @@ export class ResetPasswordComponent {
   readonly content = input.required<Pick<ContentConfig, 'resetPassword' | 'common' | 'errors'>>();
 
   user: {
-    email: string | null;
+    identifier: string | null;
     code: string | null;
     password: string | null;
   } = {
-    email: null,
+    identifier: null,
     code: null,
     password: null,
   };
 
-  emailPattern = this.#env.validation?.emailPattern || patterns.emailPattern;
+  #defaultIdentifierPattern = (this.#env.identifierType === 'email' ? patterns.emailPattern : patterns.usernamePattern);
+  identifierPattern = this.#env.validation?.identifierPattern || this.#defaultIdentifierPattern;
   passwordPattern = this.#env.validation?.passwordPattern || patterns.passwordPattern;
 
   readonly resending = signal(false);
@@ -54,16 +55,16 @@ export class ResetPasswordComponent {
   codeSent = false;
 
   async sendCode() {
-    const email = this.user.email ?? this.authRoute.currentEmail();
+    const identifier = this.user.identifier ?? this.authRoute.currentIdentifier();
 
-    if (!email) {
+    if (!identifier) {
       return;
     }
 
     this.resending.set(true);
 
     const hasError = await this.#authService.forgotPassword({
-      email,
+      identifier,
     });
 
     this.resending.set(false);
@@ -74,17 +75,17 @@ export class ResetPasswordComponent {
   }
 
   async onSubmit() {
-    const email = this.user.email ?? this.authRoute.currentEmail();
+    const identifier = this.user.identifier ?? this.authRoute.currentIdentifier();
     const newPassword = this.user.password;
     const code = this.user.code;
 
-    if (!email || !newPassword || !code) {
+    if (!identifier || !newPassword || !code) {
       return;
     }
 
     this.processing.set(true);
     await this.#authService.confirmForgotPassword({
-      email,
+      identifier,
       code: String(code),
       newPassword,
     });

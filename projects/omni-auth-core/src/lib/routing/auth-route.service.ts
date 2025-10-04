@@ -9,21 +9,19 @@ type AuthStep =
   | 'confirm_reset_password'
   | 'confirm_sign_up';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class AuthRouteService {
   #router = inject(Router);
   #env = inject<AuthConfig>(AUTH_CONFIG);
 
   readonly currentStep = signal<AuthStep>('login');
 
-  readonly currentEmail = signal<string | null>(null);
+  readonly currentIdentifier = signal<string | null>(null);
 
-  nextStep(state: AuthStep, details: { email?: string } = {}) {
+  nextStep(state: AuthStep, details: { identifier?: string } = {}) {
     this.currentStep.set(state);
 
-    this.currentEmail.set(details.email ?? null);
+    this.currentIdentifier.set(details.identifier ?? null);
   }
 
   navigateToGuestPage(rememberPage = false) {

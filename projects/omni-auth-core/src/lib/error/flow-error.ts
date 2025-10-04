@@ -8,8 +8,7 @@ export type ActionErrorCode =
   | 'userAlreadyExists'
   | 'userIsNotConfirmed'
   | 'alreadySignedIn'
-  | 'incorrectUsernameOrPassword'
-  | 'usernameNotFound'
+  | 'incorrectIdentifierOrPassword'
   | 'invalidConfiguration'
   | 'cancelledFlow'
   | 'invalidCode';

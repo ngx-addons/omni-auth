@@ -62,9 +62,7 @@ const tokenFetcher: TokenFetcher = async (refresh: boolean) => {
   };
 };
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class AuthAwsCognitoService extends OmniAuthService {
   #authRouteService = inject(AuthRouteService);
   #actionErrorCollector = inject(ActionErrorCollectorService);
@@ -73,6 +71,11 @@ export class AuthAwsCognitoService extends OmniAuthService {
   #envCognito = inject<AuthCognitoConfig>(AUTH_COGNITO_CONFIG);
   #document = inject<Document>(DOCUMENT);
   #navigateOnLoad$?: Subscription;
+
+  constructor() {
+    super();
+    this.startListening()
+  }
 
   #hubListenerCancelToken = () => {};
 
@@ -208,7 +211,7 @@ export class AuthAwsCognitoService extends OmniAuthService {
 
   async signUp(params: {
     password: string;
-    email: string;
+    identifier: string;
     fullName?: string;
     customAttributes?: Record<string, string | boolean | number | Date>;
   }): Promise<void | FlowError> {
@@ -224,12 +227,14 @@ export class AuthAwsCognitoService extends OmniAuthService {
         }),
       );
 
+      const email = this.#env.identifierType === 'email' ? params.identifier : undefined;
+
       const { nextStep } = await signUp({
-        username: params.email,
+        username: params.identifier,
         password: params.password,
         options: {
           userAttributes: {
-            email: params.email,
+            email,
             name: params.fullName,
             ...customAttributes,
           },
@@ -238,15 +243,15 @@ export class AuthAwsCognitoService extends OmniAuthService {
 
       switch (nextStep.signUpStep) {
         case 'DONE':
-          this.#authRouteService.nextStep('login', { email: params.email });
+          this.#authRouteService.nextStep('login', { identifier: params.identifier });
           break;
         case 'CONFIRM_SIGN_UP':
           this.#authRouteService.nextStep('confirm_sign_up', {
-            email: params.email,
+            identifier: params.identifier,
           });
           break;
         case 'COMPLETE_AUTO_SIGN_IN':
-          this.#authRouteService.nextStep('login', { email: params.email });
+          this.#authRouteService.nextStep('login', { identifier: params.identifier });
           break;
       }
     } catch (error) {
@@ -255,7 +260,7 @@ export class AuthAwsCognitoService extends OmniAuthService {
   }
 
   async confirmSignUp(params: {
-    email: string;
+    identifier: string;
     code: string;
     newPassword: string;
   }): Promise<void | FlowError> {
@@ -263,21 +268,21 @@ export class AuthAwsCognitoService extends OmniAuthService {
       this.#actionErrorCollector.reset();
 
       const { nextStep } = await confirmSignUp({
-        username: params.email,
+        username: params.identifier,
         confirmationCode: params.code,
       });
 
       switch (nextStep.signUpStep) {
         case 'DONE':
-          this.#authRouteService.nextStep('login', { email: params.email });
+          this.#authRouteService.nextStep('login', { identifier: params.identifier });
           break;
         case 'CONFIRM_SIGN_UP':
           this.#authRouteService.nextStep('confirm_sign_up', {
-            email: params.email,
+            identifier: params.identifier,
           });
           break;
         case 'COMPLETE_AUTO_SIGN_IN':
-          this.#authRouteService.nextStep('login', { email: params.email });
+          this.#authRouteService.nextStep('login', { identifier: params.identifier });
           break;
         default:
           throw new RuntimeError('Unexpected next step: ' + nextStep);
@@ -288,18 +293,18 @@ export class AuthAwsCognitoService extends OmniAuthService {
         error.message ===
           'User cannot be confirmed. Current status is CONFIRMED'
       ) {
-        this.#authRouteService.nextStep('login', { email: params.email });
+        this.#authRouteService.nextStep('login', { identifier: params.identifier });
       }
       return this.#handleError(this.#transformError('signIn', error));
     }
   }
 
-  async resendSignUpCode(params: { email: string }): Promise<void | FlowError> {
+  async resendSignUpCode(params: { identifier: string }): Promise<void | FlowError> {
     try {
       this.#actionErrorCollector.reset();
 
       await resendSignUpCode({
-        username: params.email,
+        username: params.identifier,
       });
     } catch (error) {
       return this.#handleError(this.#transformError('resendSignUpCode', error));
@@ -307,14 +312,14 @@ export class AuthAwsCognitoService extends OmniAuthService {
   }
 
   async signIn(params: {
-    email: string;
+    identifier: string;
     password: string;
   }): Promise<void | FlowError> {
     try {
       this.#actionErrorCollector.reset();
 
       const { nextStep } = await signIn({
-        username: params.email,
+        username: params.identifier,
         password: params.password,
       });
 
@@ -324,12 +329,12 @@ export class AuthAwsCognitoService extends OmniAuthService {
           break;
         case 'CONFIRM_SIGN_UP':
           this.#authRouteService.nextStep('confirm_sign_up', {
-            email: params.email,
+            identifier: params.identifier,
           });
           break;
         case 'RESET_PASSWORD':
           this.#authRouteService.nextStep('reset_password', {
-            email: params.email,
+            identifier: params.identifier,
           });
           break;
 
@@ -341,21 +346,21 @@ export class AuthAwsCognitoService extends OmniAuthService {
     }
   }
 
-  async forgotPassword(params: { email: string }): Promise<void | FlowError> {
+  async forgotPassword(params: { identifier: string }): Promise<void | FlowError> {
     try {
       this.#actionErrorCollector.reset();
 
       const { nextStep } = await resetPassword({
-        username: params.email,
+        username: params.identifier,
       });
 
       switch (nextStep.resetPasswordStep) {
         case 'DONE':
-          this.#authRouteService.nextStep('login', { email: params.email });
+          this.#authRouteService.nextStep('login', { identifier: params.identifier });
           break;
         case 'CONFIRM_RESET_PASSWORD_WITH_CODE':
           this.#authRouteService.nextStep('reset_password', {
-            email: params.email,
+            identifier: params.identifier,
           });
           break;
         default:
@@ -367,7 +372,7 @@ export class AuthAwsCognitoService extends OmniAuthService {
   }
 
   async confirmForgotPassword(params: {
-    email: string;
+    identifier: string;
     code: string;
     newPassword: string;
   }): Promise<void | FlowError> {
@@ -375,12 +380,12 @@ export class AuthAwsCognitoService extends OmniAuthService {
       this.#actionErrorCollector.reset();
 
       await confirmResetPassword({
-        username: params.email,
+        username: params.identifier,
         confirmationCode: params.code,
         newPassword: params.newPassword,
       });
 
-      this.#authRouteService.nextStep('login', { email: params.email });
+      this.#authRouteService.nextStep('login', { identifier: params.identifier });
     } catch (error) {
       return this.#handleError(
         this.#transformError('confirmForgotPassword', error),
@@ -438,11 +443,10 @@ export class AuthAwsCognitoService extends OmniAuthService {
       case String(error).includes('User is not confirmed.'):
         return new FlowError(source, 'userIsNotConfirmed', error);
       case String(error).includes('User does not exist.'):
+      case String(error).includes('Username/client id combination not found.'):
         return new FlowError(source, 'userDoesNotExist', error);
       case String(error).includes('Incorrect username or password.'):
-        return new FlowError(source, 'incorrectUsernameOrPassword', error);
-      case String(error).includes('Username/client id combination not found.'):
-        return new FlowError(source, 'usernameNotFound', error);
+        return new FlowError(source, 'incorrectIdentifierOrPassword', error);
       case String(error).includes(
         'Invalid verification code provided, please try again',
       ):

@@ -1,7 +1,6 @@
 .message-outer {
-  color: var(--auth-message-color, var(--mat-sys-on-primary-container));
-  background: var(--auth-message-background, var(--mat-sys-primary-container));
-  box-shadow: var(--auth-message-box-shadow, var(--mat-sys-shadow));
+  color: var(--auth-message-color, var(--mat-sys-on-secondary-container));
+  background: var(--auth-message-background, var(--mat-sys-secondary-container));
   border-radius: var(--auth-message-border-radius-message, 4px);
 
   .message-inner {
@@ -11,7 +10,8 @@
     padding: 0.6em 0.8rem;
     border: 1px solid transparent;
     gap: var(--auth-horizontal-gap, 8px);
-    box-shadow: var(--mat-sys-level1);
+    box-shadow: var(--auth-message-shadow);
+
 
     .message-content {
       display: flex;

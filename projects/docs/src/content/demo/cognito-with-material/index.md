@@ -4,10 +4,6 @@ keyword: CognitoWithMaterialPage
 
 Below is a demo of using AWS Cognito with Angular Material components. You can sign up, confirm your account, and log in using the provided forms.
 
-See the full code in the [GitHub repository](https://github.com/ngx-addons/omni-auth/tree/main/projects/docs/src/demos/cognito-with-material).
-
-{{ NgDocActions.playground("TagPlayground") }}
-
 ## Accounts to try
 
 > **Warning**
@@ -25,3 +21,33 @@ See the full code in the [GitHub repository](https://github.com/ngx-addons/omni-
 | ngx-omni-auth-user-01@maildrop.cc | Marianne Bentley | See inbox [here](https://maildrop.cc/inbox/?mailbox=ngx-omni-auth-user-03) |
 | ngx-omni-auth-user-02@maildrop.cc | Travis Ibarra    | See inbox [here](https://maildrop.cc/inbox/?mailbox=ngx-omni-auth-user-02) |
 | ngx-omni-auth-user-03@maildrop.cc | Lois Drake       | See inbox [here](https://maildrop.cc/inbox/?mailbox=ngx-omni-auth-user-03) |
+
+> **Note**
+> Pro tip: use the light/dark mode toggle in the top-right corner of the demo to see the demo in both light and dark mode.
+
+
+## Email / Password
+
+{{ NgDocActions.playground("CognitoWithMaterialEmail") }}
+> See the full code in the [GitHub repository](https://github.com/ngx-addons/omni-auth/tree/main/projects/docs/src/demos/cognito-with-material-email).
+
+
+
+## Username / Password
+
+{{ NgDocActions.playground("CognitoWithMaterialUsername") }}
+> See the full code in the [GitHub repository](https://github.com/ngx-addons/omni-auth/tree/main/projects/docs/src/demos/cognito-with-material-username).
+
+## Social providers
+
+{{ NgDocActions.playground("CognitoWithMaterialProviders") }}
+> See the full code in the [GitHub repository](https://github.com/ngx-addons/omni-auth/tree/main/projects/docs/src/demos/cognito-with-material-providers).
+
+
+## Additional fields
+
+{{ NgDocActions.playground("CognitoWithMaterialAdditionalFields") }}
+> See the full code in the [GitHub repository](https://github.com/ngx-addons/omni-auth/tree/main/projects/docs/src/demos/cognito-with-material-additional-fields).
+
+
+

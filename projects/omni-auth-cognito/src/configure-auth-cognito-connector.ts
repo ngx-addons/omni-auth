@@ -1,6 +1,5 @@
-import {inject, InjectionToken, provideAppInitializer, Provider} from '@angular/core';
+import {InjectionToken, Provider} from '@angular/core';
 import {Amplify} from 'aws-amplify';
-import {AuthAwsCognitoService} from './auth-aws-cognito.service';
 
 export type AuthCognitoConfig = {
   cognito: {
@@ -43,13 +42,6 @@ export const configureAuthCognitoConnector = (params: AuthCognitoConfig): Provid
         },
       },
     });
-
-    providers.push(
-      provideAppInitializer(() => {
-        const service = inject(AuthAwsCognitoService);
-        return service.startListening();
-      })
-    )
   } else {
     Amplify.configure({
       Auth: {
