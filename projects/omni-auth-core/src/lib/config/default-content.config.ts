@@ -107,7 +107,7 @@ export const defaultContentUsername = {
   },
   errors: {
     ...defaultContentEmail.errors,
-    incorrectUsernameOrPassword: 'Password or username is incorrect',
+    incorrectIdentifierOrPassword: 'Password or username is incorrect',
   }
 }
 

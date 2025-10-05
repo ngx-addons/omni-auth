@@ -1,4 +1,6 @@
 <div class="auth-form-container">
+  <ng-content select="[auth-header]"/>
+
   @if (authService.authState.isLoading()) {
     <omni-auth-ui-mat-loader [verticalCenter]="true"/>
   }
@@ -6,7 +8,11 @@
   @if (authService.authState.value(); as user) {
     @switch (user.state) {
       @case ('authenticated') {
-        <omni-auth-ui-mat-authenticated [content]="content()"/>
+        @if(config()?.hideAuthenticatedContent !== true) {
+          <omni-auth-ui-mat-authenticated [content]="content()"/>
+        }
+
+        <ng-content select="[auth-user-is-authenticated]"/>
       }
       @case ('error') {
         <omni-auth-ui-mat-message type="warn">
@@ -25,7 +31,9 @@
             >
               <mat-tab [label]="content().signIn.title">
                 <ng-template matTabContent>
-                  <omni-auth-ui-mat-signin [config]="config()?.signIn" [content]="content()"/>
+                  <omni-auth-ui-mat-signin [config]="config()?.signIn" [content]="content()">
+                    <ng-content sign-in-footer select="[sign-in-footer]"/>
+                  </omni-auth-ui-mat-signin>
                 </ng-template>
               </mat-tab>
 
@@ -48,4 +56,5 @@
       }
     }
   }
+  <ng-content select="[auth-footer]"/>
 </div>

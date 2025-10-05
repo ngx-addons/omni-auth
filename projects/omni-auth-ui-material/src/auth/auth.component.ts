@@ -18,6 +18,10 @@ import {LoaderComponent} from '../ui/loader/loader.component';
 import {AuthenticatedComponent} from '../authenticated/authenticated.component';
 
 export type AuthComponentConfig = {
+  /**
+   * Hide message when user is authenticated.
+   */
+  hideAuthenticatedContent?: boolean;
   signUp?: SignUpComponentConfig,
   signIn?: SignInComponentConfig;
 }

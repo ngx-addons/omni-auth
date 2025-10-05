@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { provideZonelessChangeDetection, Signal, signal } from '@angular/core';
 import { onlyAuthenticated, onlyGuest } from './auth-guard';
 import { AuthState, OmniAuthService } from './auth.service';
-import { AUTH_CONFIG, AuthConfig } from '../configure-auth';
+import {AUTH_CONFIG, AuthConfig, AuthConfigInput} from '../configure-auth';
 import { OmniAuthServiceMock } from './auth.service.spec';
 import { MockService } from 'ng-mocks';
 import { Observable } from 'rxjs';
@@ -25,7 +25,7 @@ describe('Auth Guards', () => {
   }>;
   let mockRoute: ActivatedRouteSnapshot;
   let mockRouterStateSnapshot: RouterStateSnapshot;
-  let mockAuthConfig: AuthConfig;
+  let mockAuthConfig: AuthConfigInput;
 
   beforeEach(() => {
     const authServiceSpy = jasmine.createSpyObj('OmniAuthService', [], {

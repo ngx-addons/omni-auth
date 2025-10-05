@@ -1,4 +1,4 @@
-import { AUTH_CONFIG, AuthConfig, configureAuth } from './configure-auth';
+import {AUTH_CONFIG, AuthConfig, AuthConfigInput, configureAuth} from './configure-auth';
 import { OmniAuthServiceMock } from './lib/auth.service.spec';
 import { OmniAuthService } from './lib/auth.service';
 import { inject, Injectable, provideZonelessChangeDetection } from '@angular/core';
@@ -11,11 +11,12 @@ class TestService {
 
 describe('configureAuth', () => {
   let service: TestService;
-  let config: AuthConfig;
+  let config: AuthConfigInput;
 
   beforeEach(() => {
     config = {
       authService: OmniAuthServiceMock,
+      identifierType: 'email',
       bearerAuthentication: {
         headerName: 'Lorem ipsum',
         headerValuePrefix: 'Prefix ',
@@ -38,12 +39,12 @@ describe('configureAuth', () => {
   it('should return providers array with auth service and config', () => {
     const providers = configureAuth(config);
 
-    expect(providers.length).toEqual(2);
-    expect(providers[0]).toEqual({
+    expect(providers.length).toEqual(4);
+    expect(providers[2]).toEqual({
       provide: OmniAuthService,
       useClass: OmniAuthServiceMock,
     });
-    expect(providers[1]).toEqual({
+    expect(providers[3]).toEqual({
       provide: AUTH_CONFIG,
       useValue: config,
     });
