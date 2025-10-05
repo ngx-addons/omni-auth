@@ -54,6 +54,7 @@
         {{ content().signIn.forgetPassword }}
       </a>
     </p>
+    <ng-content select="[sign-in-footer]"/>
     <omni-auth-ui-mat-print-error source="signIn" [content]="content()"/>
   </div>
   <div class="auth-form-footer">

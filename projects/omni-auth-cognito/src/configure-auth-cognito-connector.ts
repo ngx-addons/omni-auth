@@ -2,6 +2,9 @@ import {InjectionToken, Provider} from '@angular/core';
 import {Amplify} from 'aws-amplify';
 
 export type AuthCognitoConfig = {
+  /**
+   * Cognito configuration, add oauth configuration if you want to use oauth providers.
+   */
   cognito: {
     userPoolId: string,
     userPoolClientId: string,

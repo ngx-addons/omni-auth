@@ -4,40 +4,68 @@ import {AuthRouteService} from './lib/routing/auth-route.service';
 import {ActionErrorCollectorService} from './lib/error/action-error-collector.service';
 
 export type AuthConfig = {
-  /** @description Authentication service class */
+  /**
+   * Authentication service class
+   */
   authService: Type<OmniAuthService>;
 
-  /**  @description User identifier type, default is 'email' */
+  /**
+   * User identifier type, default is 'email'
+   */
   identifierType: 'email' | 'username';
 
+  /**
+   * Automatic bearer authentication, if exist interceptor will be added automatically
+   */
   bearerAuthentication?: {
     /**
-     * @description List of endpoints that do not require authentication, can be RegExp or string.
+     * List of endpoints that do not require authentication, can be RegExp or string.
      * In the case of an empty array, all endpoints will require authentication.
-     * */
+     */
     whitelistedEndpoints: (RegExp | string)[];
-    /** @description Authentication token header name, default is 'Authorization' */
+    /**
+     * Authentication token header name, default is 'Authorization'
+     */
     headerName?: string;
-    /** @description Authentication token suffix, default is "Bearer " */
+    /**
+     * Authentication token suffix, default is "Bearer "
+     */
     headerValuePrefix?: string;
   };
+
+  /**
+   * The routing configuration, e.g. redirect after login
+   */
   routing?: {
-    /** @description The route to redirect to after successful login */
+    /**
+     * The route to redirect to after successful login
+     */
     secured: string[];
-    /** @description The route to redirect to after logout */
+    /**
+     * The route to redirect to after logout
+     */
     guest: string[];
   };
+
+  /**
+   * Validate data before sending it to the server (it applies to input fields)
+   */
   validation?: {
-    /** @description Identifier validation pattern, used in sign-out / sign in method */
+    /**
+     * Identifier validation pattern, used in sign-out / sign in method
+     */
     identifierPattern?: RegExp;
-    /** @description Password validation pattern, used in sign-out / sign in method */
+    /**
+     * Password validation pattern, used in sign-out / sign in method
+     */
     passwordPattern?: RegExp;
   };
 };
 
 export const AUTH_CONFIG = new InjectionToken<AuthConfig>('AUTH_CONFIG');
 
-export const configureAuth = (params: Partial<AuthConfig> & Pick<AuthConfig, 'authService'>): Provider[] => {
+export type AuthConfigInput = Partial<AuthConfig> & Pick<AuthConfig, 'authService'>;
+export const configureAuth = (params: AuthConfigInput): Provider[] => {
   return [
     AuthRouteService,
     ActionErrorCollectorService,

@@ -28,8 +28,8 @@ import {environment} from '../../environments/environment';
     }),
     configureAuthCognitoConnector({
       cognito: {
-        userPoolId: environment.cognito.userPoolId,
-        userPoolClientId: environment.cognito.userPoolClientId,
+        userPoolId: environment.cognitoUsername.userPoolId,
+        userPoolClientId: environment.cognitoUsername.userPoolClientId,
       }
     }),
   ]
