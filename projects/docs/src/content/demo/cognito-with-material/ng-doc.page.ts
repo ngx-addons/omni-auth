@@ -15,7 +15,7 @@ import {
 
 const CognitoWithMaterialPage: NgDocPage = {
   title: `Cognito with Material`,
-  mdFile: ['./index.md', './email.md', './username.md'],
+  mdFile: ['./index.md'],
   category: DemoCategory,
   playgrounds: {
     CognitoWithMaterialEmail: {

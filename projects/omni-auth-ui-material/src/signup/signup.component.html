@@ -21,7 +21,7 @@
           @case (identifier.control.hasError("pattern")) {
             <ng-container>{{ content().common.identifierErrorPatternText }}</ng-container>
           }
-          @case (identifier.control.hasError("minLength")) {
+          @case (identifier.control.hasError("minlength")) {
             <ng-container>{{ content().common.identifierErrorMinLengthText }}</ng-container>
           }
           @case (identifier.control.hasError("maxlength")) {
@@ -30,32 +30,6 @@
         }
       </ng-container>
     </omni-auth-ui-mat-input>
-
-    @if (config()?.fullName?.enabled) {
-      <omni-auth-ui-mat-input
-        #name="ngModel"
-        maxlength="255"
-        minlength="2"
-        name="fullName"
-        required
-        type="text"
-        [label]="content().common.fullNameLabel"
-        [placeholder]="content().common.fullNamePlaceholder"
-        [(ngModel)]="user.fullName"
-      >
-        @switch (true) {
-          @case (name.control.hasError("required")) {
-            <ng-container>{{ content().common.fullNameErrorRequiredText }}</ng-container>
-          }
-          @case (name.control.hasError("minLength")) {
-            <ng-container>{{ content().common.fullNameErrorMinLengthText }}</ng-container>
-          }
-          @case (name.control.hasError("maxlength")) {
-            <ng-container>{{ content().common.fullNameErrorMaxLengthText }}</ng-container>
-          }
-        }
-      </omni-auth-ui-mat-input>
-    }
 
     <omni-auth-ui-mat-input
       #password="ngModel"
@@ -78,15 +52,89 @@
       }
     </omni-auth-ui-mat-input>
 
-    @for (attribute of config()?.additionalAttributes; track attribute.key) {
-      <mat-checkbox
-        class="additional-attribute-checkbox"
-        [name]="attribute.key"
-        [ngModel]="user.customAttributes[attribute.key]"
-        [required]="attribute.isRequired"
-        (ngModelChange)="updateUserAttribute(attribute.key, $event)">
-        {{ attribute.label }}
-      </mat-checkbox>
+    @for (attribute of config()?.attributes; track attribute.key) {
+      @switch (true) {
+        @case (attribute.type === 'checkbox') {
+          <div>
+            <mat-checkbox
+              #attributeInput="ngModel"
+              class="additional-attribute-checkbox"
+              [name]="attribute.key"
+              [ngModel]="user.customAttributes[attribute.key]"
+              [required]="attribute.validation.isRequired"
+              (ngModelChange)="updateUserAttribute(attribute.key, $event)">
+              {{ attribute.content.label }}
+            </mat-checkbox>
+            @switch (true) {
+              @case (attributeInput.hasError("required") && attributeInput.touched) {
+                <span class="auth-form-custom-error">{{ attribute.content.requiredText }}</span>
+              }
+            }
+          </div>
+
+        }
+        @case (attribute.type === 'phone' || attribute.type === 'email') {
+          <omni-auth-ui-mat-input
+            #attributeInput="ngModel"
+            [label]="attribute.content.label"
+            [maxlength]="attribute.validation.maxLength ?? 255"
+            [minlength]="attribute.validation.minLength ?? 0"
+            [name]="attribute.key"
+            [ngModel]="user.customAttributes[attribute.key]"
+            [pattern]="attribute.validation.pattern ?? (attribute.type === 'phone' ? phonePattern : emailPattern)"
+            [placeholder]="attribute.content.placeholder"
+            [required]="attribute.validation.isRequired"
+            [type]="attribute.type | mapToNativeType"
+            (ngModelChange)="updateUserAttribute(attribute.key, $event)"
+          >
+
+            @switch (true) {
+              @case (attributeInput.hasError("required")) {
+                <ng-container>{{ attribute.content.requiredText }}</ng-container>
+              }
+              @case (attributeInput.hasError("minlength")) {
+                <ng-container>{{ attribute.content.minLengthText }}</ng-container>
+              }
+              @case (attributeInput.hasError("maxlength")) {
+                <ng-container>{{ attribute.content.maxLengthText }}</ng-container>
+              }
+              @case (attributeInput.hasError("pattern")) {
+                <ng-container>{{ attribute.content.patternText }}</ng-container>
+              }
+            }
+          </omni-auth-ui-mat-input>
+        }
+        @case (attribute.type === 'text') {
+          <omni-auth-ui-mat-input
+            #attributeInput="ngModel"
+            [label]="attribute.content.label"
+            [maxlength]="attribute.validation.maxLength ?? 0"
+            [minlength]="attribute.validation.minLength ?? 0"
+            [name]="attribute.key"
+            [ngModel]="user.customAttributes[attribute.key]"
+            [pattern]="attribute.validation.pattern ?? ''"
+            [placeholder]="attribute.content.placeholder"
+            [required]="attribute.validation.isRequired"
+            [type]="attribute.type | mapToNativeType"
+            (ngModelChange)="updateUserAttribute(attribute.key, $event)"
+          >
+            @switch (true) {
+              @case (attributeInput.hasError("required")) {
+                <ng-container>{{ attribute.content.requiredText }}</ng-container>
+              }
+              @case (attributeInput.hasError("minlength")) {
+                <ng-container>{{ attribute.content.minLengthText }}</ng-container>
+              }
+              @case (attributeInput.hasError("maxlength")) {
+                <ng-container>{{ attribute.content.maxLengthText }}</ng-container>
+              }
+              @case (attributeInput.hasError("pattern")) {
+                <ng-container>{{ attribute.content.patternText }}</ng-container>
+              }
+            }
+          </omni-auth-ui-mat-input>
+        }
+      }
     }
 
     <ng-content select="[sign-up-footer]"/>

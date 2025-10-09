@@ -7,33 +7,72 @@ import {
   AuthConfig,
   AuthRouteService,
   ContentConfig,
-  emailToFullName,
   OmniAuthService,
   patterns
 } from '@ngx-addons/omni-auth-core';
 import {ButtonComponent} from '../ui/button/button.component';
 import {MatCheckbox} from '@angular/material/checkbox';
 import {PrintErrorComponent} from '../print-error/print-error.component';
+import {MapToNativeInputTypePipe} from '../ui/map-to-native-input-type.pipe';
 
-type AdditionalAttributeFieldConfig = {
+export type AttributesContent = {
+  label: string,
+  placeholder: string,
+  requiredText: string,
+  minLengthText: string,
+  maxLengthText: string,
+  patternText: string,
+}
+
+type AttributesValidation = {
+  minLength: number;
+  maxLength: number;
+  pattern: RegExp;
+  isRequired: boolean;
+}
+
+type PhoneAttributeConfig = {
+  type: 'phone';
   key: string;
+  validation: Partial<AttributesValidation> & { isRequired: boolean };
+  content: AttributesContent;
+}
+
+type EmailAttributeConfig = {
+  type: 'email';
+  key: string;
+  validation: Partial<AttributesValidation> & { isRequired: boolean };
+  content: AttributesContent;
+}
+
+type CheckboxAttributeConfig = {
   type: 'checkbox';
-  label: string;
-  isRequired: boolean
-};
+  key: string;
+  validation: Pick<AttributesValidation, 'isRequired'>;
+  content: Pick<AttributesContent, 'label' | 'requiredText'>;
+}
+
+type TextAttributeConfig = {
+  type: 'text';
+  key: string;
+  validation: Partial<AttributesValidation> & { isRequired: boolean };
+  content: AttributesContent;
+}
+
+export type AttributeFieldConfig =
+  TextAttributeConfig
+  | EmailAttributeConfig
+  | PhoneAttributeConfig
+  | CheckboxAttributeConfig;
 
 export type SignUpComponentConfig = {
-  fullName?: {
-    enabled: boolean,
-    enableAutoFill?: boolean
-  }
-  additionalAttributes?: AdditionalAttributeFieldConfig[]
+  attributes?: AttributeFieldConfig[]
 }
 
 @Component({
   selector: 'omni-auth-ui-mat-signup',
   standalone: true,
-  imports: [CommonModule, InputComponent, FormsModule, ButtonComponent, MatCheckbox, PrintErrorComponent],
+  imports: [CommonModule, InputComponent, FormsModule, ButtonComponent, MatCheckbox, PrintErrorComponent, MapToNativeInputTypePipe],
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss', './../auth-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -51,26 +90,23 @@ export class SignUpComponent {
   #defaultIdentifierPattern = (this.#env.identifierType === 'email' ? patterns.emailPattern : patterns.usernamePattern);
   identifierPattern = this.#env.validation?.identifierPattern || this.#defaultIdentifierPattern;
   passwordPattern = this.#env.validation?.passwordPattern || patterns.passwordPattern;
+  emailPattern = patterns.emailPattern;
+  phonePattern = patterns.phonePattern;
 
   user: {
     identifier: string | null;
     password: string | null;
-    tos: boolean;
-    fullName: string | null;
     customAttributes: Record<string, string | boolean>;
   } = {
     identifier: null,
     password: null,
-    tos: false,
-    fullName: null,
     customAttributes: {}
   };
 
   async onSubmit() {
     const identifier = this.user.identifier ?? this.authRoute.currentIdentifier();
     const password = this.user.password;
-    const fullName = this.user.fullName;
-    const customAttributes = this.user.customAttributes;
+    const attributes = this.user.customAttributes;
 
     if (!identifier || !password) {
       return;
@@ -81,8 +117,9 @@ export class SignUpComponent {
     await this.#authService.signUp({
       identifier,
       password,
-      fullName: fullName ?? undefined,
-      customAttributes,
+      attributes: {
+        ...attributes
+      },
     });
 
     this.processing.set(false);
@@ -91,14 +128,14 @@ export class SignUpComponent {
   updateUserIdentifier($event: string) {
     this.user.identifier = $event;
 
-    if (!this.config()?.fullName?.enabled || !this.config()?.fullName?.enableAutoFill) {
-      return;
-    }
-
-    const nextIdentifier = emailToFullName($event) || $event;
-    if (nextIdentifier) {
-      this.user.fullName = nextIdentifier
-    }
+    // if (!this.config()?.fullName?.enabled || !this.config()?.fullName?.enableAutoFill) {
+    //   return;
+    // }
+    //
+    // const nextIdentifier = emailToFullName($event) || $event;
+    // if (nextIdentifier) {
+    //   this.user.fullName = nextIdentifier
+    // }
   }
 
   updateUserAttribute(key: string, value: string | boolean) {

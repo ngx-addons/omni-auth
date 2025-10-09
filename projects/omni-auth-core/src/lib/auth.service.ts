@@ -82,8 +82,7 @@ export abstract class OmniAuthService<
   abstract signUp(params: {
     identifier: string;
     password: string;
-    fullName?: string;
-    customAttributes?: Record<string, string | boolean>;
+    attributes?: Record<string, string | boolean>;
   }): Promise<void | FlowError>;
 
   abstract confirmSignUp(params: {

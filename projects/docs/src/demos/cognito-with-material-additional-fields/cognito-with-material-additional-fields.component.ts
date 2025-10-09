@@ -15,7 +15,7 @@ import {environment} from '../../environments/environment';
       class="material-demo mat-typography"
       [class]="[theme(), currentTheme()]"
     >
-      <omni-auth-ui-mat [config]="config()">
+      <omni-auth-ui-mat [config]="config">
         <p sign-up-footer>
           By signing up, you agree to our
           <a class="link" tabindex="0">terms and conditions</a>
@@ -45,7 +45,6 @@ export class CognitoWithMaterialAdditionalFieldsComponent implements OnInit {
   readonly theme = input<'blue' | 'azure' | 'green' | 'orange' | 'magenta'>(
     'azure',
   );
-  readonly additionalConsent = input<boolean>(true);
   readonly change = toSignal(this.themeService.themeChanges());
   readonly currentTheme = computed(() => {
     this.change();
@@ -57,31 +56,57 @@ export class CognitoWithMaterialAdditionalFieldsComponent implements OnInit {
     return this.themeService.currentTheme as 'auto' | 'dark';
   });
 
-  readonly config = computed(() => {
-    const additionalConsent = this.additionalConsent();
-
-    const config: AuthComponentConfig = {
-      signIn: {},
-      signUp: {
-        additionalAttributes: additionalConsent ? [
-          {
-            key: 'newsletterConsent',
-            type: 'checkbox',
-            isRequired: false,
-            label: 'Subscribe to our newsletter',
-          },
-          {
-            key: 'termsAndConditionsConsent',
-            type: 'checkbox',
+  readonly config: AuthComponentConfig = {
+    signIn: {},
+    signUp: {
+      attributes: [
+        {
+          key: 'phone',
+          type: 'phone',
+          validation: {
             isRequired: true,
-            label: 'Accept terms and conditions',
           },
-        ] : [],
-      },
-    };
-
-    return config;
-  });
+          content: {
+            placeholder: '+12 345 678 9012',
+            label: 'Phone Number',
+            requiredText: 'This field is required',
+            minLengthText: 'Phone number must be at least 10 characters long',
+            maxLengthText: 'Phone number must be at most 15 characters long',
+            patternText: 'Phone number must be a valid phone number',
+          }
+        },
+        {
+          key: 'fullName',
+          type: 'text',
+          validation: {
+            isRequired: true,
+            minLength: 2,
+            maxLength: 255,
+            pattern: new RegExp(/^[a-zA-Z0-9_.-]*$/),
+          },
+          content: {
+            label: 'Full name',
+            requiredText: 'Full name is required',
+            minLengthText: 'Full name needs to be at least 2 characters long',
+            maxLengthText: 'Full name can be maximum 255 characters long',
+            placeholder: 'Joe Doe',
+            patternText: 'Full name must be a valid name',
+          }
+        },
+        {
+          key: 'newsletterConsent',
+          type: 'checkbox',
+          validation: {
+            isRequired: true,
+          },
+          content: {
+            label: 'Subscribe to our newsletter',
+            requiredText: 'This field is required',
+          }
+        },
+      ],
+    },
+  }
 
   ngOnInit(): void {
     this.iconRegistry.setDefaultFontSetClass('material-symbols-outlined');
