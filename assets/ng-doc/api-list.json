@@ -13,6 +13,11 @@
         "name": "AUTH_CONFIG"
       },
       {
+        "route": "/api/type-aliases/omni-auth-core/AuthConfigInput",
+        "type": "TypeAlias",
+        "name": "AuthConfigInput"
+      },
+      {
         "route": "/api/variables/omni-auth-core/configureAuth",
         "type": "Variable",
         "name": "configureAuth"
@@ -103,9 +108,14 @@
         "name": "ContentConfig"
       },
       {
-        "route": "/api/variables/omni-auth-core/defaultContent",
+        "route": "/api/variables/omni-auth-core/defaultContentEmail",
         "type": "Variable",
-        "name": "defaultContent"
+        "name": "defaultContentEmail"
+      },
+      {
+        "route": "/api/variables/omni-auth-core/defaultContentUsername",
+        "type": "Variable",
+        "name": "defaultContentUsername"
       },
       {
         "route": "/api/variables/omni-auth-core/onlyAuthenticated",
@@ -141,6 +151,16 @@
         "route": "/api/variables/omni-auth-core/emailPattern",
         "type": "Variable",
         "name": "emailPattern"
+      },
+      {
+        "route": "/api/variables/omni-auth-core/usernamePattern",
+        "type": "Variable",
+        "name": "usernamePattern"
+      },
+      {
+        "route": "/api/variables/omni-auth-core/phonePattern",
+        "type": "Variable",
+        "name": "phonePattern"
       },
       {
         "route": "/api/type-aliases/omni-auth-core/ActionErrorCode",
@@ -182,6 +202,11 @@
   {
     "title": "OmniAuthUiMaterial",
     "items": [
+      {
+        "route": "/api/type-aliases/omni-auth-ui-material/AttributeFieldConfig",
+        "type": "TypeAlias",
+        "name": "AttributeFieldConfig"
+      },
       {
         "route": "/api/type-aliases/omni-auth-ui-material/AuthComponentConfig",
         "type": "TypeAlias",
@@ -228,6 +253,11 @@
         "name": "SignInComponent"
       },
       {
+        "route": "/api/type-aliases/omni-auth-ui-material/AttributesContent",
+        "type": "TypeAlias",
+        "name": "AttributesContent"
+      },
+      {
         "route": "/api/type-aliases/omni-auth-ui-material/SignUpComponentConfig",
         "type": "TypeAlias",
         "name": "SignUpComponentConfig"
@@ -246,6 +276,11 @@
         "route": "/api/classes/omni-auth-ui-material/HostStateMatcher",
         "type": "Class",
         "name": "HostStateMatcher"
+      },
+      {
+        "route": "/api/classes/omni-auth-ui-material/MapToNativeInputTypePipe",
+        "type": "Pipe",
+        "name": "MapToNativeInputTypePipe"
       },
       {
         "route": "/api/classes/omni-auth-ui-material/ReplacePipe",
