@@ -213,15 +213,15 @@ export class AuthAwsCognitoService extends OmniAuthService {
     password: string;
     identifier: string;
     fullName?: string;
-    customAttributes?: Record<string, string | boolean | number | Date>;
+    attributes?: Record<string, string | boolean | number | Date>;
   }): Promise<void | FlowError> {
     try {
       this.#actionErrorCollector.reset();
 
-      const customAttributes = Object.fromEntries(
-        Object.entries(params.customAttributes || {}).map(([key, value]) => {
+      const attributes = Object.fromEntries(
+        Object.entries(params.attributes || {}).map(([key, value]) => {
           return [
-            `custom:${key}`,
+            key,
             typeof value === 'number' ? value : String(value),
           ];
         }),
@@ -236,7 +236,7 @@ export class AuthAwsCognitoService extends OmniAuthService {
           userAttributes: {
             email,
             name: params.fullName,
-            ...customAttributes,
+            ...attributes,
           },
         },
       });

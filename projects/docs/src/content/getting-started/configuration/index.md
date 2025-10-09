@@ -7,7 +7,7 @@ Configuration is divided into the following categories:
 
 - Core configuration: general configuration of the library.
 - Connector configuration: configure the way how the library communicates with the server.
-- View configuration: configuration of the view.
+- View configuration: configuration of the UI components.
 
 ## Core configuration
 
@@ -139,3 +139,5 @@ const config: AuthComponentConfig = {
 };
 ```
 
+
+See the `*CognitoWithMaterialPage` article for more details
