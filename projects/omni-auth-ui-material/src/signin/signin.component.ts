@@ -60,6 +60,10 @@ export class SignInComponent {
     return this.#authRoute.currentIdentifier;
   }
 
+  get isPasswordlessEnabled() {
+    return Boolean(this.#env.passwordlessEnabled);
+  }
+
   user = {
     identifier: null,
     password: null,

@@ -313,22 +313,39 @@ export class AuthAwsCognitoService extends OmniAuthService {
 
   async signIn(params: {
     identifier: string;
-    password: string;
+    password?: string;
   }): Promise<void | FlowError> {
     try {
       this.#actionErrorCollector.reset();
+      let response;
 
-      const { nextStep } = await signIn({
-        username: params.identifier,
-        password: params.password,
-      });
+      if(this.#env.passwordlessEnabled) {
+        response = await signIn({
+          username: params.identifier,
+          options: {
+            authFlowType: 'USER_AUTH',
+            preferredChallenge: 'EMAIL_OTP',
+          },
+        });
+      } else {
+        response = await signIn({
+          username: params.identifier,
+          password: params.password,
+        });
+      }
 
-      switch (nextStep.signInStep) {
+      switch (response.nextStep.signInStep) {
         case 'DONE':
           this.#onLoginSuccess();
           break;
         case 'CONFIRM_SIGN_UP':
           this.#authRouteService.nextStep('confirm_sign_up', {
+            identifier: params.identifier,
+          });
+          break;
+        case 'CONFIRM_SIGN_IN_WITH_EMAIL_CODE':
+        case 'CONFIRM_SIGN_IN_WITH_SMS_CODE':
+          this.#authRouteService.nextStep('confirm_sign_in', {
             identifier: params.identifier,
           });
           break;
@@ -339,7 +356,7 @@ export class AuthAwsCognitoService extends OmniAuthService {
           break;
 
         default:
-          throw new RuntimeError('Unexpected next step: ' + nextStep);
+          throw new RuntimeError('Unexpected next step: ' + response.nextStep);
       }
     } catch (error) {
       return this.#handleError(this.#transformError('signIn', error));

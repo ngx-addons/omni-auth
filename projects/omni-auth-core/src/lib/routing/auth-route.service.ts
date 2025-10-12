@@ -7,6 +7,7 @@ type AuthStep =
   | 'register'
   | 'reset_password'
   | 'confirm_reset_password'
+  | 'confirm_sign_in'
   | 'confirm_sign_up';
 
 @Injectable()
