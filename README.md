@@ -22,6 +22,11 @@
   </p>
 </div>
 
+
+<div align="center">
+<video src="https://github.com/user-attachments/assets/bca77916-a7ca-4d28-99ae-0c7d8d5e66cc" autoplay loop muted controls="false" />
+</div>
+
 ## Features
 
 - **Authentication Guards**: Route protection with built-in auth guards
