@@ -49,6 +49,10 @@
             <omni-auth-ui-mat-confirm-signup [content]="content()"/>
           }
 
+          @if (currentStep === "confirm_sign_in") {
+            // todo
+          }
+
           @if (["reset_password", "confirm_reset_password"].includes(currentStep)) {
             <omni-auth-ui-mat-reset-password [content]="content()"/>
           }

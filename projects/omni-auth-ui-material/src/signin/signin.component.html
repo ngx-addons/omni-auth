@@ -20,29 +20,32 @@
         }
       }
     </omni-auth-ui-mat-input>
-    <omni-auth-ui-mat-input
-      #password="ngModel"
-      name="password"
-      required
-      type="password"
-      [class.invalid-password]="password.control.hasError('pattern')"
-      [label]="content().common.passwordLabel"
-      [pattern]="passwordPattern"
-      [placeholder]="content().common.passwordPlaceholder"
-      [(ngModel)]="user.password"
-    >
-      @switch (true) {
-        @case (password.control.hasError("required")) {
-          <ng-container>{{ content().common.passwordErrorRequiredText }}</ng-container>
+
+    @if(!isPasswordlessEnabled) {
+      <omni-auth-ui-mat-input
+        #password="ngModel"
+        name="password"
+        required
+        type="password"
+        [class.invalid-password]="password.control.hasError('pattern')"
+        [label]="content().common.passwordLabel"
+        [pattern]="passwordPattern"
+        [placeholder]="content().common.passwordPlaceholder"
+        [(ngModel)]="user.password"
+      >
+        @switch (true) {
+          @case (password.control.hasError("required")) {
+            <ng-container>{{ content().common.passwordErrorRequiredText }}</ng-container>
+          }
+          @case (password.control.hasError("pattern")) {
+            <ng-container>{{ content().common.passwordPatternText }}</ng-container>
+          }
+          @case (password.control.hasError("minlength")) {
+            <ng-container>{{ content().common.passwordErrorMinLengthText }}</ng-container>
+          }
         }
-        @case (password.control.hasError("pattern")) {
-          <ng-container>{{ content().common.passwordPatternText }}</ng-container>
-        }
-        @case (password.control.hasError("minlength")) {
-          <ng-container>{{ content().common.passwordErrorMinLengthText }}</ng-container>
-        }
-      }
-    </omni-auth-ui-mat-input>
+      </omni-auth-ui-mat-input>
+    }
     <p>
       <a
         class="link"

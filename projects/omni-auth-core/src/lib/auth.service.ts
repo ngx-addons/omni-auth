@@ -1,9 +1,9 @@
-import { ResourceRef, Signal } from '@angular/core';
-import { FlowError } from './error/flow-error';
-import { OmniAuthError } from './error/auth-error';
-import { TokenProxy } from './token/token-proxy';
-import { JwtToken } from './token/jwt-token';
-import { Observable } from 'rxjs';
+import {ResourceRef, Signal} from '@angular/core';
+import {FlowError} from './error/flow-error';
+import {OmniAuthError} from './error/auth-error';
+import {TokenProxy} from './token/token-proxy';
+import {JwtToken} from './token/jwt-token';
+import {Observable} from 'rxjs';
 
 export const isError = (response: OmniAuthError | void) => {
   return response instanceof OmniAuthError;
@@ -92,7 +92,7 @@ export abstract class OmniAuthService<
 
   abstract signIn(params: {
     identifier: string;
-    password: string;
+    password?: string;
   }): Promise<void | FlowError>;
 
   abstract forgotPassword(params: { identifier: string }): Promise<void | FlowError>;

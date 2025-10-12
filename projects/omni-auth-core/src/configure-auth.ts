@@ -15,6 +15,12 @@ export type AuthConfig = {
   identifierType: 'email' | 'username';
 
   /**
+   * Passwordless authentication, if true, the user will not be asked for a password
+   * when logging in, instead the user will receive a code to log in.
+   */
+  passwordlessEnabled: boolean;
+
+  /**
    * Automatic bearer authentication, if exist interceptor will be added automatically
    */
   bearerAuthentication?: {
