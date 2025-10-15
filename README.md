@@ -16,31 +16,69 @@
     <a href="https://github.com/ngx-addons/omni-auth/issues/new/choose">Request Feature</a>
 
 ![License MIT](https://img.shields.io/npm/l/%40ngx-addons%2Fomni-auth-core)
-![NPM Version](https://img.shields.io/npm/v/%40ngx-addons%2Fomni-auth-core)
 ![Build & Tests](https://img.shields.io/github/actions/workflow/status/ngx-addons/omni-auth/pr-static-analysis.yml?label=Build%20%26%20Tests)
+![Downloads](https://img.shields.io/npm/d18m/%40ngx-addons%2Fomni-auth-core)
 
   </p>
 </div>
-
 
 <div align="center">
 <video src="https://github.com/user-attachments/assets/bca77916-a7ca-4d28-99ae-0c7d8d5e66cc" autoplay loop muted controls="false" />
 </div>
 
-## Features
+## Quick Start
 
-- **Authentication Guards**: Route protection with built-in auth guards
-- **Error Handling**: Comprehensive error collection and messaging system
-- **Routing Services**: Authentication-aware routing utilities
-- **Type Safety**: Full TypeScript support with well-defined interfaces
-- **Configurable**: Flexible configuration system with default patterns
-- **Zoneless**: Designed to work without Angular's NgZone for performance optimization
-- **UI Agnostic**: Compatible with various UI libraries (Material, Tailwind, PrimeNG, etc.)
-- **Persistence Layer**: Supports multiple authentication backends (Cognito, Firebase, etc.)
+1. Install the package:
+```bash
+pnpm install @ngx-addons/omni-auth-core @ngx-addons/omni-auth-ui-material @ngx-addons/omni-auth-cognito
+```
+
+2. Configure the package:
+```typescript
+import { configureAuth } from "@ngx-addons/omni-auth-core";
+
+//...
+prociders: [
+  configureAuthCognitoConnector({
+    cognito: {
+      userPoolId: environment.cognito.userPoolId,
+      userPoolClientId: environment.cognito.userPoolClientId,
+    },
+  }),
+  configureAuth({
+    authService: AuthAwsCognitoService,
+  })
+]
+//...
+```
+
+3. Use UI:
+
+```html
+<omni-auth-ui-mat></omni-auth-ui-mat>
+```
 
 ## Documentation
 
 [Documentation is available here](https://ngx-addons.github.io/omni-auth/).
+
+## Key features
+- **Zoneless**: Designed to work without Angular's NgZone for performance optimization
+- **Configurable**: Flexible configuration system with default patterns
+- **Routing Services**: Authentication-aware routing utilities
+- **Authentication Guards**: Route protection with built-in auth guards
+- **Error Handling**: Comprehensive error collection and messaging system
+- **Type Safety**: Full TypeScript support with well-defined interfaces
+
+## List of packages
+
+
+| Package | Description | NPM Link | Downloads |
+|---------|-------------|----------|----------|
+| @ngx-addons/omni-auth-core | Core authentication library | [![NPM Version](https://img.shields.io/npm/v/%40ngx-addons%2Fomni-auth-core)](https://www.npmjs.com/package/@ngx-addons/omni-auth-core) | [![NPM Downloads](https://img.shields.io/npm/d18m/%40ngx-addons%2Fomni-auth-core)](https://www.npmjs.com/package/@ngx-addons/omni-auth-core) |
+| @ngx-addons/omni-auth-ui-material | Material Design UI components for authentication | [![NPM Version](https://img.shields.io/npm/v/%40ngx-addons%2Fomni-auth-ui-material)](https://www.npmjs.com/package/@ngx-addons/omni-auth-ui-material) | [![NPM Downloads](https://img.shields.io/npm/d18m/%40ngx-addons%2Fomni-auth-ui-material)](https://www.npmjs.com/package/@ngx-addons/omni-auth-ui-material) |
+| @ngx-addons/omni-auth-cognito | AWS Cognito connector for authentication | [![NPM Version](https://img.shields.io/npm/v/%40ngx-addons%2Fomni-auth-cognito)](https://www.npmjs.com/package/@ngx-addons/omni-auth-cognito) | [![NPM Downloads](https://img.shields.io/npm/d18m/%40ngx-addons%2Fomni-auth-cognito)](https://www.npmjs.com/package/@ngx-addons/omni-auth-cognito) |
+
 
 ## License
 
