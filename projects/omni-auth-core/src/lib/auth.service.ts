@@ -90,6 +90,11 @@ export abstract class OmniAuthService<
     code: string;
   }): Promise<void | FlowError>;
 
+  abstract confirmSignIn(params: {
+    identifier: string;
+    code: string;
+  }): Promise<void | FlowError>;
+
   abstract signIn(params: {
     identifier: string;
     password?: string;

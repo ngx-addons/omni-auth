@@ -21,6 +21,7 @@ export class FlowError extends OmniAuthError {
       | 'forgotPassword'
       | 'signUp'
       | 'confirmSignUp'
+      | 'confirmSignIn'
       | 'resendSignUpCode'
       | 'confirmForgotPassword'
       | 'signOut',

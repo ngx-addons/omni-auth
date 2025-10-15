@@ -8,6 +8,7 @@ import {
 import { DOCUMENT } from '@angular/common';
 import {
   confirmResetPassword,
+  confirmSignIn,
   confirmSignUp,
   fetchAuthSession,
   fetchUserAttributes,
@@ -256,6 +257,34 @@ export class AuthAwsCognitoService extends OmniAuthService {
       }
     } catch (error) {
       return this.#handleError(this.#transformError('signUp', error));
+    }
+  }
+
+  async confirmSignIn(params: {
+    identifier: string;
+    code: string;
+  }): Promise<void | FlowError> {
+    try {
+      this.#actionErrorCollector.reset();
+      const { nextStep } = await confirmSignIn({
+        challengeResponse: params.code,
+      });
+
+      switch (nextStep.signInStep) {
+        case 'DONE':
+          this.#onLoginSuccess();
+          break;
+        case 'CONFIRM_SIGN_UP':
+          this.#authRouteService.nextStep('confirm_sign_up', {
+            identifier: params.identifier,
+          });
+          break;
+        default:
+          throw new RuntimeError('Unexpected next step: ' + nextStep);
+      }
+
+    } catch (error: Error | any) {
+      return this.#handleError(this.#transformError('confirmSignIn', error));
     }
   }
 

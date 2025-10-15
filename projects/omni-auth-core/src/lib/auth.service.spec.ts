@@ -49,6 +49,10 @@ export class OmniAuthServiceMock implements OmniAuthService {
     return;
   };
 
+  confirmSignIn = async () => {
+    return;
+  };
+
   signIn = async () => {
     return;
   };

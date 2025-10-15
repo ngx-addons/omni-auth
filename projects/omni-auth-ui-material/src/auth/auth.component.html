@@ -50,7 +50,7 @@
           }
 
           @if (currentStep === "confirm_sign_in") {
-            // todo
+            <omni-auth-ui-mat-confirm-signin [content]="content()"/>
           }
 
           @if (["reset_password", "confirm_reset_password"].includes(currentStep)) {
