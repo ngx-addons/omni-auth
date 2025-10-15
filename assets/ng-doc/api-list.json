@@ -228,6 +228,11 @@
         "name": "AuthenticatedComponent"
       },
       {
+        "route": "/api/classes/omni-auth-ui-material/ConfirmSigninComponent",
+        "type": "Component",
+        "name": "ConfirmSigninComponent"
+      },
+      {
         "route": "/api/classes/omni-auth-ui-material/ConfirmSignUpComponent",
         "type": "Component",
         "name": "ConfirmSignUpComponent"
