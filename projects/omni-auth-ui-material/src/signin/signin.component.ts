@@ -76,14 +76,15 @@ export class SignInComponent {
     const identifier = this.user.identifier ?? this.#authRoute.currentIdentifier();
     const password = this.user.password;
 
-    if (!identifier || !password) {
+    const isValidPassword = this.#env.passwordlessEnabled || Boolean(password);
+    if (!identifier || !isValidPassword) {
       return;
     }
 
     this.processing.set(true);
     await this.#authService.signIn({
       identifier,
-      password,
+      password: password ?? undefined,
     });
 
     this.processing.set(false);

@@ -55,6 +55,13 @@ export const defaultContentEmail = {
     resendLabel: 'Resend code',
     errorResendMessage: 'Error while resending code',
   },
+  confirmationSignIn: {
+    subTitleEmail: 'Check your e-mail',
+    linkSentToEmail: 'Login link has been sent to your email account.',
+    errorSubmitMessage: 'Error while signing in',
+    backButton: 'Back to login',
+    submitLabel: 'Confirm',
+  },
   resetPassword: {
     title: 'Confirmation code',
     sendCodeMessage:
@@ -71,7 +78,6 @@ export const defaultContentEmail = {
     signInWithGoogle: 'Sign in with Google',
     signInWithApple: 'Sign in with Apple',
     signInWithFacebook: 'Sign in with Facebook',
-
   },
   errors: {
     invalidCode: 'Provided code is invalid',

@@ -23,7 +23,6 @@ import {environment} from '../../environments/environment';
   standalone: true,
   providers: [
     configureAuth({
-      identifierType: 'username',
       authService: AuthAwsCognitoService,
       passwordlessEnabled: true
     }),

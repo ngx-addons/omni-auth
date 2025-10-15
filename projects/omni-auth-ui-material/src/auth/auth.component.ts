@@ -16,6 +16,7 @@ import {MessageComponent} from '../ui/message/message.component';
 import {ButtonComponent} from '../ui/button/button.component';
 import {LoaderComponent} from '../ui/loader/loader.component';
 import {AuthenticatedComponent} from '../authenticated/authenticated.component';
+import {ConfirmSigninComponent} from '../confirm-signin/confirm-signin.component';
 
 export type AuthComponentConfig = {
   /**
@@ -40,6 +41,7 @@ export type AuthComponentConfig = {
     ButtonComponent,
     LoaderComponent,
     AuthenticatedComponent,
+    ConfirmSigninComponent,
   ],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss',
