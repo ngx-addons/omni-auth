@@ -19,9 +19,9 @@ export type AttributesContent = {
   label: string,
   placeholder: string,
   requiredText: string,
-  minLengthText: string,
-  maxLengthText: string,
-  patternText: string,
+  minLengthText?: string,
+  maxLengthText?: string,
+  patternText?: string,
 }
 
 type AttributesValidation = {
