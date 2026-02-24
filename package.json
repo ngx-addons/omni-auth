@@ -5,9 +5,10 @@
   "scripts": {
     "build:omni-auth-core:prd": "ng build omni-auth-core",
     "build:omni-auth-cognito:prd": "ng build omni-auth-cognito",
+    "build:omni-auth-supabase:prd": "ng build omni-auth-supabase",
     "build:omni-auth-ui-material:prd": "ng build omni-auth-ui-material",
     "build:docs:prd": "ng build docs --configuration production --base-href 'https://ngx-addons.github.io/omni-auth/'",
-    "build:prd": "pnpm run build:omni-auth-core:prd && pnpm run build:omni-auth-cognito:prd && pnpm run build:omni-auth-ui-material:prd && pnpm run build:docs:prd",
+    "build:prd": "pnpm run build:omni-auth-core:prd && pnpm run build:omni-auth-cognito:prd && pnpm run build:omni-auth-supabase:prd && pnpm run build:omni-auth-ui-material:prd && pnpm run build:docs:prd",
     "publish:omni-auth-core": "cd dist/omni-auth-core && npm publish && cd ~",
     "publish:omni-auth-core:ci": "cd dist/omni-auth-core && npm publish --provenance && cd ~",
     "publish:omni-auth-ui-material": "cd dist/omni-auth-ui-material && npm publish && cd ~",
