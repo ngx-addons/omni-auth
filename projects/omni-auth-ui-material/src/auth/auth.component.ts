@@ -17,6 +17,9 @@ import {ButtonComponent} from '../ui/button/button.component';
 import {LoaderComponent} from '../ui/loader/loader.component';
 import {AuthenticatedComponent} from '../authenticated/authenticated.component';
 import {ConfirmSigninComponent} from '../confirm-signin/confirm-signin.component';
+import {
+  AuthenticatedChangePasswordComponent
+} from '../authenticated-change-password/authenticated-change-password.component';
 
 export type AuthComponentConfig = {
   /**
@@ -42,6 +45,7 @@ export type AuthComponentConfig = {
     LoaderComponent,
     AuthenticatedComponent,
     ConfirmSigninComponent,
+    AuthenticatedChangePasswordComponent,
   ],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.scss',

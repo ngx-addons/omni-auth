@@ -64,6 +64,25 @@ providers: [
 > **Note**
 > See `AuthCognitoConfig` reference to learn more about all configuration options.
 
+### Supabase connector
+
+To set up the Supabase connector configuration, use `configureAuthSupabaseConnector` method like in the example below.
+
+```typescript
+import {AuthSupabaseService, configureAuthSupabaseConnector} from '@ngx-addons/omni-auth-supabase';
+
+providers: [
+  // ... other providers
+    configureAuthSupabaseConnector({
+      url: environment.supabase.url,
+      publishableKey: environment.supabase.publishableKey,
+    }),
+]
+```
+
+> **Note**
+> Supabase uses email link verification by default — users receive a verification link in their email instead of an OTP code.
+
 
 ## View configuration
 

@@ -1,15 +1,21 @@
-import { computed, resource } from '@angular/core';
+import {computed, resource} from '@angular/core';
 import {
   AuthState,
   isError,
   OmniAuthService,
 } from './auth.service';
-import { OmniAuthError } from './error/auth-error';
-import { TokenProxy } from './token/token-proxy';
-import { of } from 'rxjs';
+import {OmniAuthError} from './error/auth-error';
+import {TokenProxy} from './token/token-proxy';
+import {of} from 'rxjs';
+import {FlowError} from "@ngx-addons/omni-auth-core";
 
 
 export class OmniAuthServiceMock implements OmniAuthService {
+  connectorConfig = {
+    identityConfirmation: "code" as const,
+    resetPasswordConfirmation: "code" as const
+  };
+
   authState = resource<AuthState, unknown>({
     defaultValue: {
       state: 'unknown',
@@ -50,6 +56,10 @@ export class OmniAuthServiceMock implements OmniAuthService {
   };
 
   confirmSignIn = async () => {
+    return;
+  };
+
+  changePassword = async () => {
     return;
   };
 

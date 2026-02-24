@@ -24,6 +24,8 @@ export class FlowError extends OmniAuthError {
       | 'confirmSignIn'
       | 'resendSignUpCode'
       | 'confirmForgotPassword'
+      | 'confirmForgotPasswordLink'
+      | 'changePassword'
       | 'signOut',
     public code: ActionErrorCode,
     public override error: Error | unknown,

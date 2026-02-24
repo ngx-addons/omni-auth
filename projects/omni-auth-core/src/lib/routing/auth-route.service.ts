@@ -6,9 +6,12 @@ type AuthStep =
   | 'login'
   | 'register'
   | 'reset_password'
+  | 'reset_password_link'
   | 'confirm_reset_password'
   | 'confirm_sign_in'
-  | 'confirm_sign_up';
+  | 'confirm_sign_up'
+  | 'confirm_sign_up_link'
+  | 'change_password';
 
 @Injectable()
 export class AuthRouteService {

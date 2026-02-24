@@ -91,8 +91,9 @@ export class SignInComponent {
   }
 
   navigateToReset() {
+    const state = this.#authService.connectorConfig.resetPasswordConfirmation === 'code' ? 'reset_password' : 'reset_password_link';
     this.#authRoute.nextStep(
-      'reset_password',
+      state,
       this.user.identifier ? { identifier: this.user.identifier } : undefined,
     );
   }

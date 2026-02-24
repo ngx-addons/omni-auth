@@ -67,6 +67,21 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+      ## PUBLISH SUPABASE CONNECTOR:
+      - id: omni-auth-supabase
+        uses: EndBug/version-check@v2
+        with:
+          diff-search: true
+          static-checking: localIsNew
+          file-url: https://unpkg.com/@ngx-addons/omni-auth-supabase/package.json
+          file-name: ./dist/omni-auth-supabase/package.json
+
+      - name: Publish to npm -> omni-auth-supabase
+        if: steps.omni-auth-supabase.outputs.changed == 'true'
+        run: pnpm run publish:omni-auth-supabase:ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       ## PUBLISH MATERIAL UI:
       - id: omni-auth-ui-material
         uses: EndBug/version-check@v2
