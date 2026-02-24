@@ -50,6 +50,9 @@ export const defaultContentEmail = {
     paragraph:
       'A confirmation e-mail has been sent.\n' +
       'Check your inbox and write the code below to confirm your e-mail address.',
+    linkParagraph:
+      'A verification link has been sent to your email address.\n' +
+      'Please check your inbox and click the link to complete your registration.',
     errorSubmitMessage: 'Error while signing up',
     submitLabel: 'Verify',
     resendLabel: 'Resend code',
@@ -72,6 +75,9 @@ export const defaultContentEmail = {
     errorSendCodeMessage: 'Error while sending code',
     sendCodeLabel: 'Send code',
     submitLabel: 'Reset password',
+    sendLinkMessage: 'Enter your e-mail address to receive a login link.',
+    sendLinkLabel: 'Send link',
+    linkSentToEmail: 'Login link has been sent to your email account. Check your inbox and click the link to complete your login.',
   },
   socialButtons: {
     orLine: 'or use one of these options',

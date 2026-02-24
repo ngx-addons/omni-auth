@@ -8,12 +8,17 @@
   @if (authService.authState.value(); as user) {
     @switch (user.state) {
       @case ('authenticated') {
-        @if(config()?.hideAuthenticatedContent !== true) {
+        @if (config()?.hideAuthenticatedContent !== true) {
           <omni-auth-ui-mat-authenticated [content]="content()"/>
         }
-
         <ng-content select="[auth-user-is-authenticated]"/>
+        @if (authRouteService.currentStep(); as currentStep) {
+          @if (["change_password"].includes(currentStep)) {
+            <omni-auth-ui-mat-authenticated-change-password [content]="content()"/>
+          }
+        }
       }
+
       @case ('error') {
         <omni-auth-ui-mat-message type="warn">
           {{ user.error?.getErrorMessage() ?? content().errors.unknown }}
@@ -49,12 +54,16 @@
             <omni-auth-ui-mat-confirm-signup [content]="content()"/>
           }
 
+          @if (currentStep === "confirm_sign_up_link") {
+            <omni-auth-ui-mat-confirm-signup [content]="content()" [isLinkMode]="true"/>
+          }
+
           @if (currentStep === "confirm_sign_in") {
             <omni-auth-ui-mat-confirm-signin [content]="content()"/>
           }
 
-          @if (["reset_password", "confirm_reset_password"].includes(currentStep)) {
-            <omni-auth-ui-mat-reset-password [content]="content()"/>
+          @if (["reset_password", "confirm_reset_password", "reset_password_link"].includes(currentStep)) {
+            <omni-auth-ui-mat-reset-password [content]="content()"  [isLinkMode]="currentStep === 'reset_password_link'"/>
           }
         }
       }

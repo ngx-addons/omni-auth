@@ -16,6 +16,10 @@
         "./dist/omni-auth-ui-material",
         "./projects/omni-auth-ui-material/src/public-api.ts"
       ],
+      "@ngx-addons/omni-auth-supabase": [
+        "./dist/omni-auth-supabase",
+        "./projects/omni-auth-supabase/src/public-api.ts"
+      ],
       "@ng-doc/generated": [
         "./ng-doc/docs/index.ts"
       ],
@@ -61,6 +65,12 @@
     },
     {
       "path": "./projects/omni-auth-cognito/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/omni-auth-supabase/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/omni-auth-supabase/tsconfig.spec.json"
     },
     {
       "path": "./projects/docs/tsconfig.app.json"

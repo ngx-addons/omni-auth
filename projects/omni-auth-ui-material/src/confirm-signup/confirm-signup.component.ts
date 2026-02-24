@@ -46,6 +46,8 @@ export class ConfirmSignUpComponent {
       Pick<ContentConfig, 'confirmationSignUp' | 'common' | 'errors'>
     >();
 
+  readonly isLinkMode = input<boolean>(false);
+
   user: {
     identifier: string | null;
     code?: string;

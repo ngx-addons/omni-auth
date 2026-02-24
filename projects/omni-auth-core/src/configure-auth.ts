@@ -1,7 +1,7 @@
-import {InjectionToken, Provider, Type} from '@angular/core';
-import {OmniAuthService} from './lib/auth.service';
-import {AuthRouteService} from './lib/routing/auth-route.service';
-import {ActionErrorCollectorService} from './lib/error/action-error-collector.service';
+import { InjectionToken, Provider, Type } from '@angular/core';
+import { OmniAuthService } from './lib/auth.service';
+import { AuthRouteService } from './lib/routing/auth-route.service';
+import { ActionErrorCollectorService } from './lib/error/action-error-collector.service';
 
 export type AuthConfig = {
   /**
@@ -12,7 +12,7 @@ export type AuthConfig = {
   /**
    * User identifier type, default is 'email'
    */
-  identifierType: 'email' | 'username';
+  identifierType: 'email' | 'username' | 'phone';
 
   /**
    * Passwordless authentication, if true, the user will not be asked for a password

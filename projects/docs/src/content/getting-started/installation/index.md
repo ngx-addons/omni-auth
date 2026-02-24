@@ -25,11 +25,11 @@ Then you need to choose and install one of the available connector packages.
 
 Here is the list of available connectors:
 
-| Connector Name | Status | Package                       |                                                                                    |
-| -------------- | :----: | :---------------------------- |------------------------------------------------------------------------------------|
-| Cognito        |   ✅   | @ngx-addons/omni-auth-cognito | ![NPM Version](https://img.shields.io/npm/v/%40ngx-addons%2Fomni-auth-cognito)[](https://www.npmjs.com/package/@ngx-addons/omni-auth-cognito) |
-| Firebase       |   🔜   | 🔜                            |                                                                                    |
-
+| Connector Name | Status | Package                        |                                                                                                                                                 |
+|----------------|:------:|:-------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| Cognito        |   ✅    | @ngx-addons/omni-auth-cognito  | ![NPM Version](https://img.shields.io/npm/v/%40ngx-addons%2Fomni-auth-cognito)[](https://www.npmjs.com/package/@ngx-addons/omni-auth-cognito)   |
+| Supabase       |   ✅    | @ngx-addons/omni-auth-supabase | ![NPM Version](https://img.shields.io/npm/v/%40ngx-addons%2Fomni-auth-supabase)[](https://www.npmjs.com/package/@ngx-addons/omni-auth-supabase) |
+| Firebase       |   🔜   | 🔜                             |                                                                                                                                                 |
 
 ```bash group="connector" name="npm"
 npm install @ngx-addons/omni-auth-cognito
@@ -50,11 +50,9 @@ Finally, you can install one of the available UI packages.
 > **Note**
 > UI packages provide pre-built components and styles for authentication-related user interfaces. Currently, we support Material Design.
 
-
-| UI Package | Status | Package                            |                                                                                                                                                       |
-|------------| :----: |:-----------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Material   |   ✅   | @ngx-addons/omni-auth-ui-material  | ![NPM Version](https://img.shields.io/npm/v/%40ngx-addons%2Fomni-auth-ui-material)[](https://www.npmjs.com/package/@ngx-addons/omni-auth-ui-material) |
-
+| UI Package | Status | Package                           |                                                                                                                                                       |
+|------------|:------:|:----------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Material   |   ✅    | @ngx-addons/omni-auth-ui-material | ![NPM Version](https://img.shields.io/npm/v/%40ngx-addons%2Fomni-auth-ui-material)[](https://www.npmjs.com/package/@ngx-addons/omni-auth-ui-material) |
 
 ```bash group="ui" name="npm"
 npm install @ngx-addons/omni-auth-ui-material
@@ -73,7 +71,7 @@ yarn install @ngx-addons/omni-auth-ui-material
 Here is an example of how to configure the `OmniAuthModule` in your Angular application:
 
 ```typescript
-import { configureAuth } from "@ngx-addons/omni-auth-core";
+import {configureAuth} from "@ngx-addons/omni-auth-core";
 
 configureAuth({
   authService: AuthAwsCognitoService, // provide selected connector package

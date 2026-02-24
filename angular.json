@@ -115,6 +115,42 @@
         }
       }
     },
+    "omni-auth-supabase": {
+      "projectType": "library",
+      "root": "projects/omni-auth-supabase",
+      "sourceRoot": "projects/omni-auth-supabase/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/omni-auth-supabase/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/omni-auth-supabase/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "tsConfig": "projects/omni-auth-supabase/tsconfig.spec.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "eslintConfig": "projects/omni-auth-supabase/eslint.config.js",
+            "lintFilePatterns": [
+              "projects/omni-auth-supabase/src/**/*.ts",
+              "projects/omni-auth-supabase/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
     "docs": {
       "projectType": "application",
       "schematics": {
