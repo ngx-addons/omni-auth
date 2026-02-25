@@ -20,8 +20,8 @@
     "tests:headless:coverage": "ng test --no-watch --no-progress --browsers=ChromeHeadless --code-coverage omni-auth-core",
     "tests:headless": "ng test --no-watch --no-progress --browsers=ChromeHeadless omni-auth-core",
     "lint": "ng lint",
-    "publish": "pnpm run publish:omni-auth-core && pnpm run publish:omni-auth-ui-material && pnpm run publish:omni-auth-cognito",
-    "publish:ci": "pnpm run publish:omni-auth-core:ci && pnpm run publish:omni-auth-ui-material:ci && pnpm run publish:omni-auth-cognito:ci"
+    "publish": "pnpm run publish:omni-auth-core && pnpm run publish:omni-auth-ui-material && pnpm run publish:omni-auth-cognito && pnpm run publish:omni-auth-supabase",
+    "publish:ci": "pnpm run publish:omni-auth-core:ci && pnpm run publish:omni-auth-ui-material:ci && pnpm run publish:omni-auth-cognito:ci && pnpm run publish:omni-auth-supabase:ci"
   },
   "prettier": {
     "overrides": [
